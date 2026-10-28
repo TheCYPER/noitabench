@@ -1,0 +1,137 @@
+{
+ "format": "cogbench-reactions/0",
+ "notes": [
+  "[tag] matches any material carrying the tag; an output written as [tag] keeps the input material that matched it",
+  "@burning matches any cell in the burning state; @extinguish keeps that cell's material and clears its burning state",
+  "each non-air cell tests one random 4-neighbour per frame, pair matched symmetrically (DN-MAT-03); rows are tried in file order",
+  "this is the original table, the same for every rule seed (CP2, 2026-10-27); the secret potion recipes are generated per rule seed and are not stored here"
+ ],
+ "reactions": [
+  {
+   "id": "r01",
+   "a": "lava",
+   "b": "water",
+   "out_a": "rock",
+   "out_b": "steam",
+   "probability": 0.8,
+   "source": "xml_065"
+  },
+  {
+   "id": "r02",
+   "a": "lava",
+   "b": "blood",
+   "out_a": "rock",
+   "out_b": "steam",
+   "probability": 0.7,
+   "source": "xml_079 (lavarock merged into rock)"
+  },
+  {
+   "id": "r03",
+   "a": "[fire]",
+   "b": "water",
+   "out_a": "[fire]",
+   "out_b": "steam",
+   "probability": 0.2,
+   "source": "xml_009"
+  },
+  {
+   "id": "r04",
+   "a": "acid",
+   "b": "[corrodible]",
+   "out_a": "flammable_gas",
+   "out_b": "air",
+   "probability": 0.5,
+   "source": "xml_052, changed: the acid cell is consumed (becomes flammable gas) and the corroded cell disappears; Noita's acid persists (v1-scope.md section 5)"
+  },
+  {
+   "id": "r05",
+   "a": "lava",
+   "b": "[burnable]",
+   "out_a": "lava",
+   "out_b": "fire",
+   "probability": 0.08,
+   "source": "xml_093"
+  },
+  {
+   "id": "r06",
+   "a": "lava",
+   "b": "[burnable_fast]",
+   "out_a": "lava",
+   "out_b": "fire",
+   "probability": 0.8,
+   "source": "xml_094"
+  },
+  {
+   "id": "r07",
+   "a": "[fire]",
+   "b": "[burnable_fast]",
+   "out_a": "[fire]",
+   "out_b": "fire",
+   "probability": 0.4,
+   "source": "xml_095"
+  },
+  {
+   "id": "r08",
+   "a": "lava",
+   "b": "sand",
+   "out_a": "lava",
+   "out_b": "lava",
+   "probability": 0.8,
+   "source": "xml_097 (smoke dropped)"
+  },
+  {
+   "id": "r09",
+   "a": "coal",
+   "b": "fire",
+   "out_a": "fire",
+   "out_b": "air",
+   "probability": 0.2,
+   "source": "xml_150"
+  },
+  {
+   "id": "r10",
+   "a": "whiskey",
+   "b": "[fire]",
+   "out_a": "[fire]",
+   "out_b": "flammable_gas",
+   "probability": 0.6,
+   "source": "xml_166 (alcohol_gas merged into flammable_gas)"
+  },
+  {
+   "id": "r11",
+   "a": "water",
+   "b": "toxic_sludge",
+   "out_a": "water",
+   "out_b": "water",
+   "probability": 0.13,
+   "source": "xml_035"
+  },
+  {
+   "id": "r12",
+   "a": "steam",
+   "b": "[static]",
+   "out_a": "water",
+   "out_b": "[static]",
+   "probability": 0.03,
+   "source": "xml_007"
+  },
+  {
+   "id": "r13",
+   "a": "lava",
+   "b": "toxic_sludge",
+   "out_a": "rock",
+   "out_b": "flammable_gas",
+   "probability": 0.7,
+   "source": "xml_086 (outputs merged)"
+  },
+  {
+   "id": "r14",
+   "a": "[water_family]",
+   "b": "@burning",
+   "out_a": "steam",
+   "out_b": "@extinguish",
+   "probability": 0.5,
+   "source": "ours: round-2 Q13 (overrides FIRE-R08); probability is a starting value"
+  }
+ ]
+}
