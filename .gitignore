@@ -1,0 +1,33 @@
+# Build outputs
+target/
+dist/
+*.so
+*.pyd
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+.pytest_cache/
+*.egg-info/
+
+# Node
+node_modules/
+
+# Runs and generated previews (checkpoint previews go under docs/previews/)
+/runs/
+/previews/
+
+# Local settings
+.claude/settings.local.json
+.DS_Store
+
+# Offline library whitelist for agents (downloaded with approval 2026-10-27; list in wheelhouse.lock)
+/wheelhouse/
+
+# Agent and human workspaces (notes, skills, plugins) persist across runs; not source
+/workspaces/
+
+# Raw research material (copied game data files, wiki dumps, third-party repos; ~28 MB) stays local
+.trellis/tasks/*/research/raw/
