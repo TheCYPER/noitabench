@@ -21,6 +21,11 @@ A model that is not priced is refused, with a message, unless you give its price
 care (below). Prices live in `python/noitabench/harness/prices.py`, in US dollars per million
 tokens, with the source and the date they were read.
 
+A refused key (HTTP 401), a key that may not use the model (403) or, at DeepSeek, an empty balance
+(402) ends the game with `model_error`, and the remaining games of a family are not started: they
+would fail at their first call in the same way. Fix the key and run the family again into a new
+folder (or with `--overwrite`).
+
 ## Pricing a model that is not in the table
 
 - `--price-input X --price-output Y` (both, USD per million tokens). Cached tokens are then charged
@@ -99,8 +104,8 @@ python -m noitabench harness run --provider deepseek --model deepseek-flash \
 - Context caching is best effort. `harness estimate` assumes the usual hits; its
   `without_cache_usd` is the ceiling if the cache never hits.
 - A rejected balance (HTTP 402) ends the game with `model_error` and a message that says so, and
-  the remaining games of a family are not started. A server that gives up mid-answer
-  (`insufficient_system_resource`) is retried like a 429 or 503.
+  the remaining games of a family are not started (as for a refused key). A server that gives up
+  mid-answer (`insufficient_system_resource`) is retried like a 429 or 503.
 - Compaction stays at 120,000 prompt tokens, as for every model without a rate-card boundary, though
   both models take 1M. Change it with `--context-limit` only if you accept less comparable runs.
 

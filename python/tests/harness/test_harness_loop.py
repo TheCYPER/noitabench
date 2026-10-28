@@ -407,6 +407,30 @@ def test_a_fatal_error_ends_the_run_at_once_and_is_written_up(run_config, make_g
     assert "ABCDEFGHIJKLMNOP" not in everything and "[redacted]" in everything
 
 
+@pytest.mark.parametrize(("kind", "status"), [("auth", 401), ("permission", 403)])
+def test_a_refused_key_stops_the_family_after_the_first_game(
+    run_config, make_game, tmp_path: Path, kind: str, status: int
+) -> None:
+    refused = ModelError(kind, "Authentication Fails, your api key is invalid", status=status)
+    cfg = run_config(max_decisions=3, runs=3, out=tmp_path / "fam")
+    adapter = ScriptedAdapter([Say(error=refused)] * 3)
+    summaries = run_family(cfg, adapter=adapter, game_factory=make_game, sleep=lambda _s: None)
+    assert len(summaries) == 1 and len(adapter.conversations) == 1  # games 2 and 3 never began
+    assert summaries[0]["result"]["detail"].startswith(f"{kind}:")
+    assert not (cfg.out / "run-02").exists()
+    assert len(json.loads((cfg.out / "family.json").read_text())["runs"]) == 1
+
+
+def test_an_error_that_may_pass_does_not_stop_the_family(
+    run_config, make_game, tmp_path: Path
+) -> None:
+    busy = ModelError("rate_limit", "slow down", status=429, retryable=True)
+    cfg = run_config(max_decisions=1, runs=2, out=tmp_path / "fam")
+    adapter = ScriptedAdapter([Say(error=busy)] * 3 + waits(3))
+    summaries = run_family(cfg, adapter=adapter, game_factory=make_game, sleep=lambda _s: None)
+    assert [s["result"]["over"] for s in summaries] == ["model_error", "decision_limit"]
+
+
 def test_an_interrupted_run_is_still_closed_and_written(run_config, make_game) -> None:
     def interrupt(_conv, _items) -> Say:
         raise KeyboardInterrupt

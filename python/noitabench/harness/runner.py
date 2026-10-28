@@ -255,14 +255,22 @@ def _summary(
     }
 
 
-def _out_of_balance(summary: dict[str, Any]) -> bool:
-    """Did the game end because the provider said the account has no money left? Another game
-    would fail at its first call in the same way. `AgentLoop._call` is the only place that makes a
-    `model_error` result, and it writes the detail as `<ModelError.kind>: <message>`."""
+# Model errors that the next game would hit at its first call in the same way, so the family stops.
+FAMILY_STOPPERS = {
+    "balance": "the account balance is used up",
+    "auth": "the provider refused the API key",
+    "permission": "the API key may not use this model",
+}
+
+
+def _family_stopper(summary: dict[str, Any]) -> str | None:
+    """Why no later game of the family can work, or None. `AgentLoop._call` is the only place that
+    makes a `model_error` result, and it writes the detail as `<ModelError.kind>: <message>`."""
     result = summary.get("result", {})
-    return result.get("over") == "model_error" and str(result.get("detail", "")).startswith(
-        "balance:"
-    )
+    if result.get("over") != "model_error":
+        return None
+    kind = str(result.get("detail", "")).split(":", 1)[0]
+    return FAMILY_STOPPERS.get(kind)
 
 
 def run_family(
@@ -319,8 +327,9 @@ def run_family(
         )
         family_spent += budget.spent_usd
         summaries.append(summary)
-        if _out_of_balance(summary):
-            log.warning("the account balance is used up: no more games after game %d", index + 1)
+        stopper = _family_stopper(summary)
+        if stopper:
+            log.warning("%s: no more games after game %d", stopper, index + 1)
             break
     if config.runs > 1:
         config.out.mkdir(parents=True, exist_ok=True)
