@@ -59,4 +59,14 @@ def compute_metrics(run: RunData, results: list[Result]) -> list[Metric]:
     return out
 
 
-from . import harm, knowledge, notes, notes_use, physics, route, senses, unmeasured  # noqa: F401
+from . import (  # noqa: F401
+    growth,
+    harm,
+    knowledge,
+    notes,
+    notes_use,
+    physics,
+    route,
+    senses,
+    unmeasured,
+)

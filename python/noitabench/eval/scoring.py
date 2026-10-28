@@ -16,10 +16,8 @@ meeting little: a bot cut at frame 800 scored above the same bot cut at frame 24
 Ability = the mean of the discounted scores of all 11 capabilities (N1 to N10 and C).
 Composite = 0.8 x ability + 0.2 x the depth score.
 
-Depth score = how far down the player got, from the start (0) to the floor of the sealed room
-(100), by the lowest point its hit box reached. Below the top of the seal plug only the samples in
-which the hit box is inside the sealed room count: a tunnel dug past the vault to the bottom of
-the world does not open the seal and is not depth.
+Depth score (`depth.py`) = how far down the player got, from the start (0) to the floor of the
+sealed room (100); a tunnel dug past the vault to the bottom of the world is not depth.
 """
 
 from __future__ import annotations
@@ -29,8 +27,6 @@ from typing import Any
 
 from .encounters import Result
 from .metrics import Metric
-from .recording import RunData
-from .rubric import clamp01
 from .worldinfo import encounter_nodes
 
 NODES = tuple(f"N{i}" for i in range(1, 11))
@@ -152,39 +148,6 @@ def capability_scores(results: list[Result], metrics: list[Metric]) -> dict[str,
         note = f"coverage too low ({opportunities} opportunities, need {MIN_OPPORTUNITIES})"
     out["C"] = Capability("C", c_score, opportunities, covered, parts=parts, note=note)
     return out
-
-
-def depth_score(run: RunData) -> dict[str, Any]:
-    """How far down the player got, 0 (the start) to 100 (the floor of the sealed room).
-
-    Samples below the top of the seal plug count only while the hit box is inside the sealed
-    room; any other sample counts at most the plug's top edge. Without a seal and room in the
-    world file nothing is capped."""
-    samples = run.track.samples
-    start = samples[0].feet
-    raw_deepest = run.track.deepest_feet()
-    bottom = run.world.bottom
-    room = run.world.seal_room
-    plug = run.world.seal_plug
-    deepest = raw_deepest
-    if room is not None and plug is not None:
-        deepest = max(
-            (a.feet if a.feet <= plug.y or a.box().overlaps(room) else float(plug.y))
-            for a in samples
-        )
-    span = max(1.0, bottom - start)
-    fraction = clamp01((deepest - start) / span)
-    reached = bool(room and run.track.touched(room, 0, run.last_frame))
-    return {
-        "score": round(100.0 * fraction, 2),
-        "fraction": round(fraction, 4),
-        "start_y": round(start, 1),
-        "deepest_y": round(deepest, 1),
-        "deepest_raw_y": round(raw_deepest, 1),
-        "capped_at_seal": deepest < raw_deepest,
-        "bottom_y": round(bottom, 1),
-        "reached_sealed_room": reached,
-    }
 
 
 def composite(capabilities: dict[str, Capability], depth: dict[str, Any]) -> dict[str, Any]:

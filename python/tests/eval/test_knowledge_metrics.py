@@ -249,7 +249,7 @@ def test_the_profile_carries_both_metrics_into_n2(tmp_path):
     root = meeting_e16(tmp_path, mixes_at_player(tmp_path))
     with_claims(root, start={}, end=files(**{"notes/a.md": [RECIPE(P1), OIL()]}))
     profile = evaluate_run(root)
-    assert profile["evaluator"]["version"] == "0.4.1"
+    assert profile["evaluator"]["version"] == "0.5.0"
     by_name = {m["name"]: m for m in profile["metrics"]}
     assert (
         by_name["notes_accuracy"]["status"] == "measured"

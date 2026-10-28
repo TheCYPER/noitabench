@@ -204,6 +204,12 @@ name, so the notebook lives in `workspaces/ds-flash-pilot/`.
    python -m noitabench eval runs/ds-flash-pilot/run-03
    ```
 
+   Or the whole family at once: `python -m noitabench eval runs/ds-flash-pilot` writes the three
+   `profile.json` files and a `family_profile.json` that lines the games up and shows how games 2
+   and 3 compare with game 1 (the notes-and-learning effect). With a control family (the same
+   model, rule seed and world seeds, run with `--clear-workspace`), add
+   `--control runs/ds-flash-control` to see the memory effect next to it (shown, not scored).
+
 6. **Open the report.** Serve the repository root and open the page with the profiles (one to
    four, side by side). The replay page reads a run folder.
 

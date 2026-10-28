@@ -17,7 +17,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from .extract import ExtractionAborted, Extractor, FromFile, extract_run, run_number
+from ..games import run_number
+from .extract import ExtractionAborted, Extractor, FromFile, extract_run
 
 DEFAULT_MODEL = "claude-haiku-5-5"
 DEFAULT_KEY_VARIABLE = "NOITABENCH_ANTHROPIC_KEY"

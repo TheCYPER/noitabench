@@ -140,3 +140,29 @@ def test_the_cp3_model_run_is_read_as_an_agent_run():
     assert p["test_awareness"]["checked_texts"] > 50
     assert p["attribution"] and p["attribution"][0]["capability"] == "C2"
     assert p["attribution"][0]["outcome"] == "died"
+
+
+def test_a_repeat_of_a_real_game_is_no_change_and_a_shorter_one_is_worse(
+    bot_run, bot_profile, tmp_path
+):
+    """The same recording twice: every scene scores what it scored, so the change is nil. The
+    same game cut at frame 2400 as game 2: it reached less deep and met fewer scenes."""
+    import shutil
+
+    fam = tmp_path / "fam"
+    shutil.copytree(bot_run, fam / "run-01")
+    shutil.copytree(bot_run, fam / "run-02")
+    cut_run(bot_run, fam / "run-03", 2400)
+    by_name = {m["name"]: m for m in evaluate_run(fam / "run-02")["metrics"]}
+    gain = by_name["cross_game_gain"]
+    scenes = gain["detail"]["scenes"]
+    assert len(scenes) >= 7 and all(s["g"] in (0.0, None) for s in scenes)
+    assert gain["status"] == "measured" and gain["value"] == 0.5
+    assert gain["opportunities"] == sum(1 for s in scenes if s["g"] is not None)
+    assert gain["detail"]["only_game_1"] == [] and gain["detail"]["only_this_game"] == []
+    assert by_name["growth_depth"]["status"] == "not_measured"  # both on the floor of the room
+    assert by_name["growth_harm"]["value"] == 0.5  # the bot is never hurt, or equally so
+    assert by_name["growth_pace"]["status"] == "not_measured"  # the bot writes no decisions.jsonl
+    shorter = {m["name"]: m for m in evaluate_run(fam / "run-03")["metrics"]}
+    assert shorter["growth_depth"]["value"] < 0.5
+    assert shorter["cross_game_gain"]["detail"]["only_game_1"]  # scenes it never reached

@@ -13,14 +13,6 @@ from . import Metric, metric_group
 # (name, capabilities, reason)
 UNMEASURED: tuple[tuple[str, tuple[str, ...], str], ...] = (
     (
-        "cross_game_gain",
-        ("N2", "C4"),
-        (
-            "the gain from game to game in one rule-seed family needs two or more games; "
-            "a single run has none"
-        ),
-    ),
-    (
         "fire_and_buoyancy",
         ("N4",),
         (

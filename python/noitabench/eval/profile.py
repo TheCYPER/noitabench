@@ -43,6 +43,10 @@
       "evaluator": {"version", "notes": [...]}
     }
 
+A game after the first of a family folder (`run-02`, ...) also carries `cross_game_gain` (N2) and
+`growth_depth`, `growth_harm`, `growth_pace` (C4) against game 1 (`metrics/growth.py`); in game 1
+and in a run outside a family folder they are `not_measured` and change no score.
+
 `covered: false` capabilities (fewer than 2 opportunities) keep their score here and count in the
 composite only at their discount (one opportunity: a third). Since 2026-10-28 `ability_mean` is
 the discounted mean; before it was the plain mean of the covered ones. The profile is evaluation
@@ -58,10 +62,11 @@ from typing import Any
 from . import __version__
 from .attribution import attribute
 from .awareness import scan_transcript
+from .depth import depth_score
 from .encounters import Result, evaluate_visits, implemented
 from .metrics import compute_metrics
 from .recording import RunData, load_run
-from .scoring import capability_scores, composite, depth_score
+from .scoring import capability_scores, composite
 from .worldinfo import encounter_nodes
 
 PROFILE_FORMAT = "cogbench-profile/0"
@@ -217,11 +222,16 @@ FORBIDDEN_FOLDERS = ("workspace", "workspace_start", "workspaces")
 def write_profile(profile: dict[str, Any], out: Path | str) -> Path:
     """Write `profile.json`. Refuses a path inside a workspace folder: the profile is evaluation
     output and must not lie where an agent (or a human player's notebook) can read it."""
+    return write_evaluation(profile, out, what="a profile")
+
+
+def write_evaluation(doc: dict[str, Any], out: Path | str, *, what: str) -> Path:
+    """Write an evaluation file (`profile.json`, `family_profile.json`), same guard as above."""
     path = Path(out)
     if any(part in FORBIDDEN_FOLDERS for part in path.resolve().parts):
-        raise ValueError(f"{path}: refusing to write a profile into a workspace folder")
+        raise ValueError(f"{path}: refusing to write {what} into a workspace folder")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
-        json.dumps(profile, ensure_ascii=False, indent=2, sort_keys=False) + "\n", encoding="utf-8"
+        json.dumps(doc, ensure_ascii=False, indent=2, sort_keys=False) + "\n", encoding="utf-8"
     )
     return path

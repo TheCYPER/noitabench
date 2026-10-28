@@ -28,12 +28,12 @@ from __future__ import annotations
 
 import hashlib
 import json
-import re
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from ..games import family_runs, run_number
 from ..metrics.notes import is_note, opening_notebook
 from ..recording import _jsonl
 from .claims import (
@@ -55,7 +55,6 @@ NUDGE = (
     "the note (an empty list if it says nothing about how the game works). If your last answer "
     "was cut off, make fewer and shorter claims."
 )
-_RUN_DIR = re.compile(r"^run-(\d+)$")
 
 
 class ExtractionAborted(RuntimeError):
@@ -224,22 +223,13 @@ def read_notebook(folder: Path) -> dict[str, str]:
     return out
 
 
-def run_number(run_dir: Path) -> int | None:
-    m = _RUN_DIR.match(run_dir.name)
-    return int(m.group(1)) if m else None
-
-
 def previous_run(run_dir: Path) -> Path | None:
     """The run before `run_dir` in its family folder (the largest lower `run-NN`), if any."""
     n = run_number(run_dir)
-    if n is None or not run_dir.parent.is_dir():
+    if n is None:
         return None
-    lower = [
-        (k, p)
-        for p in run_dir.parent.iterdir()
-        if p.is_dir() and (k := run_number(p)) is not None and k < n
-    ]
-    return max(lower)[1] if lower else None
+    lower = [p for k, p in family_runs(run_dir.parent) if k < n]
+    return lower[-1] if lower else None
 
 
 def start_notebook(run_dir: Path) -> dict[str, str] | None:

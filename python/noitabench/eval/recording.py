@@ -368,6 +368,12 @@ def _source(root: Path, meta: dict[str, Any]) -> str:
     return "unknown"
 
 
+def named_folder(folder: Path) -> Path:
+    """`folder`, or its absolute path if it has no name of its own (`.`, `..`): the name and the
+    folders next to it tell where the world files are and which family a run belongs to."""
+    return folder if folder.name not in ("", "..") else folder.resolve()
+
+
 def load_run(
     run_dir: Path | str, world_files: tuple[Path | str, Path | str] | None = None
 ) -> RunData:
@@ -376,7 +382,7 @@ def load_run(
     Damaged optional files (a cut-off `events.jsonl`, an unreadable `summary.json`, a torn
     `frames.bin`) are read as far as they go; a missing or unreadable `meta.json`, entities file
     or world file is an error that names the file."""
-    root = Path(run_dir)
+    root = named_folder(Path(run_dir))
     meta_path = root / "meta.json"
     if not meta_path.exists():
         raise FileNotFoundError(f"{root}: no meta.json (not a recording folder)")

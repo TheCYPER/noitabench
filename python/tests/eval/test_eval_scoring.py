@@ -5,12 +5,13 @@ from __future__ import annotations
 import pytest
 from eval_runs import box, lab_marker, walk, write_run
 from noitabench.eval.context import Visit
+from noitabench.eval.depth import depth_score
 from noitabench.eval.encounters import Result
 from noitabench.eval.geometry import Rect
 from noitabench.eval.metrics import Metric
 from noitabench.eval.recording import load_run
 from noitabench.eval.rubric import Outcome, Rubric, linear
-from noitabench.eval.scoring import capability_scores, composite, depth_score, discount
+from noitabench.eval.scoring import capability_scores, composite, discount
 from noitabench.eval.worldinfo import Scene
 
 
