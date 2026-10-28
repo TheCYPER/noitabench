@@ -1,0 +1,14 @@
+{
+ "format": "cogbench-rec/0",
+ "run_id": "synthetic-full",
+ "created": "2026-10-26T00:00:00Z",
+ "world": {
+  "width": 128,
+  "height": 96
+ },
+ "materials_format": "cogbench-materials/0",
+ "seed": 42,
+ "rule_seed": 7,
+ "frame_stride": 2,
+ "notes": "synthetic fixture; toy physics"
+}

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>对比 · Cogbench</title>
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/replay.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Cogbench</a>
+  <nav><a href="replay.html">回放</a><a href="compare.html" aria-current="page">对比</a><a href="preview.html">世界预览</a><a href="play.html">游玩</a></nav>
+</header>
+<main class="compare">
+  <section id="open" class="panel dropzone">
+    <div class="intro">
+      <h1>对比录像</h1>
+      <p>把 2 到 4 个录像文件夹拖到这个页面（比如同一个世界下人类和模型各一局），同步播放。每个文件夹要有 <code>meta.json</code> 和 <code>frames.bin</code>；有 <code>decisions.jsonl</code>、<code>transcript.jsonl</code> 时能按决策对齐、看每一步的内容。</p>
+    </div>
+    <div class="row">
+      <button id="btn-folder" class="primary" type="button">添加文件夹…</button>
+      <button id="btn-files" type="button">添加文件…</button>
+      <button id="btn-clear" type="button" hidden>清空</button>
+    </div>
+    <input id="in-folder" type="file" webkitdirectory hidden>
+    <input id="in-files" type="file" multiple hidden>
+    <p id="message" class="message" role="alert" hidden></p>
+  </section>
+
+  <section id="viewer" hidden>
+    <div class="panel toolbar">
+      <span class="group">
+        <button id="btn-prev" type="button" title="后退一步 (←)" aria-label="后退一步">◀</button>
+        <button id="btn-play" type="button" class="primary" title="播放/暂停 (空格)">播放</button>
+        <button id="btn-next" type="button" title="前进一步 (→)" aria-label="前进一步">▶</button>
+      </span>
+      <label>对齐 <select id="mode" aria-label="对齐方式"><option value="frame">按游戏帧</option><option value="decision">按决策</option></select></label>
+      <label>速度 <select id="speed" aria-label="播放速度"></select></label>
+      <span class="group">
+        <label><input id="chk-entities" type="checkbox" checked> 实体</label>
+        <label><input id="chk-events" type="checkbox" checked> 事件</label>
+        <label><input id="chk-follow" type="checkbox" checked> 跟随玩家</label>
+      </span>
+      <span id="time" class="time mono"></span>
+    </div>
+    <div class="panel shared-timeline">
+      <input id="scrub" class="scrub" type="range" min="0" max="0" value="0" step="any" aria-label="共同进度">
+      <canvas id="timeline" class="timeline" tabindex="0" aria-label="决策时间线：每个录像一行"></canvas>
+      <div id="lane-names" class="lane-names"></div>
+      <div id="tl-label" class="mono tl-label"></div>
+      <div id="legend" class="legend"></div>
+    </div>
+    <div id="panes" class="panes"></div>
+  </section>
+</main>
+<script type="module" src="js/pages/compare.js"></script>
+</body>
+</html>

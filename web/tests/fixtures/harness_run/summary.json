@@ -1,0 +1,113 @@
+{
+  "format": "cogbench-harness-run/0",
+  "run_index": 1,
+  "runs": 1,
+  "world_seed": 424242,
+  "rule_seed": 717171,
+  "model": {
+    "provider": "anthropic",
+    "model": "claude-haiku-5-5",
+    "base_url": null,
+    "api_key_env": null,
+    "effort": null,
+    "max_output_tokens": 8192,
+    "request_timeout": 180.0,
+    "max_retries": 4,
+    "thinking": "adaptive",
+    "server_compaction": null
+  },
+  "mode": "tools",
+  "layers": [
+    "L0",
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5"
+  ],
+  "context": {
+    "strategy": "summary",
+    "limit_tokens": 90000
+  },
+  "family": "cp3-haiku-42",
+  "workspace_cleared_each_game": false,
+  "price": {
+    "tiers": [
+      {
+        "max_prompt_tokens": 100000,
+        "input": 0.1,
+        "output": 0.5
+      },
+      {
+        "max_prompt_tokens": null,
+        "input": 0.5,
+        "output": 2.5
+      }
+    ],
+    "cache_read_factor": 0.1,
+    "cache_write_factor": 1.25,
+    "source": "Anthropic pricing, model overview and prompt caching docs, retrieved 2026-10-06"
+  },
+  "cost_known": true,
+  "result": {
+    "over": "dead",
+    "detail": "",
+    "decisions": 235,
+    "frames": 16580,
+    "model_calls": 47,
+    "summaries": 1,
+    "stalls": 0,
+    "usage": {
+      "input_tokens": 100,
+      "cache_read_tokens": 2321330,
+      "cache_write_tokens": 110641,
+      "output_tokens": 28451,
+      "thinking_tokens": 21727
+    },
+    "cost_usd": 0.051279,
+    "wall_seconds": 256.84
+  },
+  "budget": {
+    "max_usd": 3.0,
+    "spent_usd": 0.051279,
+    "model_calls": 47,
+    "max_model_calls": 3000,
+    "unpriced_calls": 0
+  },
+  "limits": {
+    "max_decisions": 1000,
+    "max_usd": 3.0
+  },
+  "session": {
+    "decisions": 235,
+    "frames": 16580
+  },
+  "workspace": {
+    "files": [],
+    "usage": {
+      "notes": {
+        "used": 0,
+        "limit": 8000,
+        "left": 8000
+      },
+      "code": {
+        "used": 0,
+        "limit": 64000,
+        "left": 64000
+      }
+    }
+  },
+  "helpers": {
+    "helpers": 0,
+    "model_calls": 0,
+    "usage": {
+      "input_tokens": 0,
+      "cache_read_tokens": 0,
+      "cache_write_tokens": 0,
+      "output_tokens": 0,
+      "thinking_tokens": null
+    },
+    "cost_usd": 0.0,
+    "by_helper": {}
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "created": "2026-10-26T00:00:00Z",
+  "first_frame": 0,
+  "format": "cogbench-rec/0",
+  "frame_count": 41,
+  "frame_stride": 6,
+  "last_frame": 240,
+  "materials_format": "cogbench-materials/0",
+  "notes": "produced by cogbench-sim World::start_recording (see HOWTO.md)",
+  "rect": [
+    0,
+    0,
+    96,
+    64
+  ],
+  "rule_seed": 18369614217803416935,
+  "run_id": "rec_sim",
+  "seed": 16045690984503098046,
+  "world": {
+    "height": 64,
+    "width": 96
+  }
+}

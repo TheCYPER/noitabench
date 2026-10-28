@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href="data:,">
+  <title>报告 · Cogbench</title>
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/report.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Cogbench</a>
+  <nav><a href="replay.html">回放</a><a href="compare.html">对比</a><a href="report.html" aria-current="page">报告</a><a href="preview.html">世界预览</a><a href="play.html">游玩</a></nav>
+</header>
+<main class="report">
+  <section id="open" class="panel dropzone">
+    <div class="intro">
+      <h1>评测报告</h1>
+      <p>打开一份或几份 <code>profile.json</code>（用 <code>python -m noitabench eval &lt;录像文件夹&gt;</code> 生成），看综合分、能力画像、遭遇点明细和全局指标。同时打开 2 到 4 份就并排对比，比如同一个世界下人类和模型各一局。拖到页面上，或者：</p>
+    </div>
+    <div class="row">
+      <button id="btn-files" class="primary" type="button">选择 profile.json…</button>
+      <button id="btn-folder" type="button">选择录像文件夹…</button>
+      <button id="btn-clear" type="button" hidden>清空</button>
+    </div>
+    <input id="in-folder" type="file" webkitdirectory hidden>
+    <input id="in-files" type="file" accept=".json,application/json" multiple hidden>
+    <p id="message" class="message" role="alert" hidden></p>
+  </section>
+
+  <section id="viewer" hidden>
+    <div id="series" class="panel rpt-series" role="group" aria-label="打开的 profile"></div>
+    <div id="sections"></div>
+  </section>
+</main>
+<script type="module" src="js/pages/report.js"></script>
+</body>
+</html>

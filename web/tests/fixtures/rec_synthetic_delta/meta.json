@@ -1,0 +1,1 @@
+{"format": "cogbench-rec/0", "run_id": "synthetic-delta", "created": "2026-10-26T00:00:00Z", "world": {"width": 128, "height": 96}, "materials_format": "cogbench-materials/0", "seed": 42, "rule_seed": 7, "frame_stride": 3, "notes": "keyframe then dirty rects", "unknown_future_field": [1, 2, 3]}

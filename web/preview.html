@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>世界预览 · Cogbench</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Cogbench</a>
+  <nav><a href="replay.html">回放</a><a href="preview.html" aria-current="page">世界预览</a><a href="play.html">游玩</a></nav>
+</header>
+<main>
+  <section id="open" class="panel dropzone">
+    <div class="intro">
+      <h1>世界预览</h1>
+      <p>把一对世界文件（<code>名字.png</code> 和 <code>名字.json</code>）一起拖到这个页面，或者：</p>
+    </div>
+    <div class="row">
+      <button id="btn-folder" type="button">选择文件夹…</button>
+      <button id="btn-files" class="primary" type="button">选择 PNG + JSON…</button>
+      <label id="world-picker" hidden>世界 <select id="world-select"></select></label>
+    </div>
+    <input id="in-folder" type="file" webkitdirectory hidden>
+    <input id="in-files" type="file" multiple hidden>
+    <p id="message" class="message" role="alert" hidden></p>
+  </section>
+
+  <section id="viewer" hidden>
+    <div class="layout">
+      <div class="stage-col">
+        <div class="stage"><canvas id="canvas" tabindex="0" aria-label="世界预览"></canvas></div>
+        <div id="readout" class="readout">移动指针查看格子</div>
+        <div class="controls">
+          <span class="group">
+            <button id="zoom-out" type="button" aria-label="缩小" title="缩小 (-)">−</button>
+            <span id="zoom-label" class="mono"></span>
+            <button id="zoom-in" type="button" aria-label="放大" title="放大 (+)">+</button>
+            <button id="zoom-fit" type="button" title="适应窗口 (0)">适应</button>
+          </span>
+          <span class="group wide">
+            <label><input id="chk-grid" type="checkbox" checked> 群系格</label>
+            <label><input id="chk-tint" type="checkbox" checked> 群系着色</label>
+            <label><input id="chk-markers" type="checkbox" checked> 标记</label>
+            <label><input id="chk-encounters" type="checkbox" checked> 遭遇点</label>
+            <label><input id="chk-path" type="checkbox" checked> 主路</label>
+            <label><input id="chk-shade" type="checkbox" checked> 地形纹理</label>
+          </span>
+        </div>
+      </div>
+      <aside class="side">
+        <section><h2>世界</h2><dl id="meta" class="meta"></dl></section>
+        <section><h2>遭遇点（点击定位）</h2><ul id="encounters" class="plain"></ul></section>
+        <section><h2>标记</h2><ul id="legend" class="plain"></ul></section>
+      </aside>
+    </div>
+  </section>
+</main>
+<script type="module" src="js/pages/preview.js"></script>
+</body>
+</html>

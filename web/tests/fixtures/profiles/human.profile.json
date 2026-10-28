@@ -1,0 +1,642 @@
+{
+  "format": "cogbench-profile/0",
+  "run_id": "fx-human",
+  "run_dir": "fx-human",
+  "source": "human",
+  "model": null,
+  "world": {
+    "seed": 424242,
+    "rule_seed": 717171,
+    "file": "world_424242.json"
+  },
+  "composite": 13.66,
+  "ability_mean": 13.59,
+  "ability_raw_mean": 55.89,
+  "composite_note": "thin: only 2 of 11 capabilities were covered (2 or more opportunities); the others count at a discount, so this composite is not comparable with a fuller run",
+  "covered": [
+    "N6",
+    "N7"
+  ],
+  "left_out": [
+    "C",
+    "N1",
+    "N10",
+    "N2",
+    "N3",
+    "N4",
+    "N5",
+    "N8",
+    "N9"
+  ],
+  "depth": {
+    "score": 13.95,
+    "fraction": 0.1395,
+    "start_y": 80.0,
+    "deepest_y": 297.0,
+    "deepest_raw_y": 297.0,
+    "capped_at_seal": false,
+    "bottom_y": 1636.0,
+    "reached_sealed_room": false
+  },
+  "outcome": {
+    "over": null,
+    "died": false,
+    "death_frame": null,
+    "frames": 3720
+  },
+  "capabilities": {
+    "N1": {
+      "score": 100.0,
+      "opportunities": 1,
+      "covered": false,
+      "discount": 0.3333,
+      "discounted_score": 33.33,
+      "encounters": [],
+      "metrics": [
+        {
+          "name": "repeat_harm",
+          "weight": 1.0,
+          "value": 1.0,
+          "n": 1
+        }
+      ],
+      "note": "coverage too low (1 opportunities, need 2)"
+    },
+    "N2": {
+      "score": null,
+      "opportunities": 0,
+      "covered": false,
+      "discount": 0.0,
+      "discounted_score": 0.0,
+      "encounters": [],
+      "metrics": [],
+      "note": "no encounter met and no metric measured"
+    },
+    "N3": {
+      "score": 81.57,
+      "opportunities": 1,
+      "covered": false,
+      "discount": 0.3333,
+      "discounted_score": 27.19,
+      "encounters": [],
+      "metrics": [
+        {
+          "name": "backtracking",
+          "weight": 1.0,
+          "value": 0.816,
+          "n": 1
+        }
+      ],
+      "note": "coverage too low (1 opportunities, need 2)"
+    },
+    "N4": {
+      "score": null,
+      "opportunities": 0,
+      "covered": false,
+      "discount": 0.0,
+      "discounted_score": 0.0,
+      "encounters": [],
+      "metrics": [],
+      "note": "no encounter met and no metric measured"
+    },
+    "N5": {
+      "score": 22.67,
+      "opportunities": 1,
+      "covered": false,
+      "discount": 0.3333,
+      "discounted_score": 7.56,
+      "encounters": [],
+      "metrics": [
+        {
+          "name": "route_efficiency",
+          "weight": 1.0,
+          "value": 0.227,
+          "n": 1
+        }
+      ],
+      "note": "coverage too low (1 opportunities, need 2)"
+    },
+    "N6": {
+      "score": 100.0,
+      "opportunities": 2,
+      "covered": true,
+      "discount": 0.5,
+      "discounted_score": 50.0,
+      "encounters": [],
+      "metrics": [
+        {
+          "name": "new_liquids_tried",
+          "weight": 1.0,
+          "value": 1.0,
+          "n": 2
+        }
+      ]
+    },
+    "N7": {
+      "score": 14.32,
+      "opportunities": 2,
+      "covered": true,
+      "discount": 0.5,
+      "discounted_score": 7.16,
+      "encounters": [
+        {
+          "id": "E16",
+          "instance": "E16@351,246",
+          "role": "main",
+          "weight": 1.0,
+          "score": 0.286
+        }
+      ],
+      "metrics": [
+        {
+          "name": "inspect_before_hazard",
+          "weight": 1.0,
+          "value": 0.0,
+          "n": 1
+        }
+      ]
+    },
+    "N8": {
+      "score": null,
+      "opportunities": 0,
+      "covered": false,
+      "discount": 0.0,
+      "discounted_score": 0.0,
+      "encounters": [],
+      "metrics": [],
+      "note": "no encounter met and no metric measured"
+    },
+    "N9": {
+      "score": 28.65,
+      "opportunities": 1,
+      "covered": false,
+      "discount": 0.3333,
+      "discounted_score": 9.55,
+      "encounters": [
+        {
+          "id": "E16",
+          "instance": "E16@351,246",
+          "role": "secondary",
+          "weight": 0.5,
+          "score": 0.286
+        }
+      ],
+      "metrics": [],
+      "note": "coverage too low (1 opportunities, need 2)"
+    },
+    "N10": {
+      "score": null,
+      "opportunities": 0,
+      "covered": false,
+      "discount": 0.0,
+      "discounted_score": 0.0,
+      "encounters": [],
+      "metrics": [],
+      "note": "no encounter met and no metric measured"
+    },
+    "C": {
+      "score": 44.01,
+      "opportunities": 1,
+      "covered": false,
+      "discount": 0.3333,
+      "discounted_score": 14.67,
+      "parts": {
+        "C1": {
+          "score": null,
+          "opportunities": 0,
+          "covered": false,
+          "encounters": [],
+          "metrics": [],
+          "note": "no encounter met and no metric measured"
+        },
+        "C2": {
+          "score": 44.01,
+          "opportunities": 1,
+          "covered": true,
+          "encounters": [],
+          "metrics": [
+            {
+              "name": "layer_completion",
+              "weight": 1.0,
+              "value": 0.44,
+              "n": 1
+            }
+          ]
+        },
+        "C3": {
+          "score": null,
+          "opportunities": 0,
+          "covered": false,
+          "encounters": [],
+          "metrics": [],
+          "note": "no encounter met and no metric measured"
+        },
+        "C4": {
+          "score": null,
+          "opportunities": 0,
+          "covered": false,
+          "encounters": [],
+          "metrics": [],
+          "note": "no encounter met and no metric measured"
+        }
+      },
+      "note": "coverage too low (1 opportunities, need 2)"
+    }
+  },
+  "encounters": [
+    {
+      "id": "E02",
+      "nodes": [
+        "N1"
+      ],
+      "placed": 1,
+      "must_pass_placed": 1,
+      "visits": []
+    },
+    {
+      "id": "E03",
+      "nodes": [
+        "N1",
+        "N6"
+      ],
+      "placed": 2,
+      "must_pass_placed": 0,
+      "visits": []
+    },
+    {
+      "id": "E04",
+      "nodes": [
+        "N2",
+        "N1"
+      ],
+      "placed": 2,
+      "must_pass_placed": 0,
+      "visits": []
+    },
+    {
+      "id": "E06",
+      "nodes": [
+        "N3",
+        "N5"
+      ],
+      "placed": 1,
+      "must_pass_placed": 1,
+      "visits": []
+    },
+    {
+      "id": "E07",
+      "nodes": [
+        "N3",
+        "N1"
+      ],
+      "placed": 2,
+      "must_pass_placed": 1,
+      "visits": []
+    },
+    {
+      "id": "E08",
+      "nodes": [
+        "N4",
+        "N5"
+      ],
+      "placed": 1,
+      "must_pass_placed": 1,
+      "visits": []
+    },
+    {
+      "id": "E12",
+      "nodes": [
+        "N5",
+        "N3"
+      ],
+      "placed": 1,
+      "must_pass_placed": 1,
+      "visits": []
+    },
+    {
+      "id": "E14",
+      "nodes": [
+        "N6",
+        "N1"
+      ],
+      "placed": 2,
+      "must_pass_placed": 0,
+      "visits": []
+    },
+    {
+      "id": "E16",
+      "nodes": [
+        "N7",
+        "N9"
+      ],
+      "placed": 2,
+      "must_pass_placed": 1,
+      "visits": [
+        {
+          "instance": "E16@351,246",
+          "must_pass": true,
+          "layer": 1,
+          "variant": 3,
+          "enter_frame": 2316,
+          "exit_frame": 2998,
+          "stays": [
+            [
+              2316,
+              2317
+            ],
+            [
+              2644,
+              2998
+            ]
+          ],
+          "scored": true,
+          "score": 0.2865,
+          "reasons": [
+            "inspected: +0.00 of 0.30 (no inspect of the trough first)",
+            "unhurt: +0.09 of 0.50 (lost 50 HP to contact)",
+            "passed: +0.20 of 0.20 (left through the doorway beneath the scene)"
+          ],
+          "facts": {
+            "contact_hp": 49.6249942779541
+          }
+        }
+      ]
+    },
+    {
+      "id": "E18",
+      "nodes": [
+        "N8",
+        "N1"
+      ],
+      "placed": 2,
+      "must_pass_placed": 0,
+      "visits": []
+    },
+    {
+      "id": "E22",
+      "nodes": [
+        "N9",
+        "N3"
+      ],
+      "placed": 2,
+      "must_pass_placed": 1,
+      "visits": []
+    },
+    {
+      "id": "E23",
+      "nodes": [
+        "N10",
+        "N6"
+      ],
+      "placed": 2,
+      "must_pass_placed": 2,
+      "visits": []
+    }
+  ],
+  "metrics": [
+    {
+      "name": "repeat_harm",
+      "capabilities": [
+        "N1"
+      ],
+      "value": 1.0,
+      "opportunities": 1,
+      "status": "measured",
+      "reason": "0 of 1 harm episodes were of a kind that had already hurt",
+      "detail": {
+        "episodes_by_kind": {
+          "acid": 1
+        }
+      }
+    },
+    {
+      "name": "low_hp_discipline",
+      "capabilities": [
+        "N9"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "health never fell low and then settled (nothing to judge)",
+      "detail": {}
+    },
+    {
+      "name": "backtracking",
+      "capabilities": [
+        "N3"
+      ],
+      "value": 0.8157,
+      "opportunities": 1,
+      "status": "measured",
+      "reason": "climbed back 40 cells in a descent of 217",
+      "detail": {
+        "retreat": 40.0,
+        "descent": 217.0
+      }
+    },
+    {
+      "name": "decisions_per_layer",
+      "capabilities": [
+        "N3"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "no layer was finished",
+      "detail": {}
+    },
+    {
+      "name": "route_efficiency",
+      "capabilities": [
+        "N5"
+      ],
+      "value": 0.2267,
+      "opportunities": 1,
+      "status": "measured",
+      "reason": "main path 568 cells against 2506 walked",
+      "detail": {
+        "reference": 568.0,
+        "walked": 2505.8
+      }
+    },
+    {
+      "name": "hit_rate",
+      "capabilities": [
+        "N5"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "only 0 attack casts with a creature near (need 3)",
+      "detail": {}
+    },
+    {
+      "name": "layer_completion",
+      "capabilities": [
+        "C2"
+      ],
+      "value": 0.4401,
+      "opportunities": 1,
+      "status": "measured",
+      "reason": "layer 1: 44% through",
+      "detail": {}
+    },
+    {
+      "name": "layer_end_hp",
+      "capabilities": [
+        "C1"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "no layer was finished",
+      "detail": {}
+    },
+    {
+      "name": "new_liquids_tried",
+      "capabilities": [
+        "N6"
+      ],
+      "value": 1.0,
+      "opportunities": 2,
+      "status": "measured",
+      "reason": "tried 2 of 2 liquids picked up",
+      "detail": {
+        "picked": [
+          "blood",
+          "potion_heal"
+        ],
+        "tried": [
+          "blood",
+          "potion_heal"
+        ]
+      }
+    },
+    {
+      "name": "inspect_before_hazard",
+      "capabilities": [
+        "N7"
+      ],
+      "value": 0.0,
+      "opportunities": 1,
+      "status": "measured",
+      "reason": "E16.trough: not inspected",
+      "detail": {}
+    },
+    {
+      "name": "key_assembly",
+      "capabilities": [
+        "N8",
+        "C3"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "the sealed deep was never reached",
+      "detail": {}
+    },
+    {
+      "name": "notes_used",
+      "capabilities": [
+        "N2"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "whether the notes were found and used (and corrected when a later observation contradicted them) needs the content of the notes, not the recording",
+      "detail": {}
+    },
+    {
+      "name": "cross_game_gain",
+      "capabilities": [
+        "N2",
+        "C4"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "the gain from game to game in one rule-seed family needs two or more games; a single run has none",
+      "detail": {}
+    },
+    {
+      "name": "first_contact_physics",
+      "capabilities": [
+        "N4"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "first meetings with water, rising fire or floating things are not logged as such; only the flooded passage (E08) is scored",
+      "detail": {}
+    },
+    {
+      "name": "experiment_value",
+      "capabilities": [
+        "N6"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "whether a trial changed the later behaviour needs the model's intentions, not the recording",
+      "detail": {}
+    },
+    {
+      "name": "inspect_result_used",
+      "capabilities": [
+        "N7"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "the result of an inspect is not in decisions.jsonl (only a digest of the answer)",
+      "detail": {}
+    },
+    {
+      "name": "wand_edit_gain",
+      "capabilities": [
+        "N8"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "the damage or passage gained by each wand edit would need the wand before and after (edit_wand events carry only the wand index); the seal key is scored instead",
+      "detail": {}
+    },
+    {
+      "name": "stop_when_unsure",
+      "capabilities": [
+        "N10"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "stopping when unsure (and having enough signal before dying) needs the model's own uncertainty; only trying the vial first (E23) is scored",
+      "detail": {}
+    }
+  ],
+  "attribution": [
+    {
+      "capability": "C2",
+      "layer": 1,
+      "outcome": "ended",
+      "frame": 3720,
+      "last_harm": null,
+      "encounter": "E16",
+      "nodes": [
+        "N7",
+        "N9"
+      ]
+    }
+  ],
+  "cost": null,
+  "steps": {
+    "decisions": 478,
+    "decision_records": 478,
+    "frames": 3720
+  },
+  "test_awareness": null,
+  "evaluator": {
+    "version": "0.2.0",
+    "notes": []
+  }
+}

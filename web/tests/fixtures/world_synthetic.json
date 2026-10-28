@@ -1,0 +1,145 @@
+{
+ "format": "cogbench-world/0",
+ "seed": 12345,
+ "rule_seed": 7,
+ "width": 256,
+ "height": 192,
+ "biome_cell_size": 64,
+ "biome_map": [
+  [
+   "coal_pit",
+   "mine",
+   "sand_cave",
+   "sand_cave"
+  ],
+  [
+   "fungus",
+   "marsh",
+   "oil_cave",
+   "oil_cave"
+  ],
+  [
+   "acid_lake",
+   "lava_deep",
+   "brick_ruin",
+   "brick_ruin"
+  ]
+ ],
+ "markers": [
+  {
+   "type": "spawn_player",
+   "x": 30,
+   "y": 20
+  },
+  {
+   "type": "spawn_enemy",
+   "enemy": "longleg",
+   "x": 120,
+   "y": 60
+  },
+  {
+   "type": "spawn_enemy",
+   "enemy": "shotgunner",
+   "x": 200,
+   "y": 140
+  },
+  {
+   "type": "item",
+   "item": "wand_basic",
+   "x": 70,
+   "y": 30
+  },
+  {
+   "type": "item",
+   "item": "potion_heal",
+   "x": 180,
+   "y": 80
+  },
+  {
+   "type": "encounter",
+   "encounter_id": "E16",
+   "variant": 1,
+   "x": 100,
+   "y": 40,
+   "trigger": {
+    "x": 90,
+    "y": 30,
+    "w": 40,
+    "h": 24
+   },
+   "must_pass": true
+  },
+  {
+   "type": "encounter",
+   "encounter_id": "E08",
+   "variant": 0,
+   "x": 190,
+   "y": 100,
+   "trigger": {
+    "x": 170,
+    "y": 88,
+    "w": 50,
+    "h": 20
+   },
+   "must_pass": false
+  },
+  {
+   "type": "encounter",
+   "encounter_id": "E02",
+   "variant": 3,
+   "x": 80,
+   "y": 150,
+   "trigger": {
+    "x": 60,
+    "y": 140,
+    "w": 64,
+    "h": 30
+   },
+   "must_pass": true
+  },
+  {
+   "type": "rest_area",
+   "x": 120,
+   "y": 120,
+   "w": 30,
+   "h": 20
+  },
+  {
+   "type": "seal",
+   "x": 128,
+   "y": 184
+  },
+  {
+   "type": "future_marker_type",
+   "x": 10,
+   "y": 10,
+   "note": "unknown types must still draw"
+  }
+ ],
+ "main_path": [
+  [
+   30,
+   20
+  ],
+  [
+   60,
+   40
+  ],
+  [
+   100,
+   60
+  ],
+  [
+   128,
+   100
+  ],
+  [
+   100,
+   140
+  ],
+  [
+   128,
+   180
+  ]
+ ]
+}

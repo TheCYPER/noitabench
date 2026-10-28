@@ -1,0 +1,9 @@
+{
+  "name": "cogbench-web",
+  "private": true,
+  "type": "module",
+  "description": "Static viewer for cogbench recordings and worlds. No build step; package.json exists only so node --test treats .js files as ES modules.",
+  "scripts": {
+    "test": "node --test tests/"
+  }
+}

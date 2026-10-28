@@ -1,0 +1,6 @@
+{"frame":8,"type":"reaction","x":26,"y":60,"a":"sand","b":"water"}
+{"frame":30,"type":"damage","x":50,"y":75,"amount":12,"target":1}
+{"frame":44,"type":"pickup","x":70,"y":75,"item":"potion_heal"}
+{"frame":70,"type":"explosion","x":96,"y":71,"radius":9}
+{"frame":100,"type":"death","x":100,"y":78,"target":2}
+{"frame":110,"type":"some_future_event","note":"no position, must not crash"}

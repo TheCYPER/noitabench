@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>Cogbench 网页工具</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Cogbench</a>
+  <nav><a href="replay.html">回放</a><a href="compare.html">对比</a><a href="report.html">报告</a><a href="preview.html">世界预览</a><a href="play.html">游玩</a></nav>
+</header>
+<main>
+  <h1>Cogbench 网页工具</h1>
+  <p class="message info">网页只读文件、只画图，没有任何游戏逻辑。文件在本机读取，不会上传。</p>
+  <div class="cards">
+    <a class="card" href="replay.html"><strong>回放</strong><br><span class="mono">replay.html</span><br>打开一个录像文件夹（<code>meta.json</code> + <code>frames.bin</code>），播放、暂停、拖动进度、0.25 到 8 倍速、缩放，叠加实体和事件。有 <code>decisions.jsonl</code> 时多一条决策时间线，点一个决策就能看到玩家当时看到的画面、模型的思考和程序、花了多少钱。</a>
+    <a class="card" href="compare.html"><strong>对比</strong><br><span class="mono">compare.html</span><br>2 到 4 个录像并排同步播放（按游戏帧或按决策对齐），共用一条时间线，比如同一个世界下人类和模型各一局。</a>
+    <a class="card" href="preview.html"><strong>世界预览</strong><br><span class="mono">preview.html</span><br>打开一对世界文件（<code>.png</code> + <code>.json</code>），叠加群系边界、标记和遭遇点触发区。</a>
+    <a class="card" href="play.html"><strong>游玩</strong><br><span class="mono">play.html</span><br>人类基线：暂停模式，和 agent 用同一套指令、同一个决策预算。需要先在本机启动游玩服务：<code>python -m noitabench play serve --world-seed 3</code>，再打开它打印出来的地址。</a>
+    <a class="card" href="report.html"><strong>报告</strong><br><span class="mono">report.html</span><br>打开一份或几份评分结果 <code>profile.json</code>（<code>python -m noitabench eval &lt;录像文件夹&gt;</code> 生成）：综合分、11 项能力画像、遭遇点明细、全局指标、花费；2 到 4 份并排对比。</a>
+  </div>
+  <h2 style="margin-top:20px">示例（需要从仓库根目录启动 http 服务）</h2>
+  <ul>
+    <li><a href="replay.html?src=tests/fixtures/rec_synthetic/">合成录像：整帧</a></li>
+    <li><a href="replay.html?src=tests/fixtures/rec_synthetic_delta/">合成录像：关键帧加脏矩形，无可选文件</a></li>
+    <li><a href="replay.html?src=tests/fixtures/rec_sim/">真实录像：<code>cogbench-sim</code> 写出的一小段</a></li>
+    <li><a href="compare.html?src=tests/fixtures/rec_synthetic/&amp;src=tests/fixtures/rec_synthetic_delta/">对比：两个合成录像</a></li>
+    <li><a href="preview.html?world=tests/fixtures/world_synthetic">合成世界</a></li>
+    <li><a href="report.html?profile=tests/fixtures/profiles/agent.profile.json">报告：一局 Claude Haiku（真实评分结果）</a></li>
+    <li><a href="report.html?profile=tests/fixtures/profiles/human.profile.json&amp;profile=tests/fixtures/profiles/agent.profile.json&amp;profile=tests/fixtures/profiles/bot.profile.json">报告对比：人类、模型、脚本 bot</a></li>
+  </ul>
+</main>
+</body>
+</html>

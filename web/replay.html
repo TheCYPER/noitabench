@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>回放 · Cogbench</title>
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/replay.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Cogbench</a>
+  <nav><a href="replay.html" aria-current="page">回放</a><a href="compare.html">对比</a><a href="preview.html">世界预览</a><a href="play.html">游玩</a><a id="report-link" href="report.html" hidden>本局报告</a></nav>
+</header>
+<main class="replay">
+  <section id="open" class="panel dropzone">
+    <div class="intro">
+      <h1>回放录像</h1>
+      <p>把录像文件夹（里面有 <code>meta.json</code> 和 <code>frames.bin</code>，可选 <code>entities.jsonl</code>、<code>events.jsonl</code>、<code>decisions.jsonl</code>、<code>transcript.jsonl</code>、<code>harness.jsonl</code>、<code>summary.json</code>）拖到这个页面，或者：</p>
+    </div>
+    <div class="row">
+      <button id="btn-folder" class="primary" type="button">选择文件夹…</button>
+      <button id="btn-files" type="button">选择文件…</button>
+      <label id="run-picker" hidden>录像 <select id="run-select"></select></label>
+    </div>
+    <input id="in-folder" type="file" webkitdirectory hidden>
+    <input id="in-files" type="file" multiple hidden>
+    <p id="message" class="message" role="alert" hidden></p>
+  </section>
+
+  <section id="viewer" hidden>
+    <div class="layout">
+      <div class="stage-col">
+        <div class="stage"><canvas id="canvas" tabindex="0" aria-label="录像画面"></canvas></div>
+        <div id="readout" class="readout">移动指针查看格子</div>
+        <div class="timeline-box" id="timeline-box" hidden>
+          <div class="tl-head">
+            <span class="group">
+              <button id="btn-dec-prev" type="button" title="上一个决策 ([)" aria-label="上一个决策">◀ 决策</button>
+              <button id="btn-dec-next" type="button" title="下一个决策 (])" aria-label="下一个决策">决策 ▶</button>
+            </span>
+            <span id="tl-label" class="mono tl-label"></span>
+          </div>
+          <canvas id="timeline" class="timeline" tabindex="0" aria-label="决策时间线：左右方向键切换决策"></canvas>
+          <div id="legend" class="legend"></div>
+        </div>
+        <div class="controls">
+          <span class="group">
+            <button id="btn-prev" type="button" title="上一步 (←)" aria-label="上一步">◀</button>
+            <button id="btn-play" type="button" class="primary" title="播放/暂停 (空格)">播放</button>
+            <button id="btn-next" type="button" title="下一步 (→)" aria-label="下一步">▶</button>
+          </span>
+          <input id="scrub" class="scrub" type="range" min="0" max="0" value="0" step="1" aria-label="进度">
+          <span id="time" class="time mono"></span>
+          <span class="group wide">
+            <label>速度 <select id="speed" aria-label="播放速度"></select></label>
+            <button id="zoom-out" type="button" aria-label="缩小" title="缩小 (-)">−</button>
+            <span id="zoom-label" class="mono"></span>
+            <button id="zoom-in" type="button" aria-label="放大" title="放大 (+)">+</button>
+            <button id="zoom-fit" type="button" title="适应窗口 (0)">适应</button>
+          </span>
+          <span class="group wide">
+            <label><input id="chk-entities" type="checkbox" checked> 实体</label>
+            <label><input id="chk-events" type="checkbox" checked> 事件</label>
+            <label><input id="chk-follow" type="checkbox" checked> 跟随玩家</label>
+            <label><input id="chk-shade" type="checkbox" checked> 地形纹理</label>
+          </span>
+        </div>
+      </div>
+      <aside class="side">
+        <section><h2>决策</h2><div id="decision" class="dp empty">没有 decisions.jsonl</div></section>
+        <section><details><summary class="h2">录像</summary><dl id="meta" class="meta"></dl></details></section>
+        <section><details><summary class="h2">实体</summary><div id="entities"></div></details></section>
+        <section><details open><summary class="h2">最近的事件</summary><ol id="events" class="events"></ol></details></section>
+      </aside>
+    </div>
+  </section>
+</main>
+<script type="module" src="js/pages/replay.js"></script>
+</body>
+</html>

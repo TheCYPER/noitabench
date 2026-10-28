@@ -1,0 +1,982 @@
+{
+  "format": "cogbench-profile/0",
+  "run_id": "fx-bot",
+  "run_dir": "fx-bot",
+  "source": "bot",
+  "model": null,
+  "world": {
+    "seed": 424242,
+    "rule_seed": 717171,
+    "file": "world_424242.json"
+  },
+  "composite": 56.21,
+  "ability_mean": 45.26,
+  "ability_raw_mean": 92.2,
+  "composite_note": null,
+  "covered": [
+    "C",
+    "N1",
+    "N10",
+    "N3",
+    "N5",
+    "N6",
+    "N9"
+  ],
+  "left_out": [
+    "N2",
+    "N4",
+    "N7",
+    "N8"
+  ],
+  "depth": {
+    "score": 100.0,
+    "fraction": 1.0,
+    "start_y": 80.0,
+    "deepest_y": 1638.0,
+    "deepest_raw_y": 1638.0,
+    "capped_at_seal": false,
+    "bottom_y": 1636.0,
+    "reached_sealed_room": true
+  },
+  "outcome": {
+    "over": null,
+    "died": false,
+    "death_frame": null,
+    "frames": 3969
+  },
+  "capabilities": {
+    "N1": {
+      "score": 100.0,
+      "opportunities": 3,
+      "covered": true,
+      "discount": 0.6,
+      "discounted_score": 60.0,
+      "encounters": [
+        {
+          "id": "E07",
+          "instance": "E07@442,727",
+          "role": "secondary",
+          "weight": 0.5,
+          "score": 1.0
+        },
+        {
+          "id": "E02",
+          "instance": "E02@453,1441",
+          "role": "main",
+          "weight": 1.0,
+          "score": 1.0
+        }
+      ],
+      "metrics": [
+        {
+          "name": "repeat_harm",
+          "weight": 1.0,
+          "value": 1.0,
+          "n": 1
+        }
+      ]
+    },
+    "N2": {
+      "score": null,
+      "opportunities": 0,
+      "covered": false,
+      "discount": 0.0,
+      "discounted_score": 0.0,
+      "encounters": [],
+      "metrics": [],
+      "note": "no encounter met and no metric measured"
+    },
+    "N3": {
+      "score": 98.54,
+      "opportunities": 5,
+      "covered": true,
+      "discount": 0.7143,
+      "discounted_score": 70.39,
+      "encounters": [
+        {
+          "id": "E07",
+          "instance": "E07@442,727",
+          "role": "main",
+          "weight": 1.0,
+          "score": 1.0
+        },
+        {
+          "id": "E22",
+          "instance": "E22@364,932",
+          "role": "secondary",
+          "weight": 0.5,
+          "score": 1.0
+        },
+        {
+          "id": "E12",
+          "instance": "E12@394,1339",
+          "role": "secondary",
+          "weight": 0.5,
+          "score": 1.0
+        },
+        {
+          "id": "E06",
+          "instance": "E06@444,1566",
+          "role": "main",
+          "weight": 1.0,
+          "score": 1.0
+        }
+      ],
+      "metrics": [
+        {
+          "name": "backtracking",
+          "weight": 1.0,
+          "value": 0.942,
+          "n": 1
+        }
+      ]
+    },
+    "N4": {
+      "score": 100.0,
+      "opportunities": 1,
+      "covered": false,
+      "discount": 0.3333,
+      "discounted_score": 33.33,
+      "encounters": [
+        {
+          "id": "E08",
+          "instance": "E08@304,382",
+          "role": "main",
+          "weight": 1.0,
+          "score": 1.0
+        }
+      ],
+      "metrics": [],
+      "note": "coverage too low (1 opportunities, need 2)"
+    },
+    "N5": {
+      "score": 98.43,
+      "opportunities": 4,
+      "covered": true,
+      "discount": 0.6667,
+      "discounted_score": 65.62,
+      "encounters": [
+        {
+          "id": "E08",
+          "instance": "E08@304,382",
+          "role": "secondary",
+          "weight": 0.5,
+          "score": 1.0
+        },
+        {
+          "id": "E12",
+          "instance": "E12@394,1339",
+          "role": "main",
+          "weight": 1.0,
+          "score": 1.0
+        },
+        {
+          "id": "E06",
+          "instance": "E06@444,1566",
+          "role": "secondary",
+          "weight": 0.5,
+          "score": 1.0
+        }
+      ],
+      "metrics": [
+        {
+          "name": "route_efficiency",
+          "weight": 1.0,
+          "value": 0.953,
+          "n": 1
+        }
+      ]
+    },
+    "N6": {
+      "score": 75.0,
+      "opportunities": 3,
+      "covered": true,
+      "discount": 0.6,
+      "discounted_score": 45.0,
+      "encounters": [
+        {
+          "id": "E23",
+          "instance": "E23@316,837",
+          "role": "secondary",
+          "weight": 0.5,
+          "score": 0.5
+        },
+        {
+          "id": "E23",
+          "instance": "E23@360,1255",
+          "role": "secondary",
+          "weight": 0.5,
+          "score": 0.5
+        }
+      ],
+      "metrics": [
+        {
+          "name": "new_liquids_tried",
+          "weight": 1.0,
+          "value": 1.0,
+          "n": 1
+        }
+      ]
+    },
+    "N7": {
+      "score": 100.0,
+      "opportunities": 1,
+      "covered": false,
+      "discount": 0.3333,
+      "discounted_score": 33.33,
+      "encounters": [
+        {
+          "id": "E16",
+          "instance": "E16@351,246",
+          "role": "main",
+          "weight": 1.0,
+          "score": 1.0
+        }
+      ],
+      "metrics": [],
+      "note": "coverage too low (1 opportunities, need 2)"
+    },
+    "N8": {
+      "score": 100.0,
+      "opportunities": 1,
+      "covered": false,
+      "discount": 0.3333,
+      "discounted_score": 33.33,
+      "encounters": [],
+      "metrics": [
+        {
+          "name": "key_assembly",
+          "weight": 1.0,
+          "value": 1.0,
+          "n": 1
+        }
+      ],
+      "note": "coverage too low (1 opportunities, need 2)"
+    },
+    "N9": {
+      "score": 100.0,
+      "opportunities": 2,
+      "covered": true,
+      "discount": 0.5,
+      "discounted_score": 50.0,
+      "encounters": [
+        {
+          "id": "E16",
+          "instance": "E16@351,246",
+          "role": "secondary",
+          "weight": 0.5,
+          "score": 1.0
+        },
+        {
+          "id": "E22",
+          "instance": "E22@364,932",
+          "role": "main",
+          "weight": 1.0,
+          "score": 1.0
+        }
+      ],
+      "metrics": []
+    },
+    "N10": {
+      "score": 50.0,
+      "opportunities": 2,
+      "covered": true,
+      "discount": 0.5,
+      "discounted_score": 25.0,
+      "encounters": [
+        {
+          "id": "E23",
+          "instance": "E23@316,837",
+          "role": "main",
+          "weight": 1.0,
+          "score": 0.5
+        },
+        {
+          "id": "E23",
+          "instance": "E23@360,1255",
+          "role": "main",
+          "weight": 1.0,
+          "score": 0.5
+        }
+      ],
+      "metrics": []
+    },
+    "C": {
+      "score": 100.0,
+      "opportunities": 9,
+      "covered": true,
+      "discount": 0.8182,
+      "discounted_score": 81.82,
+      "parts": {
+        "C1": {
+          "score": 100.0,
+          "opportunities": 4,
+          "covered": true,
+          "encounters": [
+            {
+              "id": "E07",
+              "instance": "E07@442,727",
+              "role": "scene",
+              "weight": 1.0,
+              "score": 1.0
+            }
+          ],
+          "metrics": [
+            {
+              "name": "layer_end_hp",
+              "weight": 1.0,
+              "value": 1.0,
+              "n": 3
+            }
+          ]
+        },
+        "C2": {
+          "score": 100.0,
+          "opportunities": 3,
+          "covered": true,
+          "encounters": [],
+          "metrics": [
+            {
+              "name": "layer_completion",
+              "weight": 1.0,
+              "value": 1.0,
+              "n": 3
+            }
+          ]
+        },
+        "C3": {
+          "score": 100.0,
+          "opportunities": 2,
+          "covered": true,
+          "encounters": [
+            {
+              "id": "E06",
+              "instance": "E06@444,1566",
+              "role": "scene",
+              "weight": 1.0,
+              "score": 1.0
+            }
+          ],
+          "metrics": [
+            {
+              "name": "key_assembly",
+              "weight": 1.0,
+              "value": 1.0,
+              "n": 1
+            }
+          ]
+        },
+        "C4": {
+          "score": null,
+          "opportunities": 0,
+          "covered": false,
+          "encounters": [],
+          "metrics": [],
+          "note": "no encounter met and no metric measured"
+        }
+      }
+    }
+  },
+  "encounters": [
+    {
+      "id": "E02",
+      "nodes": [
+        "N1"
+      ],
+      "placed": 1,
+      "must_pass_placed": 1,
+      "visits": [
+        {
+          "instance": "E02@453,1441",
+          "must_pass": true,
+          "layer": 3,
+          "variant": 7,
+          "enter_frame": 3167,
+          "exit_frame": 3376,
+          "stays": [
+            [
+              3167,
+              3376
+            ]
+          ],
+          "scored": true,
+          "score": 1.0,
+          "reasons": [
+            "crossed: +0.25 of 0.25 (reached the far ledge)",
+            "crust: +0.40 of 0.40 (30 lava cells turned to rock)",
+            "unhurt: +0.20 of 0.20 (lost 0 HP to contact and fire)",
+            "no_decoy: +0.15 of 0.15 (only the right liquid)"
+          ],
+          "facts": {
+            "lava_attempted": true,
+            "lava_solidified": true,
+            "crossed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E03",
+      "nodes": [
+        "N1",
+        "N6"
+      ],
+      "placed": 2,
+      "must_pass_placed": 0,
+      "visits": []
+    },
+    {
+      "id": "E04",
+      "nodes": [
+        "N2",
+        "N1"
+      ],
+      "placed": 2,
+      "must_pass_placed": 0,
+      "visits": []
+    },
+    {
+      "id": "E06",
+      "nodes": [
+        "N3",
+        "N5"
+      ],
+      "placed": 1,
+      "must_pass_placed": 1,
+      "visits": [
+        {
+          "instance": "E06@444,1566",
+          "must_pass": true,
+          "layer": 3,
+          "variant": 1,
+          "enter_frame": 3474,
+          "exit_frame": 3837,
+          "stays": [
+            [
+              3474,
+              3576
+            ],
+            [
+              3792,
+              3837
+            ]
+          ],
+          "scored": true,
+          "score": 1.0,
+          "reasons": [
+            "parts_before: +0.40 of 0.40 (2 of 2 key spells in hand on arrival (BOMB, EXPLOSIVE_PROJECTILE))",
+            "no_backtrack: +0.20 of 0.20 (nothing to fetch)",
+            "opened: +0.40 of 0.40 (reached the sealed room)"
+          ],
+          "facts": {
+            "parts_before": 2,
+            "parts": 2,
+            "parts_late": 0,
+            "climbed": 0.0,
+            "key_blast": true,
+            "opened": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E07",
+      "nodes": [
+        "N3",
+        "N1"
+      ],
+      "placed": 2,
+      "must_pass_placed": 1,
+      "visits": [
+        {
+          "instance": "E07@442,727",
+          "must_pass": true,
+          "layer": 2,
+          "variant": 5,
+          "enter_frame": 1304,
+          "exit_frame": 1553,
+          "stays": [
+            [
+              1304,
+              1553
+            ]
+          ],
+          "scored": true,
+          "score": 1.0,
+          "reasons": [
+            "filled: +0.15 of 0.15 (filled the bottle at the pool)",
+            "acid: +0.20 of 0.20 (got across the acid trough)",
+            "crust: +0.20 of 0.20 (12 lava cells turned to rock)",
+            "lava: +0.15 of 0.15 (got across the lava river)",
+            "passed: +0.15 of 0.15 (left through the doorway beneath the scene)",
+            "unhurt: +0.15 of 0.15 (lost 0 HP in the scene)"
+          ],
+          "facts": {
+            "lava_attempted": true,
+            "lava_solidified": true,
+            "crossed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E08",
+      "nodes": [
+        "N4",
+        "N5"
+      ],
+      "placed": 1,
+      "must_pass_placed": 1,
+      "visits": [
+        {
+          "instance": "E08@304,382",
+          "must_pass": true,
+          "layer": 1,
+          "variant": 0,
+          "enter_frame": 560,
+          "exit_frame": 764,
+          "stays": [
+            [
+              560,
+              764
+            ]
+          ],
+          "scored": true,
+          "score": 1.0,
+          "reasons": [
+            "passed: +0.40 of 0.40 (reached the cellar)",
+            "dug: +0.30 of 0.30 (1 digging bolts burst in the floor)",
+            "quick: +0.20 of 0.20 (first dig 5 frames after entering)",
+            "unhurt: +0.10 of 0.10 (lost 0 HP)"
+          ],
+          "facts": {
+            "dug": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "E12",
+      "nodes": [
+        "N5",
+        "N3"
+      ],
+      "placed": 1,
+      "must_pass_placed": 1,
+      "visits": [
+        {
+          "instance": "E12@394,1339",
+          "must_pass": true,
+          "layer": 3,
+          "variant": 2,
+          "enter_frame": 2466,
+          "exit_frame": 3109,
+          "stays": [
+            [
+              2466,
+              3109
+            ]
+          ],
+          "scored": true,
+          "score": 1.0,
+          "reasons": [
+            "passed: +0.40 of 0.40 (left through the doorway beneath the scene)",
+            "lava: +0.30 of 0.30 (lost 0 HP to lava)",
+            "plugs: +0.30 of 0.30 (0 digging bolts burst in the ground plugs)"
+          ],
+          "facts": {
+            "contact_hp": 0.0,
+            "trap_digs": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "E14",
+      "nodes": [
+        "N6",
+        "N1"
+      ],
+      "placed": 2,
+      "must_pass_placed": 0,
+      "visits": []
+    },
+    {
+      "id": "E16",
+      "nodes": [
+        "N7",
+        "N9"
+      ],
+      "placed": 2,
+      "must_pass_placed": 1,
+      "visits": [
+        {
+          "instance": "E16@351,246",
+          "must_pass": true,
+          "layer": 1,
+          "variant": 3,
+          "enter_frame": 316,
+          "exit_frame": 500,
+          "stays": [
+            [
+              316,
+              500
+            ]
+          ],
+          "scored": true,
+          "score": 1.0,
+          "reasons": [
+            "inspected: not measured (needs decisions.jsonl)",
+            "unhurt: +0.71 of 0.71 (lost 0 HP to contact)",
+            "passed: +0.29 of 0.29 (left through the doorway beneath the scene)"
+          ],
+          "facts": {
+            "contact_hp": 0.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "E18",
+      "nodes": [
+        "N8",
+        "N1"
+      ],
+      "placed": 2,
+      "must_pass_placed": 0,
+      "visits": []
+    },
+    {
+      "id": "E22",
+      "nodes": [
+        "N9",
+        "N3"
+      ],
+      "placed": 2,
+      "must_pass_placed": 1,
+      "visits": [
+        {
+          "instance": "E22@364,932",
+          "must_pass": true,
+          "layer": 2,
+          "variant": 2,
+          "enter_frame": 1863,
+          "exit_frame": 1989,
+          "stays": [
+            [
+              1863,
+              1989
+            ]
+          ],
+          "scored": true,
+          "score": 1.0,
+          "reasons": [
+            "route: +0.40 of 0.40 (took the safe lane under the floor)",
+            "unhurt: +0.30 of 0.30 (lost 0 HP)",
+            "passed: +0.30 of 0.30 (left through the doorway beneath the scene)"
+          ],
+          "facts": {
+            "route": "long"
+          }
+        }
+      ]
+    },
+    {
+      "id": "E23",
+      "nodes": [
+        "N10",
+        "N6"
+      ],
+      "placed": 2,
+      "must_pass_placed": 2,
+      "visits": [
+        {
+          "instance": "E23@316,837",
+          "must_pass": true,
+          "layer": 2,
+          "variant": 6,
+          "enter_frame": 1717,
+          "exit_frame": 1827,
+          "stays": [
+            [
+              1717,
+              1827
+            ]
+          ],
+          "scored": true,
+          "score": 0.5,
+          "reasons": [
+            "tried: +0.00 of 0.50 (no test of the liquid seen (no decisions.jsonl: inspects not visible))",
+            "unhurt: +0.30 of 0.30 (lost 0 HP)",
+            "passed: +0.20 of 0.20 (reached the far side)"
+          ],
+          "facts": {
+            "tested_first": false,
+            "crossed": true
+          }
+        },
+        {
+          "instance": "E23@360,1255",
+          "must_pass": true,
+          "layer": 3,
+          "variant": 1,
+          "enter_frame": 2267,
+          "exit_frame": 2404,
+          "stays": [
+            [
+              2267,
+              2404
+            ]
+          ],
+          "scored": true,
+          "score": 0.5,
+          "reasons": [
+            "tried: +0.00 of 0.50 (no test of the liquid seen (no decisions.jsonl: inspects not visible))",
+            "unhurt: +0.30 of 0.30 (lost 0 HP)",
+            "passed: +0.20 of 0.20 (reached the far side)"
+          ],
+          "facts": {
+            "tested_first": false,
+            "crossed": true
+          }
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "name": "repeat_harm",
+      "capabilities": [
+        "N1"
+      ],
+      "value": 1.0,
+      "opportunities": 1,
+      "status": "measured",
+      "reason": "0 of 1 harm episodes were of a kind that had already hurt",
+      "detail": {
+        "episodes_by_kind": {
+          "explosion": 1
+        }
+      }
+    },
+    {
+      "name": "low_hp_discipline",
+      "capabilities": [
+        "N9"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "health never fell low and then settled (nothing to judge)",
+      "detail": {}
+    },
+    {
+      "name": "backtracking",
+      "capabilities": [
+        "N3"
+      ],
+      "value": 0.9416,
+      "opportunities": 1,
+      "status": "measured",
+      "reason": "climbed back 91 cells in a descent of 1558",
+      "detail": {
+        "retreat": 91.0,
+        "descent": 1558.0
+      }
+    },
+    {
+      "name": "decisions_per_layer",
+      "capabilities": [
+        "N3"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "no decisions.jsonl",
+      "detail": {}
+    },
+    {
+      "name": "route_efficiency",
+      "capabilities": [
+        "N5"
+      ],
+      "value": 0.9529,
+      "opportunities": 1,
+      "status": "measured",
+      "reason": "main path 3124 cells against 3278 walked",
+      "detail": {
+        "reference": 3124.0,
+        "walked": 3278.4
+      }
+    },
+    {
+      "name": "hit_rate",
+      "capabilities": [
+        "N5"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "only 0 attack casts with a creature near (need 3)",
+      "detail": {}
+    },
+    {
+      "name": "layer_completion",
+      "capabilities": [
+        "C2"
+      ],
+      "value": 1.0,
+      "opportunities": 3,
+      "status": "measured",
+      "reason": "layer 1: finished; layer 2: finished; layer 3: finished",
+      "detail": {}
+    },
+    {
+      "name": "layer_end_hp",
+      "capabilities": [
+        "C1"
+      ],
+      "value": 1.0,
+      "opportunities": 3,
+      "status": "measured",
+      "reason": "layer 1: 100% health on leaving; layer 2: 100% health on leaving; layer 3: 100% health on leaving",
+      "detail": {}
+    },
+    {
+      "name": "new_liquids_tried",
+      "capabilities": [
+        "N6"
+      ],
+      "value": 1.0,
+      "opportunities": 1,
+      "status": "measured",
+      "reason": "tried 1 of 1 liquids picked up",
+      "detail": {
+        "picked": [
+          "blood"
+        ],
+        "tried": [
+          "blood"
+        ]
+      }
+    },
+    {
+      "name": "inspect_before_hazard",
+      "capabilities": [
+        "N7"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "no decisions.jsonl",
+      "detail": {}
+    },
+    {
+      "name": "key_assembly",
+      "capabilities": [
+        "N8",
+        "C3"
+      ],
+      "value": 1.0,
+      "opportunities": 1,
+      "status": "measured",
+      "reason": "the key was built and blasted at the plug",
+      "detail": {
+        "edit_wand_events": 7
+      }
+    },
+    {
+      "name": "notes_used",
+      "capabilities": [
+        "N2"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "whether the notes were found and used (and corrected when a later observation contradicted them) needs the content of the notes, not the recording",
+      "detail": {}
+    },
+    {
+      "name": "cross_game_gain",
+      "capabilities": [
+        "N2",
+        "C4"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "the gain from game to game in one rule-seed family needs two or more games; a single run has none",
+      "detail": {}
+    },
+    {
+      "name": "first_contact_physics",
+      "capabilities": [
+        "N4"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "first meetings with water, rising fire or floating things are not logged as such; only the flooded passage (E08) is scored",
+      "detail": {}
+    },
+    {
+      "name": "experiment_value",
+      "capabilities": [
+        "N6"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "whether a trial changed the later behaviour needs the model's intentions, not the recording",
+      "detail": {}
+    },
+    {
+      "name": "inspect_result_used",
+      "capabilities": [
+        "N7"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "the result of an inspect is not in decisions.jsonl (only a digest of the answer)",
+      "detail": {}
+    },
+    {
+      "name": "wand_edit_gain",
+      "capabilities": [
+        "N8"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "the damage or passage gained by each wand edit would need the wand before and after (edit_wand events carry only the wand index); the seal key is scored instead",
+      "detail": {}
+    },
+    {
+      "name": "stop_when_unsure",
+      "capabilities": [
+        "N10"
+      ],
+      "value": null,
+      "opportunities": 0,
+      "status": "not_measured",
+      "reason": "stopping when unsure (and having enough signal before dying) needs the model's own uncertainty; only trying the vial first (E23) is scored",
+      "detail": {}
+    }
+  ],
+  "attribution": [],
+  "cost": null,
+  "steps": {
+    "decisions": null,
+    "decision_records": 0,
+    "frames": 3969
+  },
+  "test_awareness": null,
+  "evaluator": {
+    "version": "0.2.0",
+    "notes": [
+      "no decisions.jsonl: the parts of the rules that need the decisions (inspects, decisions per layer) are not measured",
+      "scripted bot: it plans on the whole grid, it is a reference, not a player"
+    ]
+  }
+}
