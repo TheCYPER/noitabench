@@ -1,0 +1,86 @@
+{
+  "_meta": {
+    "generated": "2026-10-07",
+    "note": "Numbers about Noita's Falling Everything engine with the source each one was read from. 'verified' = stated by Nolla (GDC 2019 talk as reported by 80.lv / braindump notes) or by the noita.wiki.gg modding documentation / save-format reverse engineering. 'secondary' = only from AI-generated or unofficial summaries. 'unverified' = plausible but not found in any source."
+  },
+  "world": {
+    "streaming_chunk_px": { "value": 512, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Technical:_File_Formats", "https://noita.wiki.gg/wiki/Expert_Guide:_Waypoints", "https://noita.wiki.gg/wiki/Cursed_Rock", "https://noita.wiki.gg/wiki/Documentation:_Biome"] },
+    "streaming_chunk_target_loaded": { "value": 12, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Magic_Numbers (STREAMING_CHUNK_TARGET=12)", "https://noita.wiki.gg/wiki/Expert_Guide:_Waypoints"] },
+    "streaming_frequency": { "value": 1, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Magic_Numbers (STREAMING_FREQUENCY double 1)"] },
+    "autosave_period_s": { "value": 180, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Magic_Numbers (STREAMING_AUTOSAVE_PERIOD_SECONDS)"] },
+    "simulation_chunk_px": { "value": 64, "status": "verified", "sources": ["https://80.lv/articles/noita-a-game-based-on-falling-sand-simulation/", "https://braindump.jethro.dev/posts/gdc_vault_exploring_the_tech_and_design_of_noita/"] },
+    "sim_chunks_per_streaming_chunk": { "value": "8x8", "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Technical:_File_Formats (world_tree.bin: 512px broad chunk = 8x8 grid of 64px sub-cells)"] },
+    "normal_world_width_px": { "value": 35840, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Biomes"], "derived": "35840 / 512 = 70 streaming chunks wide" },
+    "world_tree_coverage": { "value": "+/-128 broad chunks = +/-65536 px", "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Technical:_File_Formats"] },
+    "fog_of_war_cells_per_broad_chunk": { "value": "16x16", "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Technical:_File_Formats"] },
+    "world_tree_density_byte_formula": { "value": "clamp((solid_pixel_count >> 4) - 1, 0, 255) per 64x64 sub-cell", "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Technical:_File_Formats"] },
+    "per_chunk_save_file": { "value": "world_[x]_[y].png_petri (FastLZ; materials + box2d objects); entities_[index].bin with index = 2000*y + x", "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Technical:_File_Formats"] }
+  },
+  "simulation": {
+    "update_order": { "value": "bottom-up", "status": "verified", "sources": ["https://80.lv/articles/noita-a-game-based-on-falling-sand-simulation/"] },
+    "buffering": { "value": "single buffer (no double buffering)", "status": "verified", "sources": ["https://blog.macuyiko.com/post/2020/an-exploration-of-cellular-automata-and-graph-based-game-systems-part-4.html (quoting the talk)"] },
+    "alternating_horizontal_scan": { "value": "unknown", "status": "unverified", "note": "Common in clones (sandspiel per-generation, falling-rust per-step, FallingSandEngine random per chunk). Not stated for Noita in any source found." },
+    "thread_passes": { "value": 4, "status": "verified", "sources": ["https://80.lv/articles/noita-a-game-based-on-falling-sand-simulation/"] },
+    "max_pixel_travel_px": { "value": 32, "status": "verified", "sources": ["https://80.lv/articles/noita-a-game-based-on-falling-sand-simulation/", "https://blog.macuyiko.com/post/2020/an-exploration-of-cellular-automata-and-graph-based-game-systems-part-4.html"] },
+    "dirty_rect_per_chunk": { "value": true, "status": "verified", "sources": ["https://80.lv/articles/noita-a-game-based-on-falling-sand-simulation/"] },
+    "GRID_MAX_UPDATES_PER_FRAME": { "value": 128, "status": "verified (meaning unverified)", "sources": ["https://noita.wiki.gg/wiki/Modding:_Magic_Numbers"] },
+    "GRID_MIN_UPDATES_PER_FRAME": { "value": 40, "status": "verified (meaning unverified)", "sources": ["https://noita.wiki.gg/wiki/Modding:_Magic_Numbers"] },
+    "GRID_FLEXIBLE_MAX_UPDATES": { "value": 0, "status": "verified (meaning unverified)", "sources": ["https://noita.wiki.gg/wiki/Modding:_Magic_Numbers"] },
+    "GRID_RENDER_TILE_SIZE": { "value": 32, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Magic_Numbers"] },
+    "GRID_RENDER_BORDER": { "value": 2, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Magic_Numbers"] },
+    "CELLFACTORY_CELLDATA_MAX_COUNT": { "value": 1024, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Magic_Numbers"], "note": "max number of materials; a u16 material id is sufficient, u8 is not" },
+    "USE_CUSTOM_THREADPOOL": { "value": 1, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Magic_Numbers"] },
+    "BOX2D_THREAD_MAX_WAIT_IN_MS": { "value": 12, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Magic_Numbers"], "note": "implies Box2D steps on its own thread with a 12 ms wait budget" },
+    "BOX2D_FREEZE_STUCK_BODIES": { "value": 1, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Magic_Numbers"] },
+    "frame_rate": { "value": 60, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Cursed_Rock (2.5 damage every frame = 150/s)"] }
+  },
+  "materials": {
+    "cell_types": { "value": ["solid", "liquid", "fire", "gas"], "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Making_a_custom_material"] },
+    "sand_definition": { "value": "cell_type=liquid + liquid_sand=1", "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Making_a_custom_material"] },
+    "ground_definition": { "value": "cell_type=liquid + liquid_sand=1 + liquid_static=1 (static sand)", "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Making_a_custom_material"] },
+    "solid_definition": { "value": "cell_type=solid => Box2D body (boxes, ice, glass)", "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Making_a_custom_material"] },
+    "defaults": {
+      "status": "verified",
+      "sources": ["https://noita.wiki.gg/wiki/Modding:_Making_a_custom_material#Defaults"],
+      "cell_type": "liquid", "density": 1, "durability": 0, "hp": 100, "lifetime": 0,
+      "liquid_gravity": 0.5, "liquid_flow_speed": 0.9, "liquid_damping": 0.8, "liquid_viscosity": 50, "liquid_sand": 0, "liquid_static": 0, "liquid_slime": 0, "liquid_sticks_to_ceiling": 0,
+      "gas_speed": 50, "gas_upwards_speed": 100, "gas_horizontal_speed": 100, "gas_downwards_speed": 90,
+      "burnable": 0, "fire_hp": 0, "requires_oxygen": 1, "autoignition_temperature": 100, "temperature_of_fire": 10, "generates_flames": 30, "generates_smoke": 0, "on_fire_flame_material": "fire", "on_fire_smoke_material": "smoke",
+      "solid_friction": 0.3, "solid_restitution": 0.2, "solid_gravity_scale": 1, "solid_static_type": 0, "solid_collide_with_self": 1, "crackability": 0,
+      "electrical_conductivity": "1 for non-sand liquids else 0", "platform_type": -1, "stickyness": 0, "slippery": 0
+    },
+    "durability_range": { "value": "0..14", "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Materials#Durability"] },
+    "durability_examples": { "value": { "4": "Sand", "5": "Cheese", "8": "Coal, Concrete", "9": "Static Meat", "10": "Dense Rock, Soil, Rusted Metal", "11": "Rusted Steel", "12": "Extremely Dense Rock, Steel", "13": "Dense Steel", "14": "Brickwork, Cursed Rock" }, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Materials#Durability"] },
+    "hp_examples": { "value": { "coal": 25000, "rock": 100000 }, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Materials#Hardness"] },
+    "liquid_density_examples": { "value": { "oil": 1.0, "acid": 2.9, "water": 4.0, "blood": 4.1, "toxic_sludge": 3.0, "swamp": 3.5, "milk": 3.5 }, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Density"] },
+    "reaction_defaults": { "value": { "probability": 0, "blob_radius1": 0, "blob_radius2": 0, "fast_reaction": 0, "convert_all": 0, "direction": "none", "req_lifetime": 0, "destroy_horizontally_lonely_pixels": 0 }, "status": "verified", "sources": ["https://noita.wiki.gg/wiki/Modding:_Making_a_custom_material#Defaults"] }
+  },
+  "explosions": {
+    "status": "verified",
+    "sources": ["https://noita.wiki.gg/wiki/Documentation:_ConfigExplosion", "https://noita.wiki.gg/wiki/Materials#Hardness"],
+    "ConfigExplosion_defaults": { "explosion_radius": 20, "damage": 5, "ray_energy": 20000, "max_durability_to_destroy": 10, "hole_enabled": true, "hole_destroy_liquid": false, "hole_destroy_physics_dynamic": true, "destroy_non_platform_solid_enabled": true, "create_cell_material": "fire", "create_cell_probability": 5, "knockback_force": 1, "physics_explosion_power": "[0, 0.2]", "min_radius_for_cracks": 10, "crack_count": 10, "stains_radius": "0 => 0.3 * explosion_radius", "light_radius_coeff": 8, "camera_shake": 7.5, "material_sparks_count_min": 7, "material_sparks_probability": 5 },
+    "ray_model": "multiple rays from the center; each ray has ray_energy; each pixel subtracts its hp; ray stops when energy <= 0 or radius reached; cells with durability > max_durability_to_destroy are never removed",
+    "ray_example": "hp 20 cells, 100 energy => 5 cells penetrated (wiki doc)",
+    "knockback_formula": "explosion_radius * knockback_force * target.inv_normalized_distance_from_explosion / target.mass",
+    "TNT_vs_unstable_crystal": "TNT max durability 11, radius 28 px, >30x ray energy of Unstable Crystal (max durability 10, destroys only 2-3 px of rock)"
+  },
+  "projectiles": {
+    "status": "verified",
+    "sources": ["https://noita.wiki.gg/wiki/Documentation:_ProjectileComponent"],
+    "defaults": { "collide_with_world": true, "speed_min": 60, "speed_max": 60, "on_collision_die": true, "bounces_left": 0, "bounce_energy": 0.5, "ground_penetration_coeff": 0, "ground_penetration_max_durability_to_destroy": 0, "penetrate_world": false, "penetrate_world_velocity_coeff": 0.6, "die_on_liquid_collision": false },
+    "raymarch": { "status": "unverified", "note": "Noita's per-frame sweep algorithm is not documented; clones use Bresenham / DDA stepping from previous to new position and stop at the first non-air cell." }
+  },
+  "rigid_bodies": {
+    "engine": { "value": "Box2D (Erin Catto)", "status": "verified", "sources": ["https://en.wikipedia.org/wiki/Noita_(video_game)", "https://noita.wiki.gg/wiki/Documentation:_PhysicsBodyComponent"] },
+    "pipeline": { "value": "marching squares -> Douglas-Peucker -> triangulation -> Box2D; re-run when any body pixel is destroyed", "status": "verified", "sources": ["https://80.lv/articles/noita-a-game-based-on-falling-sand-simulation/ (marching squares, recalculation)", "https://github.com/DavidMcLaughlin208/FallingSandJava#integrating-box2d (cites talk at t=322 s for DP + triangulation)"] },
+    "pixel_ownership": { "value": "each pixel stores its rigid body and its local position inside the body; positions are re-derived from the body transform each update", "status": "verified", "sources": ["https://80.lv/articles/noita-a-game-based-on-falling-sand-simulation/"] },
+    "PhysicsBodyComponent_defaults": { "buoyancy": 0.7, "linear_damping": 0, "angular_damping": 0, "allow_sleep": true, "auto_clean": true, "gridworld_box2d": true, "go_through_sand": false, "hax_fix_going_through_ground": false, "is_bullet": false, "kills_entity": true, "mPixelCount": "tracks the number of csolidcells the body has" },
+    "PhysicsImageShapeComponent": { "image_file": "png the body is created from", "material": "material the body is made of", "is_circle": "fit a circle to the bounding box" }
+  },
+  "worldgen": {
+    "algorithm": { "value": "Herringbone Wang tiles (Sean Barrett) + pixel scenes", "status": "verified", "sources": ["https://noita.wiki.gg/wiki/World_generation", "https://80.lv/articles/noita-a-game-based-on-falling-sand-simulation/"] }
+  },
+  "performance": {
+    "official_numbers": { "value": null, "status": "unverified", "note": "No published frame-time or throughput numbers from Nolla were found. HN user 'sydd' reports the game 'lags on big explosions on my i7 7700' (https://news.ycombinator.com/item?id=24397769)." }
+  }
+}

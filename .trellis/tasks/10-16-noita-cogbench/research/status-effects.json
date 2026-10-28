@@ -1,0 +1,182 @@
+{
+ "_source": "data/scripts/status_effects/status_list.lua + data/entities/misc/effect_*.xml (vanilla dump) + noita.wiki.gg Status Effects",
+ "_note": "frames = GameEffectComponent.frames of the effect entity applied by spells/scripts; stain-driven statuses persist while the stain remains (stain amount normalized: 1.0 == 60 s).",
+ "statuses": [
+  {
+   "id": "WET",
+   "entity": "effect_wet.xml",
+   "frames": 600,
+   "spell_apply_frames": 720,
+   "protects_from_fire": true,
+   "effect": "cannot ignite; extinguishes On Fire; stain burnt off by fire; no i-frames from electric stun while wet",
+   "sources": "water, swamp, mud, slush, vomit, brine; Water spell/trail (720f)"
+  },
+  {
+   "id": "OILED",
+   "entity": "effect_oiled.xml",
+   "frames": 600,
+   "spell_apply_frames": 720,
+   "protects_from_fire": true,
+   "effect": "slippery (no traction, slides down slopes); burns much longer once ignited; ignites easily; submerging in oil while burning still extinguishes",
+   "sources": "oil, liquid fire; Oil spell (720f)"
+  },
+  {
+   "id": "BLOODY",
+   "entity": "effect_bloody.xml",
+   "frames": 600,
+   "protects_from_fire": true,
+   "effect": "+5% crit chance per projectile cast (extra_modifier critical_hit_boost)",
+   "sources": "blood stains; Blood spell (720f)"
+  },
+  {
+   "id": "SLIMY",
+   "entity": "effect_slimy.xml",
+   "frames": 720,
+   "protects_from_fire": true,
+   "effect": "movement slowed 15-40% depending on stain amount",
+   "sources": "slime, hell slime, fungus blood, vomit, pea soup"
+  },
+  {
+   "id": "RADIOACTIVE",
+   "ui": "Toxic",
+   "entity": "effect_radioactive.xml",
+   "frames": 600,
+   "protects_from_fire": true,
+   "harmful": true,
+   "effect": "Radioactive damage ~2% max HP per tick (wiki: per 1.5 s on Damage Types page, per second on Status Effects page); cannot kill, floors at 5% max HP (2% per Toxic Sludge page) unless ALLERGY_RADIOACTIVE (most Hiisi)",
+   "sources": "toxic sludge, toxic gold, toxic mist"
+  },
+  {
+   "id": "POISONED",
+   "entity": "effect_poison.xml",
+   "frames": 600,
+   "harmful": true,
+   "effect": "Poison damage 2% max HP per tick (same tick cadence ambiguity); cannot kill in NG; x3 per NG+ cycle",
+   "sources": "poison, greed-cursed liquid, nauseating gas, ominous liquid, pus; drinking acid/toxic/oil etc."
+  },
+  {
+   "id": "ON_FIRE",
+   "entity": "effect_on_fire.xml (frames=100) when applied as game effect; burning itself is DamageModelComponent state",
+   "frames": 100,
+   "spell_apply_frames": 720,
+   "harmful": true,
+   "effect": "Fire damage over time: wiki 2% of max HP per second (fire_damage_amount=0.2, DESIGN_FIRE_DAMAGE_BASED_ON_MAX_HP=1, max HP clamped >=0.8 internal); +15% move speed; enemies panic (AnimalAI state TakingFireDamage); extinguished by immersion in almost any liquid",
+   "sources": "fire, lava, molten materials, fire spells"
+  },
+  {
+   "id": "FROZEN",
+   "entity": "effect_frozen.xml",
+   "frames": 120,
+   "short_variant_frames": 50,
+   "effect": "disable_movement=1; Melee hit executes: -50% current HP if >25% max, else kill; player at <=25% also killed",
+   "sources": "Freeze Charge, Iceball, Freezing Gaze (ice damage + freeze applied separately)"
+  },
+  {
+   "id": "ELECTROCUTION",
+   "ui": "Stunned",
+   "entity": "effect_electricity.xml",
+   "frames": 40,
+   "effect": "disable_movement=1; stun applied when rand[0,1] < electricity multiplier; electricity conducts through liquids/metals; resistance window 60 frames after shock",
+   "sources": "electric spells, Ukko, electrified water"
+  },
+  {
+   "id": "KNOCKBACK",
+   "ui": "Dazed",
+   "entity": "effect_knockback.xml",
+   "frames": 120,
+   "effect": "cannot levitate or respond to movement input; applied when taking Projectile/Melee damage while flying",
+   "sources": "hits while airborne, Knockback modifier"
+  },
+  {
+   "id": "KNOCKBACK_IMMUNITY",
+   "entity": "effect_knockback_immunity.xml",
+   "frames": 60,
+   "effect": "No More Knockback perk effect (perk version permanent)"
+  },
+  {
+   "id": "MELEE_COUNTER",
+   "entity": "effect_melee_counter.xml",
+   "frames": 3,
+   "effect": "parry window after kick; reflects melee damage"
+  },
+  {
+   "id": "BERSERK",
+   "entity": "effect_berserk.xml",
+   "frames": 720,
+   "effect": "spells x2 damage, x2 blast radius; creatures attack other berserk creatures"
+  },
+  {
+   "id": "CRITICAL_HIT_BOOST",
+   "entity": "effect_critical_hit_boost.xml",
+   "frames": 720,
+   "effect": "+10% crit chance (GAMEEFFECT_CRITICAL_HIT_BOOST_CRIT_EXTRA_CHANCE)"
+  },
+  {
+   "id": "MOVEMENT_FASTER",
+   "entity": "effect_movement_faster.xml",
+   "frames": 600,
+   "effect": "x1.5 speed (2X variant x2.5)"
+  },
+  {
+   "id": "MOVEMENT_SLOWER",
+   "entity": "effect_movement_slower.xml",
+   "frames": 600,
+   "effect": "x0.6..0.85 speed"
+  },
+  {
+   "id": "FASTER_LEVITATION",
+   "entity": "effect_faster_levitation.xml",
+   "frames": 600,
+   "effect": "+75% levitation speed"
+  },
+  {
+   "id": "HOVER_BOOST",
+   "entity": "effect_hover_boost.xml",
+   "frames": 600,
+   "effect": "doubles levitation meter"
+  },
+  {
+   "id": "LEVITATION",
+   "entity": "effect_levitation.xml",
+   "frames": 600,
+   "effect": "Circle of Buoyancy style free flight"
+  },
+  {
+   "id": "REGENERATION",
+   "entity": "effect_regeneration.xml",
+   "frames": 150,
+   "effect": "heals 10% max HP per second"
+  },
+  {
+   "id": "WEAKNESS",
+   "entity": "effect_weakness.xml",
+   "frames": 600,
+   "effect": "x10 damage taken (not healing)"
+  },
+  {
+   "id": "PROTECTION_FIRE",
+   "entity": "effect_protection_fire.xml",
+   "frames": -1,
+   "effect": "immune to Fire damage; burns extinguish fast"
+  },
+  {
+   "id": "CHARM",
+   "entity": "effect_charm.xml",
+   "frames": -1,
+   "effect": "creature becomes friendly"
+  },
+  {
+   "id": "JARATE",
+   "entity": "effect_jarate.xml",
+   "frames": 600,
+   "protects_from_fire": "wiki: helps",
+   "effect": "+20% chance to receive crits"
+  },
+  {
+   "id": "INTERNAL_FIRE",
+   "entity": "effect_internal_fire.xml",
+   "frames": 100,
+   "effect": "burning that continues underwater (from ingesting lava/fire)"
+  }
+ ]
+}

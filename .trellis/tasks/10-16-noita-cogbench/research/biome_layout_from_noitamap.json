@@ -1,0 +1,3231 @@
+{
+ "note": "Parse noitamap's biome_boundries_py.json (SVG paths in biome_map.png pixel units,\n1 px = one 512x512 chunk) into bounding boxes in biome-map px, chunk coords and world px.\n\nWorld mapping (noita.wiki.gg Modding: Making a custom environment):\n  biome_map.png is 70 px wide; world x=0 is at map column 35; world y=0 is map row 14\n  (biome_offset_y = 14). chunk = 512 px.",
+ "map_width_px": 70,
+ "biomes": [
+  {
+   "name": "",
+   "filename": "solid_wall_tower",
+   "biome_color": "#3f3d3e",
+   "map_px": {
+    "x0": 0,
+    "x1_excl": 70,
+    "y0": 0,
+    "y1_excl": 48
+   },
+   "chunk": {
+    "x0": -35,
+    "x1_excl": 35,
+    "y0": -14,
+    "y1_excl": 34
+   },
+   "world_px": {
+    "x0": -17920,
+    "x1_excl": 17920,
+    "y0": -7168,
+    "y1_excl": 17408
+   },
+   "bbox_w_chunks": 70,
+   "bbox_h_chunks": 48
+  },
+  {
+   "name": "",
+   "filename": "solid_wall",
+   "biome_color": "#3d3d3d",
+   "map_px": {
+    "x0": 1,
+    "x1_excl": 69,
+    "y0": 0,
+    "y1_excl": 48
+   },
+   "chunk": {
+    "x0": -34,
+    "x1_excl": 34,
+    "y0": -14,
+    "y1_excl": 34
+   },
+   "world_px": {
+    "x0": -17408,
+    "x1_excl": 17408,
+    "y0": -7168,
+    "y1_excl": 17408
+   },
+   "bbox_w_chunks": 68,
+   "bbox_h_chunks": 48
+  },
+  {
+   "name": "lake",
+   "filename": "lake",
+   "biome_color": "#1133f1",
+   "map_px": {
+    "x0": 4,
+    "x1_excl": 11,
+    "y0": 0,
+    "y1_excl": 16
+   },
+   "chunk": {
+    "x0": -31,
+    "x1_excl": -24,
+    "y0": -14,
+    "y1_excl": 2
+   },
+   "world_px": {
+    "x0": -15872,
+    "x1_excl": -12288,
+    "y0": -7168,
+    "y1_excl": 1024
+   },
+   "bbox_w_chunks": 7,
+   "bbox_h_chunks": 16
+  },
+  {
+   "name": "winter",
+   "filename": "winter",
+   "biome_color": "#d6d8e3",
+   "map_px": {
+    "x0": 11,
+    "x1_excl": 31,
+    "y0": 0,
+    "y1_excl": 39
+   },
+   "chunk": {
+    "x0": -24,
+    "x1_excl": -4,
+    "y0": -14,
+    "y1_excl": 25
+   },
+   "world_px": {
+    "x0": -12288,
+    "x1_excl": -2048,
+    "y0": -7168,
+    "y1_excl": 12800
+   },
+   "bbox_w_chunks": 20,
+   "bbox_h_chunks": 39
+  },
+  {
+   "name": "",
+   "filename": "empty",
+   "biome_color": "#48e311",
+   "map_px": {
+    "x0": 15,
+    "x1_excl": 16,
+    "y0": 0,
+    "y1_excl": 15
+   },
+   "chunk": {
+    "x0": -20,
+    "x1_excl": -19,
+    "y0": -14,
+    "y1_excl": 1
+   },
+   "world_px": {
+    "x0": -10240,
+    "x1_excl": -9728,
+    "y0": -7168,
+    "y1_excl": 512
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 15
+  },
+  {
+   "name": "",
+   "filename": "hills",
+   "biome_color": "#36d517",
+   "map_px": {
+    "x0": 22,
+    "x1_excl": 67,
+    "y0": 0,
+    "y1_excl": 15
+   },
+   "chunk": {
+    "x0": -13,
+    "x1_excl": 32,
+    "y0": -14,
+    "y1_excl": 1
+   },
+   "world_px": {
+    "x0": -6656,
+    "x1_excl": 16384,
+    "y0": -7168,
+    "y1_excl": 512
+   },
+   "bbox_w_chunks": 45,
+   "bbox_h_chunks": 15
+  },
+  {
+   "name": "boss_victoryroom",
+   "filename": "the_sky",
+   "biome_color": "#d3e6f0",
+   "map_px": {
+    "x0": 27,
+    "x1_excl": 42,
+    "y0": 0,
+    "y1_excl": 1
+   },
+   "chunk": {
+    "x0": -8,
+    "x1_excl": 7,
+    "y0": -14,
+    "y1_excl": -13
+   },
+   "world_px": {
+    "x0": -4096,
+    "x1_excl": 3584,
+    "y0": -7168,
+    "y1_excl": -6656
+   },
+   "bbox_w_chunks": 15,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "desert",
+   "filename": "desert",
+   "biome_color": "#cc9944",
+   "map_px": {
+    "x0": 45,
+    "x1_excl": 66,
+    "y0": 0,
+    "y1_excl": 41
+   },
+   "chunk": {
+    "x0": 10,
+    "x1_excl": 31,
+    "y0": -14,
+    "y1_excl": 27
+   },
+   "world_px": {
+    "x0": 5120,
+    "x1_excl": 15872,
+    "y0": -7168,
+    "y1_excl": 13824
+   },
+   "bbox_w_chunks": 21,
+   "bbox_h_chunks": 41
+  },
+  {
+   "name": "",
+   "filename": "gourd_room",
+   "biome_color": "#2e99d1",
+   "map_px": {
+    "x0": 3,
+    "x1_excl": 4,
+    "y0": 1,
+    "y1_excl": 2
+   },
+   "chunk": {
+    "x0": -32,
+    "x1_excl": -31,
+    "y0": -13,
+    "y1_excl": -12
+   },
+   "world_px": {
+    "x0": -16384,
+    "x1_excl": -15872,
+    "y0": -6656,
+    "y1_excl": -6144
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "clouds",
+   "filename": "clouds",
+   "biome_color": "#36d5c9",
+   "map_px": {
+    "x0": 4,
+    "x1_excl": 57,
+    "y0": 1,
+    "y1_excl": 6
+   },
+   "chunk": {
+    "x0": -31,
+    "x1_excl": 22,
+    "y0": -13,
+    "y1_excl": -8
+   },
+   "world_px": {
+    "x0": -15872,
+    "x1_excl": 11264,
+    "y0": -6656,
+    "y1_excl": -4096
+   },
+   "bbox_w_chunks": 53,
+   "bbox_h_chunks": 5
+  },
+  {
+   "name": "",
+   "filename": "ocarina",
+   "biome_color": "#57cace",
+   "map_px": {
+    "x0": 15,
+    "x1_excl": 16,
+    "y0": 1,
+    "y1_excl": 2
+   },
+   "chunk": {
+    "x0": -20,
+    "x1_excl": -19,
+    "y0": -13,
+    "y1_excl": -12
+   },
+   "world_px": {
+    "x0": -10240,
+    "x1_excl": -9728,
+    "y0": -6656,
+    "y1_excl": -6144
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "hills2",
+   "biome_color": "#33e311",
+   "map_px": {
+    "x0": 60,
+    "x1_excl": 63,
+    "y0": 1,
+    "y1_excl": 5
+   },
+   "chunk": {
+    "x0": 25,
+    "x1_excl": 28,
+    "y0": -13,
+    "y1_excl": -9
+   },
+   "world_px": {
+    "x0": 12800,
+    "x1_excl": 14336,
+    "y0": -6656,
+    "y1_excl": -4608
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 4
+  },
+  {
+   "name": "",
+   "filename": "essenceroom_air",
+   "biome_color": "#157cb8",
+   "map_px": {
+    "x0": 9,
+    "x1_excl": 10,
+    "y0": 3,
+    "y1_excl": 4
+   },
+   "chunk": {
+    "x0": -26,
+    "x1_excl": -25,
+    "y0": -11,
+    "y1_excl": -10
+   },
+   "world_px": {
+    "x0": -13312,
+    "x1_excl": -12800,
+    "y0": -5632,
+    "y1_excl": -5120
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "biome_barren",
+   "filename": "biome_barren",
+   "biome_color": "#ff00fb",
+   "map_px": {
+    "x0": 23,
+    "x1_excl": 26,
+    "y0": 3,
+    "y1_excl": 5
+   },
+   "chunk": {
+    "x0": -12,
+    "x1_excl": -9,
+    "y0": -11,
+    "y1_excl": -9
+   },
+   "world_px": {
+    "x0": -6144,
+    "x1_excl": -4608,
+    "y0": -5632,
+    "y1_excl": -4608
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 2
+  },
+  {
+   "name": "biome_potion_mimics",
+   "filename": "biome_potion_mimics",
+   "biome_color": "#ff00fe",
+   "map_px": {
+    "x0": 30,
+    "x1_excl": 33,
+    "y0": 3,
+    "y1_excl": 6
+   },
+   "chunk": {
+    "x0": -5,
+    "x1_excl": -2,
+    "y0": -11,
+    "y1_excl": -8
+   },
+   "world_px": {
+    "x0": -2560,
+    "x1_excl": -1024,
+    "y0": -5632,
+    "y1_excl": -4096
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 3
+  },
+  {
+   "name": "biome_darkness",
+   "filename": "biome_darkness",
+   "biome_color": "#ff00fd",
+   "map_px": {
+    "x0": 39,
+    "x1_excl": 42,
+    "y0": 4,
+    "y1_excl": 6
+   },
+   "chunk": {
+    "x0": 4,
+    "x1_excl": 7,
+    "y0": -10,
+    "y1_excl": -8
+   },
+   "world_px": {
+    "x0": 2048,
+    "x1_excl": 3584,
+    "y0": -5120,
+    "y1_excl": -4096
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 2
+  },
+  {
+   "name": "biome_boss_sky",
+   "filename": "biome_boss_sky",
+   "biome_color": "#ff00fc",
+   "map_px": {
+    "x0": 48,
+    "x1_excl": 51,
+    "y0": 4,
+    "y1_excl": 6
+   },
+   "chunk": {
+    "x0": 13,
+    "x1_excl": 16,
+    "y0": -10,
+    "y1_excl": -8
+   },
+   "world_px": {
+    "x0": 6656,
+    "x1_excl": 8192,
+    "y0": -5120,
+    "y1_excl": -4096
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 2
+  },
+  {
+   "name": "",
+   "filename": "song_room",
+   "biome_color": "#9d99d1",
+   "map_px": {
+    "x0": 57,
+    "x1_excl": 58,
+    "y0": 4,
+    "y1_excl": 5
+   },
+   "chunk": {
+    "x0": 22,
+    "x1_excl": 23,
+    "y0": -10,
+    "y1_excl": -9
+   },
+   "world_px": {
+    "x0": 11264,
+    "x1_excl": 11776,
+    "y0": -5120,
+    "y1_excl": -4608
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "sky_light_injector",
+   "biome_color": "#fe0000",
+   "map_px": {
+    "x0": 11,
+    "x1_excl": 66,
+    "y0": 5,
+    "y1_excl": 11
+   },
+   "chunk": {
+    "x0": -24,
+    "x1_excl": 31,
+    "y0": -9,
+    "y1_excl": -3
+   },
+   "world_px": {
+    "x0": -12288,
+    "x1_excl": 15872,
+    "y0": -4608,
+    "y1_excl": -1536
+   },
+   "bbox_w_chunks": 55,
+   "bbox_h_chunks": 6
+  },
+  {
+   "name": "gold",
+   "filename": "gold",
+   "biome_color": "#ffff00",
+   "map_px": {
+    "x0": 7,
+    "x1_excl": 65,
+    "y0": 7,
+    "y1_excl": 47
+   },
+   "chunk": {
+    "x0": -28,
+    "x1_excl": 30,
+    "y0": -7,
+    "y1_excl": 33
+   },
+   "world_px": {
+    "x0": -14336,
+    "x1_excl": 15360,
+    "y0": -3584,
+    "y1_excl": 16896
+   },
+   "bbox_w_chunks": 58,
+   "bbox_h_chunks": 40
+  },
+  {
+   "name": "",
+   "filename": "mountain_tree",
+   "biome_color": "#14e1d7",
+   "map_px": {
+    "x0": 31,
+    "x1_excl": 33,
+    "y0": 10,
+    "y1_excl": 15
+   },
+   "chunk": {
+    "x0": -4,
+    "x1_excl": -2,
+    "y0": -4,
+    "y1_excl": 1
+   },
+   "world_px": {
+    "x0": -2048,
+    "x1_excl": -1024,
+    "y0": -2048,
+    "y1_excl": 512
+   },
+   "bbox_w_chunks": 2,
+   "bbox_h_chunks": 5
+  },
+  {
+   "name": "",
+   "filename": "mountain_lake",
+   "biome_color": "#f7cf8d",
+   "map_px": {
+    "x0": 40,
+    "x1_excl": 41,
+    "y0": 10,
+    "y1_excl": 15
+   },
+   "chunk": {
+    "x0": 5,
+    "x1_excl": 6,
+    "y0": -4,
+    "y1_excl": 1
+   },
+   "world_px": {
+    "x0": 2560,
+    "x1_excl": 3072,
+    "y0": -2048,
+    "y1_excl": 512
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 5
+  },
+  {
+   "name": "",
+   "filename": "essenceroom",
+   "biome_color": "#157cb0",
+   "map_px": {
+    "x0": 66,
+    "x1_excl": 67,
+    "y0": 10,
+    "y1_excl": 11
+   },
+   "chunk": {
+    "x0": 31,
+    "x1_excl": 32,
+    "y0": -4,
+    "y1_excl": -3
+   },
+   "world_px": {
+    "x0": 15872,
+    "x1_excl": 16384,
+    "y0": -2048,
+    "y1_excl": -1536
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "roadblock",
+   "biome_color": "#f0d517",
+   "map_px": {
+    "x0": 33,
+    "x1_excl": 34,
+    "y0": 11,
+    "y1_excl": 12
+   },
+   "chunk": {
+    "x0": -2,
+    "x1_excl": -1,
+    "y0": -3,
+    "y1_excl": -2
+   },
+   "world_px": {
+    "x0": -1024,
+    "x1_excl": -512,
+    "y0": -1536,
+    "y1_excl": -1024
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "mountain_floating_island",
+   "biome_color": "#c08082",
+   "map_px": {
+    "x0": 36,
+    "x1_excl": 37,
+    "y0": 11,
+    "y1_excl": 12
+   },
+   "chunk": {
+    "x0": 1,
+    "x1_excl": 2,
+    "y0": -3,
+    "y1_excl": -2
+   },
+   "world_px": {
+    "x0": 512,
+    "x1_excl": 1024,
+    "y0": -1536,
+    "y1_excl": -1024
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "pyramid_top",
+   "biome_color": "#c88f5f",
+   "map_px": {
+    "x0": 54,
+    "x1_excl": 55,
+    "y0": 11,
+    "y1_excl": 12
+   },
+   "chunk": {
+    "x0": 19,
+    "x1_excl": 20,
+    "y0": -3,
+    "y1_excl": -2
+   },
+   "world_px": {
+    "x0": 9728,
+    "x1_excl": 10240,
+    "y0": -1536,
+    "y1_excl": -1024
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "mountain_top",
+   "biome_color": "#c08080",
+   "map_px": {
+    "x0": 36,
+    "x1_excl": 37,
+    "y0": 12,
+    "y1_excl": 13
+   },
+   "chunk": {
+    "x0": 1,
+    "x1_excl": 2,
+    "y0": -2,
+    "y1_excl": -1
+   },
+   "world_px": {
+    "x0": 512,
+    "x1_excl": 1024,
+    "y0": -1024,
+    "y1_excl": -512
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "pyramid_left",
+   "biome_color": "#968f5f",
+   "map_px": {
+    "x0": 51,
+    "x1_excl": 54,
+    "y0": 12,
+    "y1_excl": 15
+   },
+   "chunk": {
+    "x0": 16,
+    "x1_excl": 19,
+    "y0": -2,
+    "y1_excl": 1
+   },
+   "world_px": {
+    "x0": 8192,
+    "x1_excl": 9728,
+    "y0": -1024,
+    "y1_excl": 512
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 3
+  },
+  {
+   "name": "pyramid",
+   "filename": "pyramid",
+   "biome_color": "#967f11",
+   "map_px": {
+    "x0": 52,
+    "x1_excl": 57,
+    "y0": 12,
+    "y1_excl": 15
+   },
+   "chunk": {
+    "x0": 17,
+    "x1_excl": 22,
+    "y0": -2,
+    "y1_excl": 1
+   },
+   "world_px": {
+    "x0": 8704,
+    "x1_excl": 11264,
+    "y0": -1024,
+    "y1_excl": 512
+   },
+   "bbox_w_chunks": 5,
+   "bbox_h_chunks": 3
+  },
+  {
+   "name": "pyramid",
+   "filename": "pyramid_right",
+   "biome_color": "#968f96",
+   "map_px": {
+    "x0": 55,
+    "x1_excl": 58,
+    "y0": 12,
+    "y1_excl": 15
+   },
+   "chunk": {
+    "x0": 20,
+    "x1_excl": 23,
+    "y0": -2,
+    "y1_excl": 1
+   },
+   "world_px": {
+    "x0": 10240,
+    "x1_excl": 11776,
+    "y0": -1024,
+    "y1_excl": 512
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 3
+  },
+  {
+   "name": "biome_watchtower",
+   "filename": "biome_watchtower",
+   "biome_color": "#b70000",
+   "map_px": {
+    "x0": 62,
+    "x1_excl": 63,
+    "y0": 12,
+    "y1_excl": 15
+   },
+   "chunk": {
+    "x0": 27,
+    "x1_excl": 28,
+    "y0": -2,
+    "y1_excl": 1
+   },
+   "world_px": {
+    "x0": 13824,
+    "x1_excl": 14336,
+    "y0": -1024,
+    "y1_excl": 512
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 3
+  },
+  {
+   "name": "",
+   "filename": "bridge",
+   "biome_color": "#ad8111",
+   "map_px": {
+    "x0": 15,
+    "x1_excl": 16,
+    "y0": 13,
+    "y1_excl": 14
+   },
+   "chunk": {
+    "x0": -20,
+    "x1_excl": -19,
+    "y0": -1,
+    "y1_excl": 0
+   },
+   "world_px": {
+    "x0": -10240,
+    "x1_excl": -9728,
+    "y0": -512,
+    "y1_excl": 0
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "mountain_left_entrance",
+   "biome_color": "#208080",
+   "map_px": {
+    "x0": 35,
+    "x1_excl": 36,
+    "y0": 13,
+    "y1_excl": 14
+   },
+   "chunk": {
+    "x0": 0,
+    "x1_excl": 1,
+    "y0": -1,
+    "y1_excl": 0
+   },
+   "world_px": {
+    "x0": 0,
+    "x1_excl": 512,
+    "y0": -512,
+    "y1_excl": 0
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "mountain_hall",
+   "biome_color": "#204060",
+   "map_px": {
+    "x0": 36,
+    "x1_excl": 37,
+    "y0": 13,
+    "y1_excl": 14
+   },
+   "chunk": {
+    "x0": 1,
+    "x1_excl": 2,
+    "y0": -1,
+    "y1_excl": 0
+   },
+   "world_px": {
+    "x0": 512,
+    "x1_excl": 1024,
+    "y0": -512,
+    "y1_excl": 0
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "mountain_right",
+   "biome_color": "#408080",
+   "map_px": {
+    "x0": 37,
+    "x1_excl": 38,
+    "y0": 13,
+    "y1_excl": 14
+   },
+   "chunk": {
+    "x0": 2,
+    "x1_excl": 3,
+    "y0": -1,
+    "y1_excl": 0
+   },
+   "world_px": {
+    "x0": 1024,
+    "x1_excl": 1536,
+    "y0": -512,
+    "y1_excl": 0
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "pyramid_entrance",
+   "biome_color": "#967f5f",
+   "map_px": {
+    "x0": 52,
+    "x1_excl": 53,
+    "y0": 13,
+    "y1_excl": 14
+   },
+   "chunk": {
+    "x0": 17,
+    "x1_excl": 18,
+    "y0": -1,
+    "y1_excl": 0
+   },
+   "world_px": {
+    "x0": 8704,
+    "x1_excl": 9216,
+    "y0": -512,
+    "y1_excl": 0
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "pyramid",
+   "filename": "pyramid_hallway",
+   "biome_color": "#167f5f",
+   "map_px": {
+    "x0": 53,
+    "x1_excl": 54,
+    "y0": 13,
+    "y1_excl": 14
+   },
+   "chunk": {
+    "x0": 18,
+    "x1_excl": 19,
+    "y0": -1,
+    "y1_excl": 0
+   },
+   "world_px": {
+    "x0": 9216,
+    "x1_excl": 9728,
+    "y0": -512,
+    "y1_excl": 0
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "desert",
+   "filename": "scale",
+   "biome_color": "#eba500",
+   "map_px": {
+    "x0": 60,
+    "x1_excl": 61,
+    "y0": 13,
+    "y1_excl": 14
+   },
+   "chunk": {
+    "x0": 25,
+    "x1_excl": 26,
+    "y0": -1,
+    "y1_excl": 0
+   },
+   "world_px": {
+    "x0": 12800,
+    "x1_excl": 13312,
+    "y0": -512,
+    "y1_excl": 0
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "lake_statue",
+   "biome_color": "#11a3fc",
+   "map_px": {
+    "x0": 6,
+    "x1_excl": 9,
+    "y0": 14,
+    "y1_excl": 15
+   },
+   "chunk": {
+    "x0": -29,
+    "x1_excl": -26,
+    "y0": 0,
+    "y1_excl": 1
+   },
+   "world_px": {
+    "x0": -14848,
+    "x1_excl": -13312,
+    "y0": 0,
+    "y1_excl": 512
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "liquidcave",
+   "filename": "liquidcave",
+   "biome_color": "#89a04b",
+   "map_px": {
+    "x0": 26,
+    "x1_excl": 31,
+    "y0": 14,
+    "y1_excl": 16
+   },
+   "chunk": {
+    "x0": -9,
+    "x1_excl": -4,
+    "y0": 0,
+    "y1_excl": 2
+   },
+   "world_px": {
+    "x0": -4608,
+    "x1_excl": -2048,
+    "y0": 0,
+    "y1_excl": 1024
+   },
+   "bbox_w_chunks": 5,
+   "bbox_h_chunks": 2
+  },
+  {
+   "name": "",
+   "filename": "solid_wall_hidden_cavern",
+   "biome_color": "#42244d",
+   "map_px": {
+    "x0": 27,
+    "x1_excl": 41,
+    "y0": 14,
+    "y1_excl": 37
+   },
+   "chunk": {
+    "x0": -8,
+    "x1_excl": 6,
+    "y0": 0,
+    "y1_excl": 23
+   },
+   "world_px": {
+    "x0": -4096,
+    "x1_excl": 3072,
+    "y0": 0,
+    "y1_excl": 11776
+   },
+   "bbox_w_chunks": 14,
+   "bbox_h_chunks": 23
+  },
+  {
+   "name": "",
+   "filename": "mountain_left_stub",
+   "biome_color": "#608080",
+   "map_px": {
+    "x0": 34,
+    "x1_excl": 35,
+    "y0": 14,
+    "y1_excl": 15
+   },
+   "chunk": {
+    "x0": -1,
+    "x1_excl": 0,
+    "y0": 0,
+    "y1_excl": 1
+   },
+   "world_px": {
+    "x0": -512,
+    "x1_excl": 0,
+    "y0": 0,
+    "y1_excl": 512
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "coalmine",
+   "filename": "coalmine",
+   "biome_color": "#d57917",
+   "map_px": {
+    "x0": 34,
+    "x1_excl": 39,
+    "y0": 14,
+    "y1_excl": 16
+   },
+   "chunk": {
+    "x0": -1,
+    "x1_excl": 4,
+    "y0": 0,
+    "y1_excl": 2
+   },
+   "world_px": {
+    "x0": -512,
+    "x1_excl": 2048,
+    "y0": 0,
+    "y1_excl": 1024
+   },
+   "bbox_w_chunks": 5,
+   "bbox_h_chunks": 2
+  },
+  {
+   "name": "",
+   "filename": "mountain_right_stub",
+   "biome_color": "#e08080",
+   "map_px": {
+    "x0": 38,
+    "x1_excl": 39,
+    "y0": 14,
+    "y1_excl": 15
+   },
+   "chunk": {
+    "x0": 3,
+    "x1_excl": 4,
+    "y0": 0,
+    "y1_excl": 1
+   },
+   "world_px": {
+    "x0": 1536,
+    "x1_excl": 2048,
+    "y0": 0,
+    "y1_excl": 512
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "vault_frozen",
+   "filename": "vault_frozen",
+   "biome_color": "#0080a8",
+   "map_px": {
+    "x0": 12,
+    "x1_excl": 19,
+    "y0": 15,
+    "y1_excl": 20
+   },
+   "chunk": {
+    "x0": -23,
+    "x1_excl": -16,
+    "y0": 1,
+    "y1_excl": 6
+   },
+   "world_px": {
+    "x0": -11776,
+    "x1_excl": -8192,
+    "y0": 512,
+    "y1_excl": 3072
+   },
+   "bbox_w_chunks": 7,
+   "bbox_h_chunks": 5
+  },
+  {
+   "name": "winter_caves",
+   "filename": "winter_caves",
+   "biome_color": "#77a5bd",
+   "map_px": {
+    "x0": 13,
+    "x1_excl": 24,
+    "y0": 15,
+    "y1_excl": 43
+   },
+   "chunk": {
+    "x0": -22,
+    "x1_excl": -11,
+    "y0": 1,
+    "y1_excl": 29
+   },
+   "world_px": {
+    "x0": -11264,
+    "x1_excl": -5632,
+    "y0": 512,
+    "y1_excl": 14848
+   },
+   "bbox_w_chunks": 11,
+   "bbox_h_chunks": 28
+  },
+  {
+   "name": "secret_lab",
+   "filename": "secret_lab",
+   "biome_color": "#baa345",
+   "map_px": {
+    "x0": 25,
+    "x1_excl": 26,
+    "y0": 15,
+    "y1_excl": 16
+   },
+   "chunk": {
+    "x0": -10,
+    "x1_excl": -9,
+    "y0": 1,
+    "y1_excl": 2
+   },
+   "world_px": {
+    "x0": -5120,
+    "x1_excl": -4608,
+    "y0": 512,
+    "y1_excl": 1024
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "watercave",
+   "biome_color": "#3046c1",
+   "map_px": {
+    "x0": 31,
+    "x1_excl": 32,
+    "y0": 15,
+    "y1_excl": 16
+   },
+   "chunk": {
+    "x0": -4,
+    "x1_excl": -3,
+    "y0": 1,
+    "y1_excl": 2
+   },
+   "world_px": {
+    "x0": -2048,
+    "x1_excl": -1536,
+    "y0": 512,
+    "y1_excl": 1024
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "coalmine_alt",
+   "filename": "coalmine_alt",
+   "biome_color": "#d56517",
+   "map_px": {
+    "x0": 32,
+    "x1_excl": 34,
+    "y0": 15,
+    "y1_excl": 16
+   },
+   "chunk": {
+    "x0": -3,
+    "x1_excl": -1,
+    "y0": 1,
+    "y1_excl": 2
+   },
+   "world_px": {
+    "x0": -1536,
+    "x1_excl": -512,
+    "y0": 512,
+    "y1_excl": 1024
+   },
+   "bbox_w_chunks": 2,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "lavalake",
+   "biome_color": "#3d5a3d",
+   "map_px": {
+    "x0": 39,
+    "x1_excl": 43,
+    "y0": 15,
+    "y1_excl": 18
+   },
+   "chunk": {
+    "x0": 4,
+    "x1_excl": 8,
+    "y0": 1,
+    "y1_excl": 4
+   },
+   "world_px": {
+    "x0": 2048,
+    "x1_excl": 4096,
+    "y0": 512,
+    "y1_excl": 2048
+   },
+   "bbox_w_chunks": 4,
+   "bbox_h_chunks": 3
+  },
+  {
+   "name": "orbroom",
+   "filename": "orbroom_07",
+   "biome_color": "#ffd107",
+   "map_px": {
+    "x0": 43,
+    "x1_excl": 44,
+    "y0": 15,
+    "y1_excl": 16
+   },
+   "chunk": {
+    "x0": 8,
+    "x1_excl": 9,
+    "y0": 1,
+    "y1_excl": 2
+   },
+   "world_px": {
+    "x0": 4096,
+    "x1_excl": 4608,
+    "y0": 512,
+    "y1_excl": 1024
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "sandcave",
+   "filename": "sandcave",
+   "biome_color": "#e1cd32",
+   "map_px": {
+    "x0": 51,
+    "x1_excl": 66,
+    "y0": 15,
+    "y1_excl": 30
+   },
+   "chunk": {
+    "x0": 16,
+    "x1_excl": 31,
+    "y0": 1,
+    "y1_excl": 16
+   },
+   "world_px": {
+    "x0": 8192,
+    "x1_excl": 15872,
+    "y0": 512,
+    "y1_excl": 8192
+   },
+   "bbox_w_chunks": 15,
+   "bbox_h_chunks": 15
+  },
+  {
+   "name": "lake",
+   "filename": "lake_deep",
+   "biome_color": "#1158f1",
+   "map_px": {
+    "x0": 4,
+    "x1_excl": 11,
+    "y0": 16,
+    "y1_excl": 40
+   },
+   "chunk": {
+    "x0": -31,
+    "x1_excl": -24,
+    "y0": 2,
+    "y1_excl": 26
+   },
+   "world_px": {
+    "x0": -15872,
+    "x1_excl": -12288,
+    "y0": 1024,
+    "y1_excl": 13312
+   },
+   "bbox_w_chunks": 7,
+   "bbox_h_chunks": 24
+  },
+  {
+   "name": "holymountain",
+   "filename": "temple_wall",
+   "biome_color": "#6dcb28",
+   "map_px": {
+    "x0": 29,
+    "x1_excl": 40,
+    "y0": 16,
+    "y1_excl": 35
+   },
+   "chunk": {
+    "x0": -6,
+    "x1_excl": 5,
+    "y0": 2,
+    "y1_excl": 21
+   },
+   "world_px": {
+    "x0": -3072,
+    "x1_excl": 2560,
+    "y0": 1024,
+    "y1_excl": 10752
+   },
+   "bbox_w_chunks": 11,
+   "bbox_h_chunks": 19
+  },
+  {
+   "name": "holymountain",
+   "filename": "temple_altar_left",
+   "biome_color": "#93cb4d",
+   "map_px": {
+    "x0": 33,
+    "x1_excl": 34,
+    "y0": 16,
+    "y1_excl": 35
+   },
+   "chunk": {
+    "x0": -2,
+    "x1_excl": -1,
+    "y0": 2,
+    "y1_excl": 21
+   },
+   "world_px": {
+    "x0": -1024,
+    "x1_excl": -512,
+    "y0": 1024,
+    "y1_excl": 10752
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 19
+  },
+  {
+   "name": "holymountain",
+   "filename": "temple_altar",
+   "biome_color": "#93cb4c",
+   "map_px": {
+    "x0": 34,
+    "x1_excl": 35,
+    "y0": 16,
+    "y1_excl": 35
+   },
+   "chunk": {
+    "x0": -1,
+    "x1_excl": 0,
+    "y0": 2,
+    "y1_excl": 21
+   },
+   "world_px": {
+    "x0": -512,
+    "x1_excl": 0,
+    "y0": 1024,
+    "y1_excl": 10752
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 19
+  },
+  {
+   "name": "holymountain",
+   "filename": "temple_altar_right",
+   "biome_color": "#93cb4e",
+   "map_px": {
+    "x0": 35,
+    "x1_excl": 36,
+    "y0": 16,
+    "y1_excl": 35
+   },
+   "chunk": {
+    "x0": 0,
+    "x1_excl": 1,
+    "y0": 2,
+    "y1_excl": 21
+   },
+   "world_px": {
+    "x0": 0,
+    "x1_excl": 512,
+    "y0": 1024,
+    "y1_excl": 10752
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 19
+  },
+  {
+   "name": "",
+   "filename": "lavalake_pit",
+   "biome_color": "#3d5a4f",
+   "map_px": {
+    "x0": 42,
+    "x1_excl": 43,
+    "y0": 16,
+    "y1_excl": 20
+   },
+   "chunk": {
+    "x0": 7,
+    "x1_excl": 8,
+    "y0": 2,
+    "y1_excl": 6
+   },
+   "world_px": {
+    "x0": 3584,
+    "x1_excl": 4096,
+    "y0": 1024,
+    "y1_excl": 3072
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 4
+  },
+  {
+   "name": "fun",
+   "filename": "fungiforest",
+   "biome_color": "#a861ff",
+   "map_px": {
+    "x0": 58,
+    "x1_excl": 66,
+    "y0": 16,
+    "y1_excl": 41
+   },
+   "chunk": {
+    "x0": 23,
+    "x1_excl": 31,
+    "y0": 2,
+    "y1_excl": 27
+   },
+   "world_px": {
+    "x0": 11776,
+    "x1_excl": 15872,
+    "y0": 1024,
+    "y1_excl": 13824
+   },
+   "bbox_w_chunks": 8,
+   "bbox_h_chunks": 25
+  },
+  {
+   "name": "fungicave",
+   "filename": "fungicave",
+   "biome_color": "#e861f0",
+   "map_px": {
+    "x0": 28,
+    "x1_excl": 40,
+    "y0": 17,
+    "y1_excl": 32
+   },
+   "chunk": {
+    "x0": -7,
+    "x1_excl": 5,
+    "y0": 3,
+    "y1_excl": 18
+   },
+   "world_px": {
+    "x0": -3584,
+    "x1_excl": 2560,
+    "y0": 1536,
+    "y1_excl": 9216
+   },
+   "bbox_w_chunks": 12,
+   "bbox_h_chunks": 15
+  },
+  {
+   "name": "excavationsite",
+   "filename": "excavationsite",
+   "biome_color": "#124445",
+   "map_px": {
+    "x0": 31,
+    "x1_excl": 39,
+    "y0": 17,
+    "y1_excl": 19
+   },
+   "chunk": {
+    "x0": -4,
+    "x1_excl": 4,
+    "y0": 3,
+    "y1_excl": 5
+   },
+   "world_px": {
+    "x0": -2048,
+    "x1_excl": 2048,
+    "y0": 1536,
+    "y1_excl": 2560
+   },
+   "bbox_w_chunks": 8,
+   "bbox_h_chunks": 2
+  },
+  {
+   "name": "",
+   "filename": "excavationsite_cube_chamber",
+   "biome_color": "#24888a",
+   "map_px": {
+    "x0": 26,
+    "x1_excl": 27,
+    "y0": 18,
+    "y1_excl": 19
+   },
+   "chunk": {
+    "x0": -9,
+    "x1_excl": -8,
+    "y0": 4,
+    "y1_excl": 5
+   },
+   "world_px": {
+    "x0": -4608,
+    "x1_excl": -4096,
+    "y0": 2048,
+    "y1_excl": 2560
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "lavalake_racing",
+   "biome_color": "#4118d6",
+   "map_px": {
+    "x0": 41,
+    "x1_excl": 42,
+    "y0": 18,
+    "y1_excl": 19
+   },
+   "chunk": {
+    "x0": 6,
+    "x1_excl": 7,
+    "y0": 4,
+    "y1_excl": 5
+   },
+   "world_px": {
+    "x0": 3072,
+    "x1_excl": 3584,
+    "y0": 2048,
+    "y1_excl": 2560
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "orbroom",
+   "filename": "orbroom_02",
+   "biome_color": "#ffd102",
+   "map_px": {
+    "x0": 15,
+    "x1_excl": 16,
+    "y0": 19,
+    "y1_excl": 20
+   },
+   "chunk": {
+    "x0": -20,
+    "x1_excl": -19,
+    "y0": 5,
+    "y1_excl": 6
+   },
+   "world_px": {
+    "x0": -10240,
+    "x1_excl": -9728,
+    "y0": 2560,
+    "y1_excl": 3072
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "holymountain",
+   "filename": "temple_altar_right_snowcastle",
+   "biome_color": "#93cb5a",
+   "map_px": {
+    "x0": 35,
+    "x1_excl": 36,
+    "y0": 19,
+    "y1_excl": 31
+   },
+   "chunk": {
+    "x0": 0,
+    "x1_excl": 1,
+    "y0": 5,
+    "y1_excl": 17
+   },
+   "world_px": {
+    "x0": 0,
+    "x1_excl": 512,
+    "y0": 2560,
+    "y1_excl": 8704
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 12
+  },
+  {
+   "name": "orbroom",
+   "filename": "orbroom_04",
+   "biome_color": "#ffd104",
+   "map_px": {
+    "x0": 54,
+    "x1_excl": 55,
+    "y0": 19,
+    "y1_excl": 20
+   },
+   "chunk": {
+    "x0": 19,
+    "x1_excl": 20,
+    "y0": 5,
+    "y1_excl": 6
+   },
+   "world_px": {
+    "x0": 9728,
+    "x1_excl": 10240,
+    "y0": 2560,
+    "y1_excl": 3072
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "rock_room",
+   "biome_color": "#326655",
+   "map_px": {
+    "x0": 28,
+    "x1_excl": 29,
+    "y0": 20,
+    "y1_excl": 21
+   },
+   "chunk": {
+    "x0": -7,
+    "x1_excl": -6,
+    "y0": 6,
+    "y1_excl": 7
+   },
+   "world_px": {
+    "x0": -3584,
+    "x1_excl": -3072,
+    "y0": 3072,
+    "y1_excl": 3584
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "snowcave",
+   "filename": "snowcave",
+   "biome_color": "#1775d5",
+   "map_px": {
+    "x0": 30,
+    "x1_excl": 40,
+    "y0": 20,
+    "y1_excl": 23
+   },
+   "chunk": {
+    "x0": -5,
+    "x1_excl": 5,
+    "y0": 6,
+    "y1_excl": 9
+   },
+   "world_px": {
+    "x0": -2560,
+    "x1_excl": 2560,
+    "y0": 3072,
+    "y1_excl": 4608
+   },
+   "bbox_w_chunks": 10,
+   "bbox_h_chunks": 3
+  },
+  {
+   "name": "",
+   "filename": "snowcave_tunnel",
+   "biome_color": "#7be311",
+   "map_px": {
+    "x0": 40,
+    "x1_excl": 43,
+    "y0": 20,
+    "y1_excl": 21
+   },
+   "chunk": {
+    "x0": 5,
+    "x1_excl": 8,
+    "y0": 6,
+    "y1_excl": 7
+   },
+   "world_px": {
+    "x0": 2560,
+    "x1_excl": 4096,
+    "y0": 3072,
+    "y1_excl": 3584
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "funroom",
+   "biome_color": "#0a95a4",
+   "map_px": {
+    "x0": 46,
+    "x1_excl": 47,
+    "y0": 20,
+    "y1_excl": 21
+   },
+   "chunk": {
+    "x0": 11,
+    "x1_excl": 12,
+    "y0": 6,
+    "y1_excl": 7
+   },
+   "world_px": {
+    "x0": 5632,
+    "x1_excl": 6144,
+    "y0": 3072,
+    "y1_excl": 3584
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "moon_room",
+   "biome_color": "#567cb0",
+   "map_px": {
+    "x0": 66,
+    "x1_excl": 67,
+    "y0": 20,
+    "y1_excl": 21
+   },
+   "chunk": {
+    "x0": 31,
+    "x1_excl": 32,
+    "y0": 6,
+    "y1_excl": 7
+   },
+   "world_px": {
+    "x0": 15872,
+    "x1_excl": 16384,
+    "y0": 3072,
+    "y1_excl": 3584
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "orbroom",
+   "filename": "orbroom_05",
+   "biome_color": "#ffd105",
+   "map_px": {
+    "x0": 26,
+    "x1_excl": 27,
+    "y0": 21,
+    "y1_excl": 22
+   },
+   "chunk": {
+    "x0": -9,
+    "x1_excl": -8,
+    "y0": 7,
+    "y1_excl": 8
+   },
+   "world_px": {
+    "x0": -4608,
+    "x1_excl": -4096,
+    "y0": 3584,
+    "y1_excl": 4096
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "wandcave",
+   "filename": "wandcave",
+   "biome_color": "#006c42",
+   "map_px": {
+    "x0": 27,
+    "x1_excl": 58,
+    "y0": 21,
+    "y1_excl": 40
+   },
+   "chunk": {
+    "x0": -8,
+    "x1_excl": 23,
+    "y0": 7,
+    "y1_excl": 26
+   },
+   "world_px": {
+    "x0": -4096,
+    "x1_excl": 11776,
+    "y0": 3584,
+    "y1_excl": 13312
+   },
+   "bbox_w_chunks": 31,
+   "bbox_h_chunks": 19
+  },
+  {
+   "name": "",
+   "filename": "friend_4",
+   "biome_color": "#6db55d",
+   "map_px": {
+    "x0": 14,
+    "x1_excl": 15,
+    "y0": 22,
+    "y1_excl": 23
+   },
+   "chunk": {
+    "x0": -21,
+    "x1_excl": -20,
+    "y0": 8,
+    "y1_excl": 9
+   },
+   "world_px": {
+    "x0": -10752,
+    "x1_excl": -10240,
+    "y0": 4096,
+    "y1_excl": 4608
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "snowcave_secret_chamber",
+   "biome_color": "#18a0d6",
+   "map_px": {
+    "x0": 42,
+    "x1_excl": 43,
+    "y0": 22,
+    "y1_excl": 23
+   },
+   "chunk": {
+    "x0": 7,
+    "x1_excl": 8,
+    "y0": 8,
+    "y1_excl": 9
+   },
+   "world_px": {
+    "x0": 3584,
+    "x1_excl": 4096,
+    "y0": 4096,
+    "y1_excl": 4608
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "hills",
+   "biome_color": "#3d3e40",
+   "map_px": {
+    "x0": 53,
+    "x1_excl": 56,
+    "y0": 22,
+    "y1_excl": 23
+   },
+   "chunk": {
+    "x0": 18,
+    "x1_excl": 21,
+    "y0": 8,
+    "y1_excl": 9
+   },
+   "world_px": {
+    "x0": 9216,
+    "x1_excl": 10752,
+    "y0": 4096,
+    "y1_excl": 4608
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "solid_wall_tower_10",
+   "biome_color": "#3d3e41",
+   "map_px": {
+    "x0": 54,
+    "x1_excl": 55,
+    "y0": 22,
+    "y1_excl": 23
+   },
+   "chunk": {
+    "x0": 19,
+    "x1_excl": 20,
+    "y0": 8,
+    "y1_excl": 9
+   },
+   "world_px": {
+    "x0": 9728,
+    "x1_excl": 10240,
+    "y0": 4096,
+    "y1_excl": 4608
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "friend_3",
+   "biome_color": "#6db55c",
+   "map_px": {
+    "x0": 25,
+    "x1_excl": 26,
+    "y0": 23,
+    "y1_excl": 24
+   },
+   "chunk": {
+    "x0": -10,
+    "x1_excl": -9,
+    "y0": 9,
+    "y1_excl": 10
+   },
+   "world_px": {
+    "x0": -5120,
+    "x1_excl": -4608,
+    "y0": 4608,
+    "y1_excl": 5120
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "tower",
+   "filename": "solid_wall_tower_9",
+   "biome_color": "#3d3e3f",
+   "map_px": {
+    "x0": 53,
+    "x1_excl": 56,
+    "y0": 23,
+    "y1_excl": 24
+   },
+   "chunk": {
+    "x0": 18,
+    "x1_excl": 21,
+    "y0": 9,
+    "y1_excl": 10
+   },
+   "world_px": {
+    "x0": 9216,
+    "x1_excl": 10752,
+    "y0": 4608,
+    "y1_excl": 5120
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "snowcastle_hourglass_chamber",
+   "biome_color": "#18d6d6",
+   "map_px": {
+    "x0": 27,
+    "x1_excl": 28,
+    "y0": 24,
+    "y1_excl": 25
+   },
+   "chunk": {
+    "x0": -8,
+    "x1_excl": -7,
+    "y0": 10,
+    "y1_excl": 11
+   },
+   "world_px": {
+    "x0": -4096,
+    "x1_excl": -3584,
+    "y0": 5120,
+    "y1_excl": 5632
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "snowcastle",
+   "filename": "snowcastle_cavern",
+   "biome_color": "#775ddb",
+   "map_px": {
+    "x0": 30,
+    "x1_excl": 39,
+    "y0": 24,
+    "y1_excl": 25
+   },
+   "chunk": {
+    "x0": -5,
+    "x1_excl": 4,
+    "y0": 10,
+    "y1_excl": 11
+   },
+   "world_px": {
+    "x0": -2560,
+    "x1_excl": 2048,
+    "y0": 5120,
+    "y1_excl": 5632
+   },
+   "bbox_w_chunks": 9,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "snowcastle",
+   "filename": "snowcastle",
+   "biome_color": "#0046ff",
+   "map_px": {
+    "x0": 31,
+    "x1_excl": 38,
+    "y0": 24,
+    "y1_excl": 26
+   },
+   "chunk": {
+    "x0": -4,
+    "x1_excl": 3,
+    "y0": 10,
+    "y1_excl": 12
+   },
+   "world_px": {
+    "x0": -2048,
+    "x1_excl": 1536,
+    "y0": 5120,
+    "y1_excl": 6144
+   },
+   "bbox_w_chunks": 7,
+   "bbox_h_chunks": 2
+  },
+  {
+   "name": "tower",
+   "filename": "solid_wall_tower_8",
+   "biome_color": "#3d3e3e",
+   "map_px": {
+    "x0": 53,
+    "x1_excl": 56,
+    "y0": 24,
+    "y1_excl": 25
+   },
+   "chunk": {
+    "x0": 18,
+    "x1_excl": 21,
+    "y0": 10,
+    "y1_excl": 11
+   },
+   "world_px": {
+    "x0": 9216,
+    "x1_excl": 10752,
+    "y0": 5120,
+    "y1_excl": 5632
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "wizardcave",
+   "filename": "wizardcave",
+   "biome_color": "#726186",
+   "map_px": {
+    "x0": 23,
+    "x1_excl": 60,
+    "y0": 25,
+    "y1_excl": 46
+   },
+   "chunk": {
+    "x0": -12,
+    "x1_excl": 25,
+    "y0": 11,
+    "y1_excl": 32
+   },
+   "world_px": {
+    "x0": -6144,
+    "x1_excl": 12800,
+    "y0": 5632,
+    "y1_excl": 16384
+   },
+   "bbox_w_chunks": 37,
+   "bbox_h_chunks": 21
+  },
+  {
+   "name": "",
+   "filename": "friend_1",
+   "biome_color": "#6db55a",
+   "map_px": {
+    "x0": 41,
+    "x1_excl": 42,
+    "y0": 25,
+    "y1_excl": 26
+   },
+   "chunk": {
+    "x0": 6,
+    "x1_excl": 7,
+    "y0": 11,
+    "y1_excl": 12
+   },
+   "world_px": {
+    "x0": 3072,
+    "x1_excl": 3584,
+    "y0": 5632,
+    "y1_excl": 6144
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "meat",
+   "filename": "meat",
+   "biome_color": "#572828",
+   "map_px": {
+    "x0": 47,
+    "x1_excl": 66,
+    "y0": 25,
+    "y1_excl": 46
+   },
+   "chunk": {
+    "x0": 12,
+    "x1_excl": 31,
+    "y0": 11,
+    "y1_excl": 32
+   },
+   "world_px": {
+    "x0": 6144,
+    "x1_excl": 15872,
+    "y0": 5632,
+    "y1_excl": 16384
+   },
+   "bbox_w_chunks": 19,
+   "bbox_h_chunks": 21
+  },
+  {
+   "name": "tower",
+   "filename": "solid_wall_tower_7",
+   "biome_color": "#3d3e3d",
+   "map_px": {
+    "x0": 53,
+    "x1_excl": 56,
+    "y0": 25,
+    "y1_excl": 26
+   },
+   "chunk": {
+    "x0": 18,
+    "x1_excl": 21,
+    "y0": 11,
+    "y1_excl": 12
+   },
+   "world_px": {
+    "x0": 9216,
+    "x1_excl": 10752,
+    "y0": 5632,
+    "y1_excl": 6144
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "rainforest_dark",
+   "filename": "rainforest_dark",
+   "biome_color": "#375c00",
+   "map_px": {
+    "x0": 24,
+    "x1_excl": 30,
+    "y0": 26,
+    "y1_excl": 34
+   },
+   "chunk": {
+    "x0": -11,
+    "x1_excl": -5,
+    "y0": 12,
+    "y1_excl": 20
+   },
+   "world_px": {
+    "x0": -5632,
+    "x1_excl": -2560,
+    "y0": 6144,
+    "y1_excl": 10240
+   },
+   "bbox_w_chunks": 6,
+   "bbox_h_chunks": 8
+  },
+  {
+   "name": "tower",
+   "filename": "solid_wall_tower_6",
+   "biome_color": "#3d3e3c",
+   "map_px": {
+    "x0": 53,
+    "x1_excl": 56,
+    "y0": 26,
+    "y1_excl": 27
+   },
+   "chunk": {
+    "x0": 18,
+    "x1_excl": 21,
+    "y0": 12,
+    "y1_excl": 13
+   },
+   "world_px": {
+    "x0": 9216,
+    "x1_excl": 10752,
+    "y0": 6144,
+    "y1_excl": 6656
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "rainforest",
+   "filename": "rainforest",
+   "biome_color": "#808000",
+   "map_px": {
+    "x0": 30,
+    "x1_excl": 39,
+    "y0": 27,
+    "y1_excl": 29
+   },
+   "chunk": {
+    "x0": -5,
+    "x1_excl": 4,
+    "y0": 13,
+    "y1_excl": 15
+   },
+   "world_px": {
+    "x0": -2560,
+    "x1_excl": 2048,
+    "y0": 6656,
+    "y1_excl": 7680
+   },
+   "bbox_w_chunks": 9,
+   "bbox_h_chunks": 2
+  },
+  {
+   "name": "tower",
+   "filename": "solid_wall_tower_5",
+   "biome_color": "#3d3e3b",
+   "map_px": {
+    "x0": 53,
+    "x1_excl": 56,
+    "y0": 27,
+    "y1_excl": 28
+   },
+   "chunk": {
+    "x0": 18,
+    "x1_excl": 21,
+    "y0": 13,
+    "y1_excl": 14
+   },
+   "world_px": {
+    "x0": 9216,
+    "x1_excl": 10752,
+    "y0": 6656,
+    "y1_excl": 7168
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "rainforest",
+   "filename": "rainforest_open",
+   "biome_color": "#a08400",
+   "map_px": {
+    "x0": 30,
+    "x1_excl": 39,
+    "y0": 28,
+    "y1_excl": 30
+   },
+   "chunk": {
+    "x0": -5,
+    "x1_excl": 4,
+    "y0": 14,
+    "y1_excl": 16
+   },
+   "world_px": {
+    "x0": -2560,
+    "x1_excl": 2048,
+    "y0": 7168,
+    "y1_excl": 8192
+   },
+   "bbox_w_chunks": 9,
+   "bbox_h_chunks": 2
+  },
+  {
+   "name": "dragoncave",
+   "filename": "dragoncave",
+   "biome_color": "#364d24",
+   "map_px": {
+    "x0": 39,
+    "x1_excl": 40,
+    "y0": 28,
+    "y1_excl": 29
+   },
+   "chunk": {
+    "x0": 4,
+    "x1_excl": 5,
+    "y0": 14,
+    "y1_excl": 15
+   },
+   "world_px": {
+    "x0": 2048,
+    "x1_excl": 2560,
+    "y0": 7168,
+    "y1_excl": 7680
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "teleroom",
+   "biome_color": "#5f8fab",
+   "map_px": {
+    "x0": 42,
+    "x1_excl": 43,
+    "y0": 28,
+    "y1_excl": 29
+   },
+   "chunk": {
+    "x0": 7,
+    "x1_excl": 8,
+    "y0": 14,
+    "y1_excl": 15
+   },
+   "world_px": {
+    "x0": 3584,
+    "x1_excl": 4096,
+    "y0": 7168,
+    "y1_excl": 7680
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "tower",
+   "filename": "solid_wall_tower_4",
+   "biome_color": "#3d3e3a",
+   "map_px": {
+    "x0": 53,
+    "x1_excl": 56,
+    "y0": 28,
+    "y1_excl": 29
+   },
+   "chunk": {
+    "x0": 18,
+    "x1_excl": 21,
+    "y0": 14,
+    "y1_excl": 15
+   },
+   "world_px": {
+    "x0": 9216,
+    "x1_excl": 10752,
+    "y0": 7168,
+    "y1_excl": 7680
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "null_room",
+   "biome_color": "#e17e32",
+   "map_px": {
+    "x0": 62,
+    "x1_excl": 63,
+    "y0": 28,
+    "y1_excl": 29
+   },
+   "chunk": {
+    "x0": 27,
+    "x1_excl": 28,
+    "y0": 14,
+    "y1_excl": 15
+   },
+   "world_px": {
+    "x0": 13824,
+    "x1_excl": 14336,
+    "y0": 7168,
+    "y1_excl": 7680
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "robobase",
+   "filename": "robobase",
+   "biome_color": "#4e5267",
+   "map_px": {
+    "x0": 2,
+    "x1_excl": 66,
+    "y0": 29,
+    "y1_excl": 48
+   },
+   "chunk": {
+    "x0": -33,
+    "x1_excl": 31,
+    "y0": 15,
+    "y1_excl": 34
+   },
+   "world_px": {
+    "x0": -16896,
+    "x1_excl": 15872,
+    "y0": 7680,
+    "y1_excl": 17408
+   },
+   "bbox_w_chunks": 64,
+   "bbox_h_chunks": 19
+  },
+  {
+   "name": "tower",
+   "filename": "solid_wall_tower_3",
+   "biome_color": "#3d3e39",
+   "map_px": {
+    "x0": 53,
+    "x1_excl": 56,
+    "y0": 29,
+    "y1_excl": 30
+   },
+   "chunk": {
+    "x0": 18,
+    "x1_excl": 21,
+    "y0": 15,
+    "y1_excl": 16
+   },
+   "world_px": {
+    "x0": 9216,
+    "x1_excl": 10752,
+    "y0": 7680,
+    "y1_excl": 8192
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "meat",
+   "filename": "meatroom",
+   "biome_color": "#796620",
+   "map_px": {
+    "x0": 48,
+    "x1_excl": 49,
+    "y0": 30,
+    "y1_excl": 31
+   },
+   "chunk": {
+    "x0": 13,
+    "x1_excl": 14,
+    "y0": 16,
+    "y1_excl": 17
+   },
+   "world_px": {
+    "x0": 6656,
+    "x1_excl": 7168,
+    "y0": 8192,
+    "y1_excl": 8704
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "tower",
+   "filename": "solid_wall_tower_2",
+   "biome_color": "#3d3e38",
+   "map_px": {
+    "x0": 53,
+    "x1_excl": 56,
+    "y0": 30,
+    "y1_excl": 31
+   },
+   "chunk": {
+    "x0": 18,
+    "x1_excl": 21,
+    "y0": 16,
+    "y1_excl": 17
+   },
+   "world_px": {
+    "x0": 9216,
+    "x1_excl": 10752,
+    "y0": 8192,
+    "y1_excl": 8704
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "vault",
+   "filename": "vault",
+   "biome_color": "#008000",
+   "map_px": {
+    "x0": 29,
+    "x1_excl": 40,
+    "y0": 31,
+    "y1_excl": 34
+   },
+   "chunk": {
+    "x0": -6,
+    "x1_excl": 5,
+    "y0": 17,
+    "y1_excl": 20
+   },
+   "world_px": {
+    "x0": -3072,
+    "x1_excl": 2560,
+    "y0": 8704,
+    "y1_excl": 10240
+   },
+   "bbox_w_chunks": 11,
+   "bbox_h_chunks": 3
+  },
+  {
+   "name": "tower",
+   "filename": "solid_wall_tower_1",
+   "biome_color": "#3d3e37",
+   "map_px": {
+    "x0": 53,
+    "x1_excl": 56,
+    "y0": 31,
+    "y1_excl": 32
+   },
+   "chunk": {
+    "x0": 18,
+    "x1_excl": 21,
+    "y0": 17,
+    "y1_excl": 18
+   },
+   "world_px": {
+    "x0": 9216,
+    "x1_excl": 10752,
+    "y0": 8704,
+    "y1_excl": 9216
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "orbroom",
+   "filename": "orbroom_06",
+   "biome_color": "#ffd106",
+   "map_px": {
+    "x0": 27,
+    "x1_excl": 28,
+    "y0": 33,
+    "y1_excl": 34
+   },
+   "chunk": {
+    "x0": -8,
+    "x1_excl": -7,
+    "y0": 19,
+    "y1_excl": 20
+   },
+   "world_px": {
+    "x0": -4096,
+    "x1_excl": -3584,
+    "y0": 9728,
+    "y1_excl": 10240
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "friend_2",
+   "biome_color": "#6db55b",
+   "map_px": {
+    "x0": 43,
+    "x1_excl": 44,
+    "y0": 33,
+    "y1_excl": 34
+   },
+   "chunk": {
+    "x0": 8,
+    "x1_excl": 9,
+    "y0": 19,
+    "y1_excl": 20
+   },
+   "world_px": {
+    "x0": 4096,
+    "x1_excl": 4608,
+    "y0": 9728,
+    "y1_excl": 10240
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "water",
+   "filename": "water",
+   "biome_color": "#0000ff",
+   "map_px": {
+    "x0": 57,
+    "x1_excl": 58,
+    "y0": 33,
+    "y1_excl": 34
+   },
+   "chunk": {
+    "x0": 22,
+    "x1_excl": 23,
+    "y0": 19,
+    "y1_excl": 20
+   },
+   "world_px": {
+    "x0": 11264,
+    "x1_excl": 11776,
+    "y0": 9728,
+    "y1_excl": 10240
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "gun_room",
+   "biome_color": "#39a760",
+   "map_px": {
+    "x0": 66,
+    "x1_excl": 67,
+    "y0": 33,
+    "y1_excl": 34
+   },
+   "chunk": {
+    "x0": 31,
+    "x1_excl": 32,
+    "y0": 19,
+    "y1_excl": 20
+   },
+   "world_px": {
+    "x0": 15872,
+    "x1_excl": 16384,
+    "y0": 9728,
+    "y1_excl": 10240
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "mystery_teleport",
+   "biome_color": "#157cb7",
+   "map_px": {
+    "x0": 26,
+    "x1_excl": 27,
+    "y0": 35,
+    "y1_excl": 36
+   },
+   "chunk": {
+    "x0": -9,
+    "x1_excl": -8,
+    "y0": 21,
+    "y1_excl": 22
+   },
+   "world_px": {
+    "x0": -4608,
+    "x1_excl": -4096,
+    "y0": 10752,
+    "y1_excl": 11264
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "crypt",
+   "filename": "crypt",
+   "biome_color": "#786c42",
+   "map_px": {
+    "x0": 26,
+    "x1_excl": 40,
+    "y0": 35,
+    "y1_excl": 39
+   },
+   "chunk": {
+    "x0": -9,
+    "x1_excl": 5,
+    "y0": 21,
+    "y1_excl": 25
+   },
+   "world_px": {
+    "x0": -4608,
+    "x1_excl": 2560,
+    "y0": 10752,
+    "y1_excl": 12800
+   },
+   "bbox_w_chunks": 14,
+   "bbox_h_chunks": 4
+  },
+  {
+   "name": "robobase",
+   "filename": "roboroom",
+   "biome_color": "#9d893d",
+   "map_px": {
+    "x0": 62,
+    "x1_excl": 63,
+    "y0": 35,
+    "y1_excl": 36
+   },
+   "chunk": {
+    "x0": 27,
+    "x1_excl": 28,
+    "y0": 21,
+    "y1_excl": 22
+   },
+   "world_px": {
+    "x0": 13824,
+    "x1_excl": 14336,
+    "y0": 10752,
+    "y1_excl": 11264
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "friend_5",
+   "biome_color": "#6db55e",
+   "map_px": {
+    "x0": 13,
+    "x1_excl": 14,
+    "y0": 36,
+    "y1_excl": 37
+   },
+   "chunk": {
+    "x0": -22,
+    "x1_excl": -21,
+    "y0": 22,
+    "y1_excl": 23
+   },
+   "world_px": {
+    "x0": -11264,
+    "x1_excl": -10752,
+    "y0": 11264,
+    "y1_excl": 11776
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "wizardcave_entrance",
+   "biome_color": "#804169",
+   "map_px": {
+    "x0": 40,
+    "x1_excl": 41,
+    "y0": 36,
+    "y1_excl": 37
+   },
+   "chunk": {
+    "x0": 5,
+    "x1_excl": 6,
+    "y0": 22,
+    "y1_excl": 23
+   },
+   "world_px": {
+    "x0": 2560,
+    "x1_excl": 3072,
+    "y0": 11264,
+    "y1_excl": 11776
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "boss_arena",
+   "filename": "boss_arena_top",
+   "biome_color": "#0da899",
+   "map_px": {
+    "x0": 40,
+    "x1_excl": 41,
+    "y0": 37,
+    "y1_excl": 38
+   },
+   "chunk": {
+    "x0": 5,
+    "x1_excl": 6,
+    "y0": 23,
+    "y1_excl": 24
+   },
+   "world_px": {
+    "x0": 2560,
+    "x1_excl": 3072,
+    "y0": 11776,
+    "y1_excl": 12288
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "boss_arena",
+   "filename": "boss_arena",
+   "biome_color": "#14eed7",
+   "map_px": {
+    "x0": 38,
+    "x1_excl": 43,
+    "y0": 38,
+    "y1_excl": 41
+   },
+   "chunk": {
+    "x0": 3,
+    "x1_excl": 8,
+    "y0": 24,
+    "y1_excl": 27
+   },
+   "world_px": {
+    "x0": 1536,
+    "x1_excl": 4096,
+    "y0": 12288,
+    "y1_excl": 13824
+   },
+   "bbox_w_chunks": 5,
+   "bbox_h_chunks": 3
+  },
+  {
+   "name": "ghost_secret",
+   "filename": "ghost_secret",
+   "biome_color": "#1f3b64",
+   "map_px": {
+    "x0": 12,
+    "x1_excl": 13,
+    "y0": 39,
+    "y1_excl": 40
+   },
+   "chunk": {
+    "x0": -23,
+    "x1_excl": -22,
+    "y0": 25,
+    "y1_excl": 26
+   },
+   "world_px": {
+    "x0": -11776,
+    "x1_excl": -11264,
+    "y0": 12800,
+    "y1_excl": 13312
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "friend_6",
+   "biome_color": "#6db55f",
+   "map_px": {
+    "x0": 25,
+    "x1_excl": 26,
+    "y0": 39,
+    "y1_excl": 40
+   },
+   "chunk": {
+    "x0": -10,
+    "x1_excl": -9,
+    "y0": 25,
+    "y1_excl": 26
+   },
+   "world_px": {
+    "x0": -5120,
+    "x1_excl": -4608,
+    "y0": 12800,
+    "y1_excl": 13312
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "holymountain",
+   "filename": "temple_wall_ending",
+   "biome_color": "#5a9628",
+   "map_px": {
+    "x0": 29,
+    "x1_excl": 38,
+    "y0": 39,
+    "y1_excl": 40
+   },
+   "chunk": {
+    "x0": -6,
+    "x1_excl": 3,
+    "y0": 25,
+    "y1_excl": 26
+   },
+   "world_px": {
+    "x0": -3072,
+    "x1_excl": 1536,
+    "y0": 12800,
+    "y1_excl": 13312
+   },
+   "bbox_w_chunks": 9,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "essenceroom_alc",
+   "biome_color": "#157cb6",
+   "map_px": {
+    "x0": 7,
+    "x1_excl": 8,
+    "y0": 40,
+    "y1_excl": 41
+   },
+   "chunk": {
+    "x0": -28,
+    "x1_excl": -27,
+    "y0": 26,
+    "y1_excl": 27
+   },
+   "world_px": {
+    "x0": -14336,
+    "x1_excl": -13824,
+    "y0": 13312,
+    "y1_excl": 13824
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "lava",
+   "filename": "lava_90percent",
+   "biome_color": "#ffa717",
+   "map_px": {
+    "x0": 27,
+    "x1_excl": 45,
+    "y0": 40,
+    "y1_excl": 41
+   },
+   "chunk": {
+    "x0": -8,
+    "x1_excl": 10,
+    "y0": 26,
+    "y1_excl": 27
+   },
+   "world_px": {
+    "x0": -4096,
+    "x1_excl": 5120,
+    "y0": 13312,
+    "y1_excl": 13824
+   },
+   "bbox_w_chunks": 18,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "lava",
+   "filename": "lava",
+   "biome_color": "#ff6a02",
+   "map_px": {
+    "x0": 0,
+    "x1_excl": 51,
+    "y0": 41,
+    "y1_excl": 48
+   },
+   "chunk": {
+    "x0": -35,
+    "x1_excl": 16,
+    "y0": 27,
+    "y1_excl": 34
+   },
+   "world_px": {
+    "x0": -17920,
+    "x1_excl": 8192,
+    "y0": 13824,
+    "y1_excl": 17408
+   },
+   "bbox_w_chunks": 51,
+   "bbox_h_chunks": 7
+  },
+  {
+   "name": "orbroom",
+   "filename": "orbroom_09",
+   "biome_color": "#ffd109",
+   "map_px": {
+    "x0": 17,
+    "x1_excl": 18,
+    "y0": 42,
+    "y1_excl": 43
+   },
+   "chunk": {
+    "x0": -18,
+    "x1_excl": -17,
+    "y0": 28,
+    "y1_excl": 29
+   },
+   "world_px": {
+    "x0": -9216,
+    "x1_excl": -8704,
+    "y0": 14336,
+    "y1_excl": 14848
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "holymountain",
+   "filename": "solid_wall_temple",
+   "biome_color": "#b8a928",
+   "map_px": {
+    "x0": 46,
+    "x1_excl": 49,
+    "y0": 42,
+    "y1_excl": 45
+   },
+   "chunk": {
+    "x0": 11,
+    "x1_excl": 14,
+    "y0": 28,
+    "y1_excl": 31
+   },
+   "world_px": {
+    "x0": 5632,
+    "x1_excl": 7168,
+    "y0": 14336,
+    "y1_excl": 15872
+   },
+   "bbox_w_chunks": 3,
+   "bbox_h_chunks": 3
+  },
+  {
+   "name": "",
+   "filename": "robot_egg",
+   "biome_color": "#9e4302",
+   "map_px": {
+    "x0": 25,
+    "x1_excl": 26,
+    "y0": 43,
+    "y1_excl": 44
+   },
+   "chunk": {
+    "x0": -10,
+    "x1_excl": -9,
+    "y0": 29,
+    "y1_excl": 30
+   },
+   "world_px": {
+    "x0": -5120,
+    "x1_excl": -4608,
+    "y0": 14848,
+    "y1_excl": 15360
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "boss_victoryroom",
+   "filename": "the_end",
+   "biome_color": "#3c0f0a",
+   "map_px": {
+    "x0": 25,
+    "x1_excl": 43,
+    "y0": 43,
+    "y1_excl": 48
+   },
+   "chunk": {
+    "x0": -10,
+    "x1_excl": 8,
+    "y0": 29,
+    "y1_excl": 34
+   },
+   "world_px": {
+    "x0": -5120,
+    "x1_excl": 4096,
+    "y0": 14848,
+    "y1_excl": 17408
+   },
+   "bbox_w_chunks": 18,
+   "bbox_h_chunks": 5
+  },
+  {
+   "name": "boss_victoryroom",
+   "filename": "boss_victoryroom",
+   "biome_color": "#50eed7",
+   "map_px": {
+    "x0": 47,
+    "x1_excl": 48,
+    "y0": 43,
+    "y1_excl": 44
+   },
+   "chunk": {
+    "x0": 12,
+    "x1_excl": 13,
+    "y0": 29,
+    "y1_excl": 30
+   },
+   "world_px": {
+    "x0": 6144,
+    "x1_excl": 6656,
+    "y0": 14848,
+    "y1_excl": 15360
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "mestari_secret",
+   "filename": "mestari_secret",
+   "biome_color": "#1f3b62",
+   "map_px": {
+    "x0": 59,
+    "x1_excl": 60,
+    "y0": 43,
+    "y1_excl": 44
+   },
+   "chunk": {
+    "x0": 24,
+    "x1_excl": 25,
+    "y0": 29,
+    "y1_excl": 30
+   },
+   "world_px": {
+    "x0": 12288,
+    "x1_excl": 12800,
+    "y0": 14848,
+    "y1_excl": 15360
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "alchemist_secret",
+   "biome_color": "#57dace",
+   "map_px": {
+    "x0": 42,
+    "x1_excl": 43,
+    "y0": 44,
+    "y1_excl": 45
+   },
+   "chunk": {
+    "x0": 7,
+    "x1_excl": 8,
+    "y0": 30,
+    "y1_excl": 31
+   },
+   "world_px": {
+    "x0": 3584,
+    "x1_excl": 4096,
+    "y0": 15360,
+    "y1_excl": 15872
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "orbroom",
+   "filename": "orbroom_08",
+   "biome_color": "#ffd108",
+   "map_px": {
+    "x0": 34,
+    "x1_excl": 35,
+    "y0": 45,
+    "y1_excl": 46
+   },
+   "chunk": {
+    "x0": -1,
+    "x1_excl": 0,
+    "y0": 31,
+    "y1_excl": 32
+   },
+   "world_px": {
+    "x0": -512,
+    "x1_excl": 0,
+    "y0": 15872,
+    "y1_excl": 16384
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "orbroom",
+   "filename": "orbroom_10",
+   "biome_color": "#ffd110",
+   "map_px": {
+    "x0": 55,
+    "x1_excl": 56,
+    "y0": 45,
+    "y1_excl": 46
+   },
+   "chunk": {
+    "x0": 20,
+    "x1_excl": 21,
+    "y0": 31,
+    "y1_excl": 32
+   },
+   "world_px": {
+    "x0": 10240,
+    "x1_excl": 10752,
+    "y0": 15872,
+    "y1_excl": 16384
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  },
+  {
+   "name": "",
+   "filename": "essenceroom_hell",
+   "biome_color": "#157cb5",
+   "map_px": {
+    "x0": 24,
+    "x1_excl": 25,
+    "y0": 46,
+    "y1_excl": 47
+   },
+   "chunk": {
+    "x0": -11,
+    "x1_excl": -10,
+    "y0": 32,
+    "y1_excl": 33
+   },
+   "world_px": {
+    "x0": -5632,
+    "x1_excl": -5120,
+    "y0": 16384,
+    "y1_excl": 16896
+   },
+   "bbox_w_chunks": 1,
+   "bbox_h_chunks": 1
+  }
+ ]
+}

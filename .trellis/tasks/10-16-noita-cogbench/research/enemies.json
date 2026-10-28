@@ -1,0 +1,743 @@
+{
+ "_source": "vanilla beta-branch entity XML (NathanSnail/noitadata) cross-checked against noita.wiki.gg infoboxes/Cargo Enemies table; all displayed HP/damage = internal x 25",
+ "_units": "px, px/s, frames@60fps",
+ "base_enemy_basic": {
+  "_inherits": "base_humanoid.xml -> base_enemy_basic.xml",
+  "hitbox_px": {
+   "min_x": -4.5,
+   "max_x": 4.5,
+   "min_y": -5.5,
+   "max_y": 3
+  },
+  "collision_aabb_px": {
+   "min_x": -2,
+   "max_x": 2,
+   "min_y": -3,
+   "max_y": 3
+  },
+  "climb_over_y": 4,
+  "ai_defaults": {
+   "creature_detection_range_x": 300,
+   "creature_detection_range_y": 300,
+   "creature_detection_check_every_x_frames": 30,
+   "creature_detection_angular_range_deg": 90,
+   "aggressiveness_min": 1,
+   "aggressiveness_max": 100,
+   "escape_if_damaged_probability": 30,
+   "attack_if_damaged_probability": 100,
+   "attack_melee_max_distance": 10,
+   "attack_melee_damage_internal": [
+    0.2,
+    0.4
+   ],
+   "attack_melee_action_frame": 2,
+   "attack_melee_frames_between": 20,
+   "attack_melee_impulse_vector": [
+    1,
+    0.25
+   ],
+   "attack_melee_impulse_multiplier": 50,
+   "attack_dash_damage_default": 0.25,
+   "attack_dash_speed": 200,
+   "attack_dash_distance": 50,
+   "attack_dash_frames_between": 120,
+   "attack_dash_lob": 0.9,
+   "attack_ranged_frames_between": 60,
+   "attack_knockback_multiplier": 100,
+   "path_cleanup_explosion_radius": 6,
+   "needs_food": 1,
+   "food_material": "meat"
+  },
+  "platforming_defaults": {
+   "accel_x": 0.3,
+   "pixel_gravity": 600,
+   "jump_velocity_y": -8,
+   "run_velocity": 12,
+   "velocity_min_x": -50,
+   "velocity_max_x": 50,
+   "velocity_min_y": -500,
+   "velocity_max_y": 500,
+   "fly_speed_max_up": 90,
+   "fly_speed_max_down": 90,
+   "fly_velocity_x": 28
+  },
+  "damage_defaults": {
+   "hp_internal": 0.5,
+   "air_needed": 1,
+   "air_in_lungs": 5,
+   "air_lack_of_damage": 0.2,
+   "falling_damages": 0,
+   "fire_damage_amount": 0.2,
+   "fire_probability_of_ignition": 0.5,
+   "physics_objects_damage": 1,
+   "materials_that_damage": "acid,lava,poison,blood_cold,blood_cold_vapour,radioactive_gas,radioactive_gas_static,rock_static_radioactive,rock_static_poison,ice_radioactive_static,ice_radioactive_glass,ice_acid_static,ice_acid_glass,rock_static_cursed,poo_gas",
+   "materials_how_much_damage": "0.004,0.004,0.001,0.0008,0.0007,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.001,0.005,0.00001",
+   "damage_multipliers": {
+    "drill": 0.7
+   }
+  },
+  "pathfinding_defaults": {
+   "distance_to_reach_node_x": 20,
+   "distance_to_reach_node_y": 20,
+   "frames_to_get_stuck": 70,
+   "can_jump": 0,
+   "can_fly": 0,
+   "jump_speed": 200,
+   "initial_jump_max_distance_x": 100,
+   "initial_jump_max_distance_y": 60
+  }
+ },
+ "enemies": [
+  {
+   "name": "Hämis",
+   "alias": "Spidey / spider",
+   "id": "longleg",
+   "entity_file": "data/entities/animals/longleg.xml",
+   "hp_internal": 0.11,
+   "hp_displayed": 2.75,
+   "wiki_hp": 2.75,
+   "herd": "spider",
+   "wiki_category": "Spiders",
+   "hitbox_px": {
+    "min_x": -5,
+    "max_x": 5,
+    "min_y": -6,
+    "max_y": 6
+   },
+   "collision_aabb_px": {
+    "min_x": -2,
+    "max_x": 2,
+    "min_y": -6,
+    "max_y": 3
+   },
+   "mass": 0.4,
+   "run_velocity": 25,
+   "jump_velocity_y": -140,
+   "attacks": [
+    {
+     "type": "Melee",
+     "damage_internal": [
+      0.2,
+      0.4
+     ],
+     "damage_displayed": [
+      5,
+      10
+     ],
+     "max_distance_px": 10,
+     "frames_between": 20,
+     "action_frame": 2
+    },
+    {
+     "type": "Lunge (dash)",
+     "damage_internal": 0.25,
+     "damage_displayed": 6.25,
+     "wiki_displayed": 6,
+     "dash_speed": 200,
+     "dash_distance_px": 50,
+     "frames_between": 120
+    }
+   ],
+   "damage_multipliers": {
+    "drill": 0.7
+   },
+   "gold_drop_formula": "10 * max(1, floor(hp_internal)) (x2 on trick kill)",
+   "gold_drop": 10,
+   "escape_if_damaged_probability": 100,
+   "detection": "300x300 (default)",
+   "behaviour": "small leaping melee critter; packs of up to 8; eats corpses; flees when damaged (100%); drops no gold when nest-spawned; dies instantly to fire (2.75 HP)",
+   "spawn": "Mines, Pyramid, Temple of the Art, The Tower",
+   "blood": "blood",
+   "corpse": "meat"
+  },
+  {
+   "name": "Hurtta",
+   "alias": "Hound / zombie-faction crawler",
+   "id": "zombie",
+   "entity_file": "data/entities/animals/zombie.xml",
+   "hp_internal": 0.5,
+   "hp_displayed": 12.5,
+   "wiki_hp": 12.5,
+   "herd": "zombie",
+   "wiki_category": "Monsters",
+   "hitbox_px": {
+    "min_x": -4.5,
+    "max_x": 4.5,
+    "min_y": -6.5,
+    "max_y": 3
+   },
+   "collision_aabb_px": {
+    "min_x": -2,
+    "max_x": 2,
+    "min_y": -5,
+    "max_y": 3
+   },
+   "mass": 1.0,
+   "run_velocity": 18,
+   "jump_velocity_y": -12,
+   "attacks": [
+    {
+     "type": "Melee",
+     "damage_internal": [
+      0.2,
+      0.4
+     ],
+     "damage_displayed": [
+      5,
+      10
+     ],
+     "max_distance_px": 10,
+     "frames_between": 20
+    },
+    {
+     "type": "Lunge (dash)",
+     "damage_internal": 0.25,
+     "damage_displayed": 6.25,
+     "dash_speed": 200,
+     "dash_distance_px": 50,
+     "frames_between": 120,
+     "note": "big knockback on player"
+    }
+   ],
+   "damage_multipliers": {
+    "drill": 0.7,
+    "holy": 1.2
+   },
+   "gold_drop_formula": "10 * max(1, floor(hp_internal)) (x2 on trick kill)",
+   "gold_drop": 10,
+   "escape_if_damaged_probability": 35,
+   "detection": "250x250",
+   "can_jump": 1,
+   "can_swim_on_surface": 1,
+   "can_dive": 1,
+   "physics_objects_damage": 1,
+   "behaviour": "wanders alone, eats corpses, leaps long horizontal distances (not high); melee + lunge",
+   "spawn": "Collapsed Mines, Fungal Caverns, Forest, Desert, Snowy Wasteland, The Tower",
+   "weak_variant": {
+    "name": "Heikkohurtta",
+    "id": "zombie_weak",
+    "hp_internal": 0.2,
+    "hp_displayed": 5,
+    "spawn": "Mines"
+   }
+  },
+  {
+   "name": "Haulikkohiisi",
+   "alias": "Shotgun Hiisi",
+   "id": "shotgunner",
+   "entity_file": "data/entities/animals/shotgunner.xml",
+   "hp_internal": 0.9,
+   "hp_displayed": 22.5,
+   "wiki_hp": 22.5,
+   "herd": "orcs",
+   "wiki_category": "Hiisi",
+   "hitbox_px": {
+    "min_x": -3,
+    "max_x": 3,
+    "min_y": -6,
+    "max_y": 3,
+    "head_hitbox": {
+     "min_x": -2.5,
+     "max_x": 2.5,
+     "min_y": -12,
+     "max_y": -6,
+     "damage_multiplier": 2.5
+    }
+   },
+   "collision_aabb_px": {
+    "min_x": -2,
+    "max_x": 2,
+    "min_y": -8,
+    "max_y": 3
+   },
+   "mass": 1.3,
+   "run_velocity": 20,
+   "jump_velocity_y": -12,
+   "attacks": [
+    {
+     "type": "Ranged: buckshot x3-4",
+     "projectile": "data/entities/projectiles/buckshot.xml",
+     "damage_internal_each": 0.27,
+     "damage_displayed_each": 6.75,
+     "speed": [
+      500,
+      600
+     ],
+     "spread_rad": 0.04,
+     "lifetime_frames": "120±7",
+     "bounces_left": 1,
+     "knockback_force": 1.0,
+     "physics_impulse_coeff": 2000,
+     "explosion": "damage 0, ray_energy 50000 (destroys soft material)",
+     "range_px": [
+      0,
+      180
+     ],
+     "frames_between": 100,
+     "action_frame": 4,
+     "offset_y": -7
+    },
+    {
+     "type": "Melee (gun swing)",
+     "damage_internal": [
+      0.4,
+      0.7
+     ],
+     "damage_displayed": [
+      10,
+      17.5
+     ],
+     "max_distance_px": 12,
+     "action_frame": 3,
+     "frames_between": 20
+    }
+   ],
+   "damage_multipliers": {
+    "drill": 0.7
+   },
+   "gold_drop_formula": "10 * max(1, floor(hp_internal)) (x2 on trick kill)",
+   "gold_drop": 10,
+   "escape_if_damaged_probability": 40,
+   "detection": "400x200, angular 60 deg",
+   "can_jump": 1,
+   "jump_speed": 80,
+   "fire_probability_of_ignition": 5,
+   "ALLERGY_RADIOACTIVE": true,
+   "picks_up_wands": true,
+   "behaviour": "patrols, jumps between platforms, fires while airborne; telegraphs with racking sound; pellets bounce and can arc over cover",
+   "spawn": "Collapsed Mines, Coal Pits, Snowy Depths, Hiisi Base, Desert, Snowy Wasteland, The Tower",
+   "weak_variant": {
+    "name": "Heikko haulikkohiisi",
+    "id": "shotgunner_weak",
+    "hp_internal": 0.36,
+    "hp_displayed": 9,
+    "spawn": "Mines",
+    "note": "slower reactions (same stats otherwise)"
+   }
+  },
+  {
+   "name": "Snipuhiisi",
+   "alias": "Hiisi Sniper",
+   "id": "sniper",
+   "entity_file": "data/entities/animals/sniper.xml",
+   "hp_internal": 1.8,
+   "hp_displayed": 45.0,
+   "wiki_hp": "45 (Snowy Depths) / 155 (The Vault)",
+   "herd": "orcs",
+   "wiki_category": "Hiisi",
+   "hitbox_px": {
+    "min_x": -5,
+    "max_x": 5,
+    "min_y": -12,
+    "max_y": 3
+   },
+   "collision_aabb_px": {
+    "min_x": -2,
+    "max_x": 2,
+    "min_y": -9,
+    "max_y": 3
+   },
+   "mass": 1.2,
+   "run_velocity": 24,
+   "jump_velocity_y": -12,
+   "attacks": [
+    {
+     "type": "Ranged: sniper bullet",
+     "projectile": "data/entities/projectiles/sniperbullet.xml",
+     "damage_internal": 1.0,
+     "damage_displayed": 25,
+     "damage_scaled_by_speed": true,
+     "speed": [
+      1450,
+      1650
+     ],
+     "air_friction": -2.0,
+     "gravity_y": 20,
+     "spread_rad": 0.003,
+     "lifetime_frames": 50,
+     "ground_penetration_coeff": 2,
+     "friendly_fire": 1,
+     "knockback_force": 4.0,
+     "explosion": {
+      "damage_internal": 0.4,
+      "damage_displayed": 10,
+      "ray_energy": 800000,
+      "max_durability_to_destroy": 10
+     },
+     "range_px": [
+      10,
+      800
+     ],
+     "frames_between": 100,
+     "action_frame": 8,
+     "laser_sight": true
+    },
+    {
+     "type": "Melee",
+     "damage_internal": [
+      0.4,
+      0.7
+     ],
+     "damage_displayed": [
+      10,
+      17.5
+     ],
+     "max_distance_px": 10
+    }
+   ],
+   "damage_multipliers": {
+    "drill": 0.7
+   },
+   "gold_drop_formula": "10 * max(1, floor(hp_internal)) (x2 on trick kill)",
+   "gold_drop": 10,
+   "escape_if_damaged_probability": 70,
+   "aggressiveness": [
+    80,
+    100
+   ],
+   "detection": "700x700",
+   "can_jump": 1,
+   "jump_speed": 70,
+   "fire_probability_of_ignition": 5,
+   "ALLERGY_RADIOACTIVE": true,
+   "behaviour": "very long acquisition range; red laser telegraph then near-perfect shot; damaging it interrupts the attack; bullet passes snow but stops on other Hiisi (friendly_fire=1)",
+   "spawn": "Snowy Depths, Hiisi Base, The Vault (155 HP variant), The Tower"
+  },
+  {
+   "name": "Hämähäkki",
+   "alias": "Spider (Lukki family)",
+   "id": "lukki",
+   "entity_file": "data/entities/animals/lukki/lukki.xml",
+   "hp_internal": 6.5,
+   "hp_displayed": 162.5,
+   "wiki_hp": 162.5,
+   "herd": "slimes",
+   "wiki_category": "Spiders",
+   "hitbox_px": {
+    "min_x": -10,
+    "max_x": 10,
+    "min_y": -10,
+    "max_y": 10,
+    "note": "weak-spot hitbox mult 1.0; body is a Box2D circle r=8"
+   },
+   "collision_aabb_px": {
+    "physics_circle_radius": 8,
+    "note": "PhysicsAI body, not CharacterPlatforming; ignores gravity, walks on background"
+   },
+   "mass": null,
+   "run_velocity": null,
+   "jump_velocity_y": null,
+   "attacks": [
+    {
+     "type": "Leg jab (Melee)",
+     "damage_displayed": 12.5,
+     "damage_internal": 0.5,
+     "limb": "IKLimbAttackerComponent radius 40 (targeting radius 120 default)",
+     "knockback": "fair"
+    },
+    {
+     "type": "Leg contact (Melee)",
+     "damage_displayed": 2.5,
+     "damage_internal": 0.1,
+     "every_frames": 10
+    }
+   ],
+   "damage_multipliers": {
+    "melee": 2.0,
+    "projectile": 0.2,
+    "explosion": 0.8,
+    "electricity": 0.6,
+    "fire": 1.2,
+    "slice": 2.0,
+    "ice": 1.2
+   },
+   "gold_drop_formula": "10 * max(1, floor(hp_internal)) (x2 on trick kill)",
+   "gold_drop": 60,
+   "air_needed": 0,
+   "glue_NOT": true,
+   "CellEaterComponent": {
+    "radius": 13,
+    "eat_probability": 100,
+    "note": "tunnels through any terrain"
+   },
+   "materials_that_damage": {
+    "acid": 0.1
+   },
+   "PhysicsAI": {
+    "force_max": 100,
+    "torque_max": 50
+   },
+   "behaviour": "follows loosely, attacks with leg in melee range; flees when badly hurt; groups up; 7 animated limbs + 1 attacker limb",
+   "spawn": "Underground Jungle, Lukki Lair",
+   "blood": "slime_green",
+   "variants": {
+    "Pikkuhämähäkki": {
+     "id": "lukki_tiny",
+     "hp": 87.5
+    },
+    "Lukki": {
+     "id": "lukki_longleg",
+     "hp": 200
+    }
+   }
+  },
+  {
+   "name": "Stendari",
+   "alias": "Fire Mage",
+   "id": "firemage_weak",
+   "entity_file": "data/entities/animals/firemage_weak.xml (base firemage.xml)",
+   "hp_internal": 3.2,
+   "hp_displayed": 80.0,
+   "wiki_hp": 80.0,
+   "herd": "mage",
+   "wiki_category": "Elementals",
+   "hitbox_px": {
+    "min_x": -4.5,
+    "max_x": 4.5,
+    "min_y": -14,
+    "max_y": 3
+   },
+   "collision_aabb_px": {
+    "min_x": -2.5,
+    "max_x": 3.0,
+    "min_y": -16,
+    "max_y": 3
+   },
+   "mass": 1.6,
+   "run_velocity": 18,
+   "jump_velocity_y": -6,
+   "attacks": [
+    {
+     "type": "Ranged: weak Fireball",
+     "projectile": "data/entities/projectiles/fireball.xml",
+     "fire_damage_internal": 0.25,
+     "fire_damage_displayed": 6.25,
+     "explosion_damage_internal": 2,
+     "explosion_damage_displayed": 50,
+     "explosion_radius_px": 20,
+     "explosion_ray_energy": 50000,
+     "creates_fire_cells": "100%",
+     "speed": [
+      160,
+      170
+     ],
+     "gravity_y": 100,
+     "lifetime_frames": 60,
+     "die_on_liquid_collision": 1,
+     "knockback_force": 1.5,
+     "ignites_radius_px": 15,
+     "frames_between": 80,
+     "action_frame": 3,
+     "min_distance": 10,
+     "player_multiplier_applied": "explosion x0.35 -> 17.5 to player"
+    },
+    {
+     "type": "Melee",
+     "damage_internal": [
+      0.4,
+      0.7
+     ],
+     "damage_displayed": [
+      10,
+      17.5
+     ]
+    }
+   ],
+   "damage_multipliers": {
+    "explosion": 0.4,
+    "fire": 0.0,
+    "drill": 0.7
+   },
+   "gold_drop_formula": "10 * max(1, floor(hp_internal)) (x2 on trick kill)",
+   "gold_drop": 30,
+   "immunities": [
+    "fire (mult 0, ignition prob 0)"
+   ],
+   "wet_status_effect_damage": 0.3,
+   "wet_note": "0.3 internal (7.5 HP) per 10 frames while Wet = 45 HP/s",
+   "materials_that_damage": {
+    "acid": 0.004,
+    "water": 0.0005,
+    "poison": 0.001,
+    "blood_cold": 0.0008,
+    "blood_cold_vapour": 0.0007,
+    "mud": 0.0005,
+    "water_swamp": 0.0005,
+    "water_salt": 0.0005,
+    "swamp": 0.0005,
+    "snow": 0.0005,
+    "water_ice": 0.0005
+   },
+   "blood": "lava",
+   "corpse": "lavarock_static",
+   "can_jump": 1,
+   "jump_speed": 130,
+   "detection": "300x300",
+   "behaviour": "patrols on foot, jumps high, lobs fireballs that explode on impact/at target; avoids deep water; passive if player holds Kiuaskivi",
+   "spawn": "Mines, Collapsed Mines, Desert Chasm, Desert"
+  },
+  {
+   "name": "Nelikoipi",
+   "alias": "Deer",
+   "id": "deer",
+   "entity_file": "data/entities/animals/deer.xml",
+   "hp_internal": 0.8,
+   "hp_displayed": 20.0,
+   "wiki_hp": 20.0,
+   "herd": "helpless",
+   "wiki_category": "Helpless Animals",
+   "hitbox_px": {
+    "min_x": -6.5,
+    "max_x": 6.5,
+    "min_y": -10,
+    "max_y": 3
+   },
+   "collision_aabb_px": {
+    "min_x": -4.6,
+    "max_x": 4.6,
+    "min_y": -10,
+    "max_y": 3
+   },
+   "mass": 2.4,
+   "run_velocity": 30,
+   "jump_velocity_y": -12,
+   "attacks": [],
+   "damage_multipliers": {},
+   "gold_drop_formula": "10 * max(1, floor(hp_internal)) (x2 on trick kill)",
+   "gold_drop": 10,
+   "aggressiveness": [
+    0,
+    20
+   ],
+   "preferred_job": "Escaping",
+   "detection": "128x160",
+   "fire_probability_of_ignition": 0.05,
+   "can_swim_on_surface": 1,
+   "can_dive": 1,
+   "behaviour": "passive; flees when attacked; no attacks",
+   "spawn": "Lake",
+   "corpse": "meat_helpless (Meat of an innocent creature)"
+  },
+  {
+   "name": "Konna",
+   "alias": "Toad / Frog",
+   "id": "frog",
+   "entity_file": "data/entities/animals/frog.xml",
+   "hp_internal": 0.3,
+   "hp_displayed": 7.5,
+   "wiki_hp": 7.5,
+   "herd": "slimes",
+   "wiki_category": "Slimes",
+   "hitbox_px": {
+    "min_x": -1.5,
+    "max_x": 1.5,
+    "min_y": -2.5,
+    "max_y": 3
+   },
+   "collision_aabb_px": {
+    "min_x": -2,
+    "max_x": 2,
+    "min_y": -4,
+    "max_y": 3
+   },
+   "mass": 0.6,
+   "run_velocity": 0,
+   "jump_velocity_y": -12,
+   "attacks": [
+    {
+     "type": "Lunge (dash)",
+     "damage_internal": 0.4,
+     "damage_displayed": 10,
+     "dash_speed": 200,
+     "dash_distance_px": 50,
+     "frames_between": 120,
+     "note": "damage applied per frame while its moving hitbox overlaps you; knockback can keep you inside it"
+    }
+   ],
+   "damage_multipliers": {
+    "drill": 0.7
+   },
+   "gold_drop_formula": "10 * max(1, floor(hp_internal)) (x2 on trick kill)",
+   "gold_drop": 10,
+   "escape_if_damaged_probability": 35,
+   "detection": "250x250",
+   "can_walk": 0,
+   "can_jump": 1,
+   "initial_jump_lob": 2,
+   "attack_melee_enabled": 0,
+   "behaviour": "sits still until you are close, then lunges; cannot jump high; does not react to being on fire",
+   "spawn": "Collapsed Mines, Fungal Caverns, The Tower",
+   "corpse": "meat_frog"
+  }
+ ],
+ "extra_simple_enemies": [
+  {
+   "name": "Lepakko",
+   "alias": "Bat",
+   "id": "bat",
+   "hp_internal": 0.5,
+   "hp_displayed": 12.5,
+   "herd": "bat",
+   "flying": true,
+   "attacks": [
+    {
+     "type": "Lunge (dash)",
+     "damage_displayed": 6.25
+    }
+   ],
+   "hitbox_px": {
+    "min_x": -4,
+    "max_x": 4,
+    "min_y": -9,
+    "max_y": 1
+   },
+   "mass": 0.6,
+   "damage_multipliers": {
+    "drill": 0.5
+   },
+   "spawn": "Coal Pits, The Tower",
+   "blood": "slime"
+  },
+  {
+   "name": "Rotta",
+   "alias": "Rat",
+   "id": "rat",
+   "hp_internal": 0.2,
+   "hp_displayed": 5,
+   "herd": "rat",
+   "attacks": [
+    {
+     "type": "Melee",
+     "damage_displayed": [
+      5,
+      10
+     ],
+     "max_distance_px": 10,
+     "action_frame": 3
+    }
+   ],
+   "run_velocity": 40,
+   "jump_velocity_y": -30,
+   "hitbox_px": {
+    "min_x": -5.5,
+    "max_x": 5.5,
+    "min_y": -1.4,
+    "max_y": 3.5
+   },
+   "mass": 0.4,
+   "spawn": "Coal Pits, Fungal Caverns, Snowy Depths, Meat Realm, Forest, Snowy Wasteland, The Tower"
+  },
+  {
+   "name": "Eväkäs",
+   "alias": "Fish",
+   "id": "fish",
+   "hp_internal": 0.1,
+   "hp_displayed": 2.5,
+   "herd": "helpless",
+   "falling_damages": 1,
+   "falling_damage_height_min": 250,
+   "falling_damage_height_max": 450,
+   "note": "one of only two creatures that take Fall damage"
+  }
+ ]
+}

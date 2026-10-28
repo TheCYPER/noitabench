@@ -1,0 +1,74 @@
+{
+  "_meta": {
+    "description": "Noita wand (gun) stat definitions: internal names, units, defaults, generation ranges. Frames are at 60 fps. Sources: gun_generated.lua / gun_procedural.lua (NathanSnail/noitadata mirror), wiki Wands + Wand Generation + Documentation:AbilityComponent pages.",
+    "fps": 60,
+    "damage_display_multiplier": 25,
+    "recursion_limit": 2,
+    "default_action_mana_drain_if_unspecified": 10,
+    "action_draw_reload_time_increase": 0
+  },
+  "config_gun_defaults": {
+    "actions_per_round": 1,
+    "shuffle_deck_when_empty": false,
+    "reload_time_frames": 40,
+    "deck_capacity": 2
+  },
+  "config_gunaction_base_defaults": {
+    "fire_rate_wait_frames": 0,
+    "spread_degrees": 0.0,
+    "speed_multiplier": 1.0
+  },
+  "ability_component_defaults": {
+    "mana": 0.0,
+    "mana_max": 100.0,
+    "mana_charge_speed_per_second": 10.0,
+    "gun_level": 1,
+    "item_recoil_recovery_speed": 15.0
+  },
+  "stats": [
+    {"ui": "Shuffle", "internal": "gun_config.shuffle_deck_when_empty", "type": "bool", "unit": null, "modifiable_by_spells": false,
+     "generation": "coin flip (forced non-shuffle with prob 15+6*tier %); non-shuffle only if capacity<=9 and budget>=15+5*capacity",
+     "notes": "Shuffling happens in order_deck(): first shot after equip, every wrap, every recharge, first Wand Refresh of a click. Uniform permutation seeded by (frame, frame)."},
+    {"ui": "Spells/Cast", "internal": "gun_config.actions_per_round", "type": "int", "unit": "draws per click", "min": 1, "max_practical": 26, "modifiable_by_spells": false,
+     "generation": "mixture over 1..5 then +1 repeatedly (70%) if reload_time>=60 frames, optional min-of-6 Random(apr, capacity); clamp [1, capacity]",
+     "notes": "Root draws never wrap (instant_reload_if_empty=false)."},
+    {"ui": "Cast Delay", "internal": "gunaction_config.fire_rate_wait", "type": "int", "unit": "frames", "ui_unit": "seconds (frames/60)", "generated_min": -15, "generated_max": 50, "modifiable_by_spells": true,
+     "engine_clamp": "total < 1 frame treated as 1 frame (wiki, UNVERIFIED); ignored if the click produced no projectiles (wiki)",
+     "notes": "Only the root shot state's value counts; payload states are ignored. Chainsaw sets it to 0, Nuke to 20, Giga Nuke to 50."},
+    {"ui": "Recharge Time", "internal": "gun_config.reload_time", "type": "int", "unit": "frames", "ui_unit": "seconds (frames/60)", "generated_min": 1, "generated_max": 240, "modifiable_by_spells": true,
+     "engine_clamp": "negative treated as 0 (wiki)",
+     "notes": "Runtime accumulator current_reload_time; modified from anywhere incl. payloads and copies; reset to base after StartReload."},
+    {"ui": "Mana Max", "internal": "mana_max", "type": "float", "unit": "mana", "formula": "50 + 150*tier + 10*Random(-5,5); x3 slow (17%), /3 fast (15%); floor 50", "modifiable_by_spells": false},
+    {"ui": "Mana Charge Speed", "internal": "mana_charge_speed", "type": "float", "unit": "mana per second", "formula": "50*tier + Random(-5,5*tier); /5 slow, x5 fast; floor 10", "regen_rule": "mana += mana_charge_speed/60 every frame, capped at mana_max, also while not held"},
+    {"ui": "Capacity", "internal": "gun_config.deck_capacity", "type": "int", "unit": "slots", "min": 1, "softcap": 26, "hardcap_ng": 62, "hardcap_nightmare": 66, "softcap_skip_probability": "1/10001", "perk": "Extra Wand Capacity +1 per pick (wiki)"},
+    {"ui": "Spread", "internal": "gunaction_config.spread_degrees", "type": "float", "unit": "degrees", "generated_min": -35, "generated_max": 35, "modifiable_by_spells": true,
+     "notes": "Root shot only; final projectile spread = wand + spell mods + projectile innate; negative acts as 0."},
+    {"ui": "Speed Multiplier (hidden)", "internal": "gunaction_config.speed_multiplier", "type": "float", "unit": "multiplier", "generated_min": 0.5, "generated_max": 10, "typical": [0.8, 1.2], "modifiable_by_spells": true, "spell_clamp": [0, 20]},
+    {"ui": "Always Cast", "internal": "permanent actions (AddGunActionPermanent)", "type": "list<action_id>", "max": 4,
+     "natural_chance": 0.04, "rare_wand_chance": 0.05,
+     "rules": ["played before root draws every click", "no mana cost unless negative (then adds mana)", "unlimited uses", "copy dropped at end of click, never discarded", "draw_actions(1) is a no-op while an AC is being played; draw 2/3 (Double Trigger / Delayed Spellcast) still draws"]}
+  ],
+  "tier_cost_budget": {"1": [30, 35], "2": 40, "3": 60, "4": 80, "5": 100, "6": 120, "10": [180, 200], "jitter": [-3, 3], "rare_bonus": 65},
+  "starter_wands_wiki": {
+    "combat": {"shuffle": false, "spells_per_cast": 1, "cast_delay_s": [0.15, 0.25], "recharge_s": [0.33, 0.47], "mana_max": [80, 130], "mana_charge": [25, 40], "capacity": [2, 3], "spread": 0, "speed": 1},
+    "bomb": {"shuffle": true, "spells_per_cast": 1, "cast_delay_s": [0.05, 0.13], "recharge_s": [0.02, 0.17], "mana_max": [80, 110], "mana_charge": [5, 20], "capacity": 1, "spread": 0, "speed": 1}
+  },
+  "generation_mixtures": {
+    "reload_time": [{"w": 1, "min": 5, "max": 60, "mean": 30, "sharp": 2}, {"w": 0.5, "min": 1, "max": 100, "mean": 40, "sharp": 2}, {"w": 0.02, "min": 1, "max": 100, "mean": 40, "sharp": 0}, {"w": 0.35, "min": 1, "max": 240, "mean": 40, "sharp": 0}],
+    "fire_rate_wait": [{"w": 1, "min": 1, "max": 30, "mean": 5, "sharp": 2}, {"w": 0.1, "min": 1, "max": 50, "mean": 15, "sharp": 3}, {"w": 0.1, "min": -15, "max": 15, "mean": 0, "sharp": 3}, {"w": 0.45, "min": 0, "max": 35, "mean": 12, "sharp": 0}],
+    "spread_degrees": [{"w": 1, "min": -5, "max": 10, "mean": 0, "sharp": 3}, {"w": 0.1, "min": -35, "max": 35, "mean": 0, "sharp": 0}],
+    "speed_multiplier": [{"w": 1, "min": 0.8, "max": 1.2, "mean": 1, "sharp": 6}, {"w": 0.05, "min": 1, "max": 2, "mean": 1.1, "sharp": 3}, {"w": 0.05, "min": 0.5, "max": 1, "mean": 0.9, "sharp": 3}, {"w": 1, "min": 0.8, "max": 1.2, "mean": 1, "sharp": 0}, {"w": 0.001, "min": 1, "max": 10, "mean": 5, "sharp": 2}],
+    "deck_capacity": [{"w": 1, "min": 3, "max": 10, "mean": 6, "sharp": 2}, {"w": 0.1, "min": 2, "max": 7, "mean": 4, "sharp": 4}, {"w": 0.05, "min": 1, "max": 5, "mean": 3, "sharp": 4}, {"w": 0.15, "min": 5, "max": 11, "mean": 8, "sharp": 2}, {"w": 0.12, "min": 2, "max": 20, "mean": 8, "sharp": 4}, {"w": 0.15, "min": 3, "max": 12, "mean": 6, "sharp": 6}, {"w": 1, "min": 1, "max": 20, "mean": 6, "sharp": 0}],
+    "actions_per_round": [{"w": 1, "min": 1, "max": 3, "mean": 1, "sharp": 3}, {"w": 0.2, "min": 2, "max": 4, "mean": 2, "sharp": 8}, {"w": 0.05, "min": 1, "max": 5, "mean": 2, "sharp": 2}, {"w": 1, "min": 1, "max": 5, "mean": 2, "sharp": 0}]
+  },
+  "generation_prices": {
+    "reload_time": "(60 - value)/5",
+    "fire_rate_wait": "16 - value",
+    "spread_degrees": "16 - value",
+    "speed_multiplier": "0",
+    "deck_capacity": "(value - 6)*5",
+    "non_shuffle": "15 + 5*capacity",
+    "actions_per_round": {"1": "0", "2": "5 + 2*cap", "3": "15 + 3.5*cap", "4": "35 + 5*cap", "5": "45 + cap^2"},
+    "leftover_to_capacity": "shuffle: +cost/5 ; non-shuffle: +cost/10 (99.5% of the time)"
+  }
+}

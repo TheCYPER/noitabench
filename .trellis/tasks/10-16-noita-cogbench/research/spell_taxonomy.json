@@ -1,0 +1,6608 @@
+{
+ "_meta": {
+  "description": "Behaviour-primitive and implementation-class taxonomy of the 422 spells in spells.json. Mechanically derived by scripts/classify_spells.py plus a short documented override table.",
+  "primitive": "PROJ | TRIGGER (projectile/static spell wrapped by a collision/timer/death trigger) | STATIC | MATERIAL | MODIFIER | MULTICAST | UTILITY",
+  "impl": {
+   "D0": "data only: a row interpreted by the core engine (shot state, ProjectileSpec, draw, triggers, materials, status effects)",
+   "D1": "data + one or more reusable engine features listed in `features` (no per-spell code)",
+   "D2": "spell-specific code: Lua script(s) in the original, deck/hand/discard logic, creature AI or caster-state access"
+  },
+  "caveat": "Only the MAIN projectile XML and the modifier extra-entity XMLs saved in raw/game were inspected. Side entities (load_this_entity/spawn_entity targets) and 4 extra-entity XMLs (clusterbomb, hitfx_petrify, remove_bounce, caster_cast) are not in raw/game: classification of those is UNVERIFIED."
+ },
+ "spells": [
+  {
+   "game_id": "FUNKY_SPELL",
+   "name": "???",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "ACIDSHOT",
+   "name": "Acid Ball",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "PROJ_HP"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): PROJ_HP",
+   "notes": []
+  },
+  {
+   "game_id": "ARROW",
+   "name": "Arrow",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BALL_LIGHTNING",
+   "name": "Ball Lightning",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "LIGHTNING"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): LIGHTNING",
+   "notes": []
+  },
+  {
+   "game_id": "BIG_MAGIC_SHIELD",
+   "name": "Big Magic Guard",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "big_magic_shield_start.lua"
+   ],
+   "family": "orbiting-shield",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "BLACK_HOLE",
+   "name": "Black Hole",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "CELL_EATER"
+   ],
+   "scripts": [
+    "black_hole_gravity.lua"
+   ],
+   "family": "black-white-hole",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "BLACK_HOLE_DEATH_TRIGGER",
+   "name": "Black Hole with Death Trigger",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "CELL_EATER"
+   ],
+   "scripts": [
+    "black_hole_gravity.lua"
+   ],
+   "family": "black-white-hole",
+   "wraps_trigger": true,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "MIST_BLOOD",
+   "name": "Blood Mist",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BOMB",
+   "name": "Bomb",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "PHYS_BODY",
+    "PROJ_HP",
+    "SIDE_ENTITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): PHYS_BODY,PROJ_HP,SIDE_ENTITY",
+   "notes": [
+    "side entities: loose_ground.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "BOMB_CART",
+   "name": "Bomb Cart",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "EXPLODE_ON_DAMAGE",
+    "PHYS_BODY"
+   ],
+   "scripts": [
+    "bomb_cart.lua",
+    "bomb_cart_init.lua"
+   ],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": [
+    "side entities: loose_ground.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "RUBBER_BALL",
+   "name": "Bouncing Burst",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BUBBLESHOT",
+   "name": "Bubble Spark",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BUBBLESHOT_TRIGGER",
+   "name": "Bubble Spark With Trigger",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "AIR_BULLET",
+   "name": "Burst Of Air",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "CHAIN_BOLT",
+   "name": "Chain Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "chain_bolt.lua"
+   ],
+   "family": "misc-projectile-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "CHAINSAW",
+   "name": "Chainsaw",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "LASER",
+   "name": "Concentrated Light",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "CURSED_ORB",
+   "name": "Cursed Sphere",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "ANTIHEAL",
+   "name": "Deadly Heal",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "DEATH_CROSS",
+   "name": "Death Cross",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "HOMING"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HOMING",
+   "notes": []
+  },
+  {
+   "game_id": "POWERDIGGER",
+   "name": "Digging Blast",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "DIGGER",
+   "name": "Digging Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "DISC_BULLET",
+   "name": "Disc Projectile",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "PIPE_BOMB",
+   "name": "Dormant Crystal",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "PROJ_HP"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): PROJ_HP",
+   "notes": []
+  },
+  {
+   "game_id": "PIPE_BOMB_DEATH_TRIGGER",
+   "name": "Dormant Crystal With Trigger",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "PROJ_HP"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "needs engine feature(s): PROJ_HP",
+   "notes": []
+  },
+  {
+   "game_id": "GRENADE_LARGE",
+   "name": "Dropper Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "DYNAMITE",
+   "name": "Dynamite",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "PHYS_BODY",
+    "PROJ_HP"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): PHYS_BODY,PROJ_HP",
+   "notes": []
+  },
+  {
+   "game_id": "CRUMBLING_EARTH",
+   "name": "Earthquake",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "SIDE_ENTITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SIDE_ENTITY",
+   "notes": [
+    "side entities: crumbling_earth_effect.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "TENTACLE_PORTAL",
+   "name": "Eldritch Portal",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "PORTAL"
+   ],
+   "scripts": [
+    "tentacle_portal.lua"
+   ],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "SLOW_BULLET",
+   "name": "Energy Orb",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SLOW_BULLET_TIMER",
+   "name": "Energy Orb With A Timer",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SLOW_BULLET_TRIGGER",
+   "name": "Energy Orb With A Trigger",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BOUNCY_ORB",
+   "name": "Energy Sphere",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BOUNCY_ORB_TIMER",
+   "name": "Energy Sphere With Timer",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "EXPANDING_ORB",
+   "name": "Expanding Sphere",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "orb_expanding.lua"
+   ],
+   "family": "misc-projectile-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "FIREBALL",
+   "name": "Fireball",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "GRENADE",
+   "name": "Firebolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "GRENADE_TRIGGER",
+   "name": "Firebolt With Trigger",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "FIREBOMB",
+   "name": "Firebomb",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "FIREWORK",
+   "name": "Fireworks!",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "RNG_PICK"
+   ],
+   "scripts": [],
+   "family": "random-pick-fixed",
+   "wraps_trigger": false,
+   "reason": "seeded pick among a fixed list of entity files",
+   "notes": []
+  },
+  {
+   "game_id": "FLAMETHROWER",
+   "name": "Flamethrower",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "SIDE_ENTITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SIDE_ENTITY",
+   "notes": [
+    "side entities: fire.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "EXPLODING_DUCKS",
+   "name": "Flock Of Ducks",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "chaotic_arc.lua",
+    "duck.lua",
+    "duck_init.lua"
+   ],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "FREEZING_GAZE",
+   "name": "Freezing Gaze",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "GRENADE_TIER_3",
+   "name": "Giant Firebolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "ROCKET_TIER_3",
+   "name": "Giant Magic Missile",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SPITTER_TIER_3",
+   "name": "Giant Spitter Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SPITTER_TIER_3_TIMER",
+   "name": "Giant Spitter Bolt With Timer",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "DEATH_CROSS_BIG",
+   "name": "Giga Death Cross",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "HOMING",
+    "SIDE_ENTITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HOMING,SIDE_ENTITY",
+   "notes": [
+    "side entities: death_cross_big_explosion.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "DISC_BULLET_BIG",
+   "name": "Giga Disc Projectile",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "AREA_DAMAGE",
+    "CELL_EATER"
+   ],
+   "scripts": [
+    "disc_bullet_big_damage.lua",
+    "disc_bullet_big_trajectory.lua"
+   ],
+   "family": "sawblade-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "BOMB_HOLY_GIGA",
+   "name": "Giga Holy Bomb",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "PHYS_BODY",
+    "PROJ_HP",
+    "SIDE_ENTITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): PHYS_BODY,PROJ_HP,SIDE_ENTITY",
+   "notes": [
+    "side entities: loose_chunks_huge.xml,loose_ground.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "NUKE_GIGA",
+   "name": "Giga Nuke",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "SIDE_ENTITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SIDE_ENTITY",
+   "notes": [
+    "side entities: loose_chunks.xml,radioactive_waste.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "GLITTER_BOMB",
+   "name": "Glitter Bomb",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "PHYS_BODY",
+    "PROJ_HP",
+    "SIDE_ENTITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): PHYS_BODY,PROJ_HP,SIDE_ENTITY",
+   "notes": [
+    "side entities: glitter_bomb_explosion.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "LANCE",
+   "name": "Glowing Lance",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "GLUE_SHOT",
+   "name": "Glue Ball",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "SIDE_ENTITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SIDE_ENTITY",
+   "notes": [
+    "side entities: glue.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "HEAL_BULLET",
+   "name": "Healing Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BOMB_HOLY",
+   "name": "Holy Bomb",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "PHYS_BODY",
+    "PROJ_HP",
+    "SIDE_ENTITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): PHYS_BODY,PROJ_HP,SIDE_ENTITY",
+   "notes": [
+    "side entities: loose_ground.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "LANCE_HOLY",
+   "name": "Holy Lance",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "TELEPORT_PROJECTILE_CLOSER",
+   "name": "Homebringer Teleport Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "teleport_projectile_closer_init.lua"
+   ],
+   "family": "teleport-cast",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "HOOK",
+   "name": "Hookbolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "hook.lua"
+   ],
+   "family": "teleport-cast",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ICEBALL",
+   "name": "Iceball",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "INFESTATION",
+   "name": "Infestation",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "AREA_DAMAGE"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): AREA_DAMAGE",
+   "notes": [
+    "complex_logic flag is a false positive (clamp/loop of constants)"
+   ]
+  },
+  {
+   "game_id": "MEGALASER",
+   "name": "Intense Concentrated Light",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "megalaser_init.lua",
+    "megalaser_launch.lua"
+   ],
+   "family": "laser-beam",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "GRENADE_TIER_2",
+   "name": "Large Firebolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "ROCKET_TIER_2",
+   "name": "Large Magic Missile",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SPITTER_TIER_2",
+   "name": "Large Spitter Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SPITTER_TIER_2_TIMER",
+   "name": "Large Spitter Bolt With Timer",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "LIGHTNING",
+   "name": "Lightning Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "LIGHTNING"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): LIGHTNING",
+   "notes": []
+  },
+  {
+   "game_id": "LUMINOUS_DRILL",
+   "name": "Luminous Drill",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "LASER_LUMINOUS_DRILL",
+   "name": "Luminous Drill With Timer",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BULLET",
+   "name": "Magic Arrow",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BULLET_TIMER",
+   "name": "Magic Arrow With Timer",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BULLET_TRIGGER",
+   "name": "Magic Arrow With Trigger",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "HEAVY_BULLET",
+   "name": "Magic Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "HEAVY_BULLET_TIMER",
+   "name": "Magic Bolt With Timer",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "HEAVY_BULLET_TRIGGER",
+   "name": "Magic Bolt With Trigger",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "MAGIC_SHIELD",
+   "name": "Magic Guard",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "magic_shield_start.lua"
+   ],
+   "family": "orbiting-shield",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ROCKET",
+   "name": "Magic Missile",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "METEOR",
+   "name": "Meteor",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "SIDE_ENTITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SIDE_ENTITY",
+   "notes": [
+    "side entities: loose_ground.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "MIST_ALCOHOL",
+   "name": "Mist Of Spirits",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "NUKE",
+   "name": "Nuke",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "SIDE_ENTITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SIDE_ENTITY",
+   "notes": [
+    "side entities: loose_chunks.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "GRENADE_ANTI",
+   "name": "Odd Firebolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "grenade_anti_gravity.lua"
+   ],
+   "family": "misc-projectile-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "DARKFLAME",
+   "name": "Path Of Dark Flame",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "darkflame.lua"
+   ],
+   "family": "misc-projectile-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "GLOWING_BOLT",
+   "name": "Pinpoint Of Light",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "LASER_EMITTER",
+   "name": "Plasma Beam",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "LASER"
+   ],
+   "scripts": [
+    "laser_emitter_start.lua"
+   ],
+   "family": "laser-beam",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LASER_EMITTER_FOUR",
+   "name": "Plasma Beam Cross",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "LASER"
+   ],
+   "scripts": [
+    "laser_emitter_start.lua"
+   ],
+   "family": "laser-beam",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LASER_EMITTER_CUTTER",
+   "name": "Plasma Cutter",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "LASER"
+   ],
+   "scripts": [
+    "laser_emitter_start.lua"
+   ],
+   "family": "laser-beam",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "POLLEN",
+   "name": "Pollen",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "HOMING",
+    "PROJ_HP"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HOMING,PROJ_HP",
+   "notes": []
+  },
+  {
+   "game_id": "SPORE_POD",
+   "name": "Prickly Spore Pod",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "SIDE_ENTITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SIDE_ENTITY",
+   "notes": [
+    "side entities: spore_pod_growing.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "PROPANE_TANK",
+   "name": "Propane Tank",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "EXPLODE_ON_DAMAGE",
+    "PHYS_BODY",
+    "PROJ_HP"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): EXPLODE_ON_DAMAGE,PHYS_BODY,PROJ_HP",
+   "notes": []
+  },
+  {
+   "game_id": "RANDOM_PROJECTILE",
+   "name": "Random Projectile Spell",
+   "type": "projectile",
+   "primitive": "UTILITY",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "random",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "TELEPORT_PROJECTILE_STATIC",
+   "name": "Return",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "TELEPORT_PROJ"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): TELEPORT_PROJ",
+   "notes": []
+  },
+  {
+   "game_id": "SUMMON_ROCK",
+   "name": "Rock",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "EXPLODE_ON_DAMAGE",
+    "PHYS_BODY",
+    "PROJ_HP"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): EXPLODE_ON_DAMAGE,PHYS_BODY,PROJ_HP",
+   "notes": []
+  },
+  {
+   "game_id": "MIST_SLIME",
+   "name": "Slime Mist",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SLIMEBALL",
+   "name": "Slimeball",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "PROJ_HP"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): PROJ_HP",
+   "notes": []
+  },
+  {
+   "game_id": "TELEPORT_PROJECTILE_SHORT",
+   "name": "Small Teleport Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "TELEPORT_PROJ"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): TELEPORT_PROJ",
+   "notes": []
+  },
+  {
+   "game_id": "LIGHT_BULLET",
+   "name": "Spark Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "LIGHT_BULLET_TRIGGER_2",
+   "name": "Spark Bolt With Double Trigger",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "LIGHT_BULLET_TIMER",
+   "name": "Spark Bolt With Timer",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "LIGHT_BULLET_TRIGGER",
+   "name": "Spark Bolt With Trigger",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SPIRAL_SHOT",
+   "name": "Spiral Shot",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "spiral_shot.lua",
+    "spiral_shot_start.lua"
+   ],
+   "family": "misc-projectile-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "SPITTER",
+   "name": "Spitter Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SPITTER_TIMER",
+   "name": "Spitter Bolt With Timer",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "EXPLODING_DEER",
+   "name": "Summon Deercoy",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "CREATURE_AI",
+    "PROJ_HP",
+    "PROXIMITY"
+   ],
+   "scripts": [],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "creature AI",
+   "notes": []
+  },
+  {
+   "game_id": "SUMMON_EGG",
+   "name": "Summon Egg",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "EXPLODE_ON_DAMAGE",
+    "PHYS_BODY",
+    "PROJ_HP",
+    "RNG_PICK"
+   ],
+   "scripts": [],
+   "family": "random-pick-fixed",
+   "wraps_trigger": false,
+   "reason": "seeded pick among a fixed list of entity files",
+   "notes": [
+    "side entities: egg_monster.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "TNTBOX",
+   "name": "Summon Explosive Box",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "EXPLODE_ON_DAMAGE",
+    "PHYS_BODY",
+    "PROJ_HP"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): EXPLODE_ON_DAMAGE,PHYS_BODY,PROJ_HP",
+   "notes": []
+  },
+  {
+   "game_id": "FISH",
+   "name": "Summon Fish",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "CREATURE_AI",
+    "PROJ_HP"
+   ],
+   "scripts": [],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "creature AI",
+   "notes": []
+  },
+  {
+   "game_id": "SUMMON_HOLLOW_EGG",
+   "name": "Summon Hollow Egg",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "EXPLODE_ON_DAMAGE",
+    "PHYS_BODY",
+    "PROJ_HP"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "needs engine feature(s): EXPLODE_ON_DAMAGE,PHYS_BODY,PROJ_HP",
+   "notes": []
+  },
+  {
+   "game_id": "TNTBOX_BIG",
+   "name": "Summon Large Explosive Box",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "EXPLODE_ON_DAMAGE",
+    "PHYS_BODY",
+    "PROJ_HP"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): EXPLODE_ON_DAMAGE,PHYS_BODY,PROJ_HP",
+   "notes": []
+  },
+  {
+   "game_id": "MISSILE",
+   "name": "Summon Missile",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "HOMING"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HOMING",
+   "notes": []
+  },
+  {
+   "game_id": "DISC_BULLET_BIGGER",
+   "name": "Summon Omega Sawblade",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "AREA_DAMAGE",
+    "CELL_EATER"
+   ],
+   "scripts": [
+    "disc_bullet_big_damage.lua",
+    "disc_bullet_bigger_trajectory.lua"
+   ],
+   "family": "sawblade-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "PEBBLE",
+   "name": "Summon Rock Spirit",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "pebble_player_spawn.lua"
+   ],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "TENTACLE",
+   "name": "Summon Tentacle",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "VERLET"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): VERLET",
+   "notes": []
+  },
+  {
+   "game_id": "TENTACLE_TIMER",
+   "name": "Summon Tentacle With Timer",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "VERLET"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "needs engine feature(s): VERLET",
+   "notes": []
+  },
+  {
+   "game_id": "SWAPPER_PROJECTILE",
+   "name": "Swapper",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "TELEPORT_PROJECTILE",
+   "name": "Teleport Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "TELEPORT_PROJ"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): TELEPORT_PROJ",
+   "notes": []
+  },
+  {
+   "game_id": "THUNDERBALL",
+   "name": "Thunder Charge",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "misc-projectile-script",
+   "wraps_trigger": false,
+   "reason": "wiki tag scripted; spawns thunderburst side entity (XML not in raw/game)",
+   "notes": [
+    "side entities: loose_ground.xml,thunderburst_thundermage.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "MIST_RADIOACTIVE",
+   "name": "Toxic Mist",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BUCKSHOT",
+   "name": "Triplicate Bolt",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "MINE",
+   "name": "Unstable Crystal",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "PROJ_HP",
+    "PROXIMITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): PROJ_HP,PROXIMITY",
+   "notes": [
+    "cosmetic-script-only (colour_spell/mine_animate)"
+   ]
+  },
+  {
+   "game_id": "MINE_DEATH_TRIGGER",
+   "name": "Unstable Crystal With Trigger",
+   "type": "projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "PROJ",
+   "impl": "D1",
+   "features": [
+    "PROJ_HP",
+    "PROXIMITY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "needs engine feature(s): PROJ_HP,PROXIMITY",
+   "notes": [
+    "cosmetic-script-only (colour_spell/mine_animate)"
+   ]
+  },
+  {
+   "game_id": "WHITE_HOLE",
+   "name": "White Hole",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "CELL_EATER"
+   ],
+   "scripts": [
+    "white_hole_gravity.lua"
+   ],
+   "family": "black-white-hole",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "WORM_SHOT",
+   "name": "Worm Launcher",
+   "type": "projectile",
+   "primitive": "PROJ",
+   "base_primitive": "PROJ",
+   "impl": "D2",
+   "features": [
+    "AREA_DAMAGE",
+    "CELL_EATER",
+    "HOMING"
+   ],
+   "scripts": [
+    "worm_shot_homing.lua",
+    "worm_shot_slowdown.lua"
+   ],
+   "family": "misc-projectile-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "CLOUD_ACID",
+   "name": "Acid Cloud",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "cloud_position.lua"
+   ],
+   "family": "cloud-emitter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "CLOUD_BLOOD",
+   "name": "Blood Cloud",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "cloud_position.lua"
+   ],
+   "family": "cloud-emitter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LEVITATION_FIELD",
+   "name": "Circle of Buoyancy",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D1",
+   "features": [
+    "AREA_EFFECT",
+    "LEVITATION"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): AREA_EFFECT,LEVITATION",
+   "notes": []
+  },
+  {
+   "game_id": "TELEPORTATION_FIELD",
+   "name": "Circle of Displacement",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D1",
+   "features": [
+    "AREA_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): AREA_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "BERSERK_FIELD",
+   "name": "Circle of Fervour",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D1",
+   "features": [
+    "AREA_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): AREA_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "SHIELD_FIELD",
+   "name": "Circle of Shielding",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D1",
+   "features": [
+    "AREA_EFFECT",
+    "SHIELD"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): AREA_EFFECT,SHIELD",
+   "notes": []
+  },
+  {
+   "game_id": "FREEZE_FIELD",
+   "name": "Circle of Stillness",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D1",
+   "features": [
+    "AREA_EFFECT",
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): AREA_EFFECT,MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "ELECTROCUTION_FIELD",
+   "name": "Circle of Thunder",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "AREA_EFFECT"
+   ],
+   "scripts": [
+    "electrocution_blast.lua"
+   ],
+   "family": "electric-field-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "POLYMORPH_FIELD",
+   "name": "Circle of Transmogrification",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D1",
+   "features": [
+    "AREA_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): AREA_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "CHAOS_POLYMORPH_FIELD",
+   "name": "Circle of Unstable Metamorphosis",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D1",
+   "features": [
+    "AREA_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): AREA_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "REGENERATION_FIELD",
+   "name": "Circle of Vigour",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D1",
+   "features": [
+    "AREA_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): AREA_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "DELAYED_SPELL",
+   "name": "Delayed Spellcast",
+   "type": "static_projectile",
+   "primitive": "TRIGGER",
+   "base_primitive": "STATIC",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "DESTRUCTION",
+   "name": "Destruction",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "destruction.lua"
+   ],
+   "family": "misc-world-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "EXPLOSION",
+   "name": "Explosion",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "FIRE_BLAST",
+   "name": "Explosion of Brimstone",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "POISON_BLAST",
+   "name": "Explosion of Poison",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "ALCOHOL_BLAST",
+   "name": "Explosion of Spirits",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "THUNDER_BLAST",
+   "name": "Explosion of Thunder",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "AREA_DAMAGE",
+    "AREA_EFFECT"
+   ],
+   "scripts": [
+    "lightning_explosion_small.lua"
+   ],
+   "family": "electric-field-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": [
+    "side entities: loose_ground.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "BOMB_DETONATOR",
+   "name": "Explosive Detonator",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "bomb_detonator.lua"
+   ],
+   "family": "misc-world-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "BLACK_HOLE_BIG",
+   "name": "Giga Black Hole",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "BLACK_HOLE",
+    "LOOSE_GROUND"
+   ],
+   "scripts": [
+    "black_hole_big.lua",
+    "black_hole_gravity.lua"
+   ],
+   "family": "black-white-hole",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "WHITE_HOLE_BIG",
+   "name": "Giga White Hole",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "BLACK_HOLE",
+    "LOOSE_GROUND"
+   ],
+   "scripts": [
+    "white_hole_big.lua",
+    "white_hole_gravity.lua"
+   ],
+   "family": "black-white-hole",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "PURPLE_EXPLOSION_FIELD",
+   "name": "Glittering Field",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "purple_explosion_field.lua"
+   ],
+   "family": "electric-field-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "WALL_HORIZONTAL",
+   "name": "Horizontal Barrier",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "wall_horizontal.lua"
+   ],
+   "family": "wall-builder",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "VACUUM_LIQUID",
+   "name": "Liquid Vacuum Field",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "AREA_EFFECT",
+    "MATERIAL_SUCKER",
+    "PROJ_HP"
+   ],
+   "scripts": [
+    "vacuum_powder.lua",
+    "vacuum_powder_init.lua"
+   ],
+   "family": "vacuum-field",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "EXPLOSION_LIGHT",
+   "name": "Magical Explosion",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "WORM_RAIN",
+   "name": "Matosade",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "CELL_EATER",
+    "CREATURE_AI",
+    "PROJ_HP"
+   ],
+   "scripts": [
+    "worm_rain.lua"
+   ],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "METEOR_RAIN",
+   "name": "Meteorisade",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "meteor_collide.lua",
+    "meteor_rain.lua"
+   ],
+   "family": "misc-world-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": [
+    "side entities: loose_ground.xml (XML not in raw/game: UNVERIFIED)"
+   ]
+  },
+  {
+   "game_id": "MASS_POLYMORPH",
+   "name": "Muodonmuutos",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "mass_polymorph.lua"
+   ],
+   "family": "misc-world-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "CLOUD_OIL",
+   "name": "Oil Cloud",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "cloud_position.lua"
+   ],
+   "family": "cloud-emitter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "BLACK_HOLE_GIGA",
+   "name": "Omega Black Hole",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "AREA_DAMAGE",
+    "BLACK_HOLE",
+    "CELL_EATER",
+    "LOOSE_GROUND",
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [
+    "black_hole_gravity.lua"
+   ],
+   "family": "black-white-hole",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "WHITE_HOLE_GIGA",
+   "name": "Omega White Hole",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "AREA_DAMAGE",
+    "BLACK_HOLE",
+    "CELL_EATER",
+    "LOOSE_GROUND",
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [
+    "white_hole_gravity.lua"
+   ],
+   "family": "black-white-hole",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "VACUUM_POWDER",
+   "name": "Powder Vacuum Field",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "AREA_EFFECT",
+    "MATERIAL_SUCKER",
+    "PROJ_HP"
+   ],
+   "scripts": [
+    "vacuum_powder.lua",
+    "vacuum_powder_init.lua"
+   ],
+   "family": "vacuum-field",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "PROJECTILE_GRAVITY_FIELD",
+   "name": "Projectile Gravity Field",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "projectile_gravity.lua"
+   ],
+   "family": "projectile-field",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "PROJECTILE_THUNDER_FIELD",
+   "name": "Projectile Thunder Field",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "projectile_thunder.lua"
+   ],
+   "family": "projectile-field",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "PROJECTILE_TRANSMUTATION_FIELD",
+   "name": "Projectile Transmutation Field",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "projectile_transmutation.lua"
+   ],
+   "family": "projectile-field",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "CLOUD_WATER",
+   "name": "Rain Cloud",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "cloud_position.lua"
+   ],
+   "family": "cloud-emitter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "RANDOM_STATIC_PROJECTILE",
+   "name": "Random Static Projectile Spell",
+   "type": "static_projectile",
+   "primitive": "UTILITY",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "random",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "WALL_SQUARE",
+   "name": "Square Barrier",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "wall_square.lua"
+   ],
+   "family": "wall-builder",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "SWARM_FIREBUG",
+   "name": "Summon Firebug Swarm",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "HOMING",
+    "PROJ_HP"
+   ],
+   "scripts": [
+    "swarm_fly.lua"
+   ],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "SWARM_FLY",
+   "name": "Summon Fly Swarm",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "HOMING",
+    "PROJ_HP"
+   ],
+   "scripts": [
+    "swarm_fly.lua"
+   ],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "FRIEND_FLY",
+   "name": "Summon Friendly Fly",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "HOMING",
+    "PROJ_HP"
+   ],
+   "scripts": [
+    "friend_fly.lua"
+   ],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "SWARM_WASP",
+   "name": "Summon Wasp Swarm",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [
+    "HOMING",
+    "PROJ_HP"
+   ],
+   "scripts": [
+    "swarm_fly.lua"
+   ],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "CLOUD_THUNDER",
+   "name": "Thundercloud",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "cloud_position.lua",
+    "rain_thunder.lua"
+   ],
+   "family": "cloud-emitter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "VACUUM_ENTITIES",
+   "name": "Vacuum Field",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "vacuum_entities.lua"
+   ],
+   "family": "vacuum-field",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "WALL_VERTICAL",
+   "name": "Vertical Barrier",
+   "type": "static_projectile",
+   "primitive": "STATIC",
+   "base_primitive": "STATIC",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "wall_vertical.lua"
+   ],
+   "family": "wall-builder",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ACCELERATING_SHOT",
+   "name": "Accelerating Shot",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "accelerating_shot.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "HOMING_ACCELERATING",
+   "name": "Accelerative Homing",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [
+    "HOMING"
+   ],
+   "scripts": [
+    "homing_accelerating.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ACID_TRAIL",
+   "name": "Acid Trail",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "MANA_REDUCE",
+   "name": "Add Mana",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "HOMING_CURSOR",
+   "name": "Aiming Arc",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "homing_cursor.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ANTI_HOMING",
+   "name": "Anti Homing",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HOMING"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HOMING",
+   "notes": []
+  },
+  {
+   "game_id": "GRAVITY_ANTI",
+   "name": "Anti-Gravity",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "AUTOAIM",
+   "name": "Auto-Aim",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "autoaim.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "AVOIDING_ARC",
+   "name": "Avoiding Arc",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "avoiding_arc.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "BLOOD_TO_ACID",
+   "name": "Blood To Acid",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "BLOODLUST",
+   "name": "Bloodlust",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "COLOUR_BLUE",
+   "name": "Blue Glimmer",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": [
+    "cosmetic-script-only (colour_spell/mine_animate)",
+    "complex_logic flag is a false positive (clamp/loop of constants)"
+   ]
+  },
+  {
+   "game_id": "HOMING_SHOOTER",
+   "name": "Boomerang",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HOMING"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HOMING",
+   "notes": []
+  },
+  {
+   "game_id": "BOUNCE",
+   "name": "Bounce",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BOUNCE_SPARK",
+   "name": "Bubbly Bounce",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "bounce_spark.lua"
+   ],
+   "family": "on-bounce-spawner",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "BURN_TRAIL",
+   "name": "Burning Trail",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "CHAIN_SHOT",
+   "name": "Chain Spell",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "chain_shot_init.lua",
+    "chain_shot_launch.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LARPA_CHAOS",
+   "name": "Chaos Larpa",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "larpa_chaos.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "RANDOM_EXPLOSION",
+   "name": "Chaos Magic",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "random_explosion.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "CHAOTIC_ARC",
+   "name": "Chaotic Path",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "chaotic_arc.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "TRANSMUTATION",
+   "name": "Chaotic Transmutation",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [
+    "transmutation.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "HITFX_TOXIC_CHARM",
+   "name": "Charm On Toxic Sludge",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "CLUSTERMOD",
+   "name": "Clusterbolt",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "extra entity clusterbomb.xml not in raw/game (UNVERIFIED, name suggests script)",
+   "notes": [
+    "extra-entity XML missing from raw/game: UNVERIFIED"
+   ]
+  },
+  {
+   "game_id": "EXPLOSION_TINY",
+   "name": "Concentrated Explosion",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "explosion_tiny.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "BOUNCE_LASER",
+   "name": "Concentrated Light Bounce",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "bounce_laser.lua"
+   ],
+   "family": "on-bounce-spawner",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LARPA_CHAOS_2",
+   "name": "Copy Trail",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "larpa_chaos_2.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "HITFX_CRITICAL_BLOOD",
+   "name": "Critical On Bloody Enemies",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "HITFX_BURNING_CRITICAL_HIT",
+   "name": "Critical On Burning",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "HITFX_CRITICAL_OIL",
+   "name": "Critical On Oiled Enemies",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "HITFX_CRITICAL_WATER",
+   "name": "Critical On Wet (Water) Enemies",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "CRITICAL_HIT",
+   "name": "Critical Plus",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "AREA_DAMAGE",
+   "name": "Damage Field",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "AREA_DAMAGE"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): AREA_DAMAGE",
+   "notes": []
+  },
+  {
+   "game_id": "DAMAGE",
+   "name": "Damage Plus",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "DECELERATING_SHOT",
+   "name": "Decelerating Shot",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "decelerating_shot.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ROCKET_DOWNWARDS",
+   "name": "Downwards Bolt Bundle",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "rocket_downwards.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LARPA_DOWNWARDS",
+   "name": "Downwards Larpa",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "larpa_downwards.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "CLIPPING_SHOT",
+   "name": "Drilling Shot",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "clipping_shot.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "CRUMBLING_EARTH_PROJECTILE",
+   "name": "Earthquake Shot",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "crumbling_earth_projectile.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ARC_ELECTRIC",
+   "name": "Electric Arc",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "ARC",
+    "LIGHTNING"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): ARC,LIGHTNING",
+   "notes": []
+  },
+  {
+   "game_id": "ELECTRIC_CHARGE",
+   "name": "Electric Charge",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "ESSENCE_TO_POWER",
+   "name": "Essence to Power",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "essence_to_power.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "HITFX_EXPLOSION_ALCOHOL",
+   "name": "Explosion On Drunk Enemies",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "HITFX_EXPLOSION_SLIME",
+   "name": "Explosion On Slimy Enemies",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "BOUNCE_EXPLOSION",
+   "name": "Explosive Bounce",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "bounce_explosion.lua"
+   ],
+   "family": "on-bounce-spawner",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "EXPLOSIVE_PROJECTILE",
+   "name": "Explosive Projectile",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "ARC_FIRE",
+   "name": "Fire Arc",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "ARC"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): ARC",
+   "notes": []
+  },
+  {
+   "game_id": "FIRE_TRAIL",
+   "name": "Fire Trail",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "ORBIT_FIREBALLS",
+   "name": "Fireball Orbit",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "orbit_projectile.lua",
+    "orbit_projectile_rotation.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "FIREBALL_RAY",
+   "name": "Fireball Thrower",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "fireball_ray.lua"
+   ],
+   "family": "ray-thrower",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "UNSTABLE_GUNPOWDER",
+   "name": "Firecrackers",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "FIZZLE",
+   "name": "Fizzle",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "fizzle.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "FLOATING_ARC",
+   "name": "Floating Arc",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "floating_arc.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "FLY_DOWNWARDS",
+   "name": "Fly Downwards",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "fly_downwards.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "FLY_UPWARDS",
+   "name": "Fly Upwards",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "fly_upwards.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "FREEZE",
+   "name": "Freeze Charge",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "HITFX_EXPLOSION_ALCOHOL_GIGA",
+   "name": "Giant Explosion On Drunk Enemies",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "HITFX_EXPLOSION_SLIME_GIGA",
+   "name": "Giant Explosion On Slimy Enemies",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "GRAVITY",
+   "name": "Gravity",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "COLOUR_GREEN",
+   "name": "Green Glimmer",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": [
+    "cosmetic-script-only (colour_spell/mine_animate)",
+    "complex_logic flag is a false positive (clamp/loop of constants)"
+   ]
+  },
+  {
+   "game_id": "STATIC_TO_SAND",
+   "name": "Ground To Sand",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "ARC_GUNPOWDER",
+   "name": "Gunpowder Arc",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "ARC"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): ARC",
+   "notes": []
+  },
+  {
+   "game_id": "GUNPOWDER_TRAIL",
+   "name": "Gunpowder Trail",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "HEAVY_SHOT",
+   "name": "Heavy Shot",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "HEAVY_SPREAD",
+   "name": "Heavy Spread",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "HOMING",
+   "name": "Homing",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HOMING"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HOMING",
+   "notes": []
+  },
+  {
+   "game_id": "HORIZONTAL_ARC",
+   "name": "Horizontal Path",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "horizontal_arc.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LIFETIME",
+   "name": "Increase Lifetime",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "COLOUR_INVIS",
+   "name": "Invisible Spell",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": [
+    "cosmetic-script-only (colour_spell/mine_animate)",
+    "complex_logic flag is a false positive (clamp/loop of constants)"
+   ]
+  },
+  {
+   "game_id": "KNOCKBACK",
+   "name": "Knockback",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BOUNCE_LARPA",
+   "name": "Larpa Bounce",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "bounce_larpa.lua"
+   ],
+   "family": "on-bounce-spawner",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LARPA_DEATH",
+   "name": "Larpa Explosion",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "larpa_death.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LAVA_TO_BLOOD",
+   "name": "Lava To Blood",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "LIGHT",
+   "name": "Light",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "LIGHT_SHOT",
+   "name": "Light Shot",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BOUNCE_LIGHTNING",
+   "name": "Lightning Bounce",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "bounce_lightning.lua"
+   ],
+   "family": "on-bounce-spawner",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LIGHTNING_RAY",
+   "name": "Lightning Thrower",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "lightning_ray.lua"
+   ],
+   "family": "ray-thrower",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LINE_ARC",
+   "name": "Linear Arc",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "line_arc.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LIQUID_TO_EXPLOSION",
+   "name": "Liquid Detonation",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "DAMAGE_FOREVER",
+   "name": "Mana To Damage",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "state-formula",
+   "wraps_trigger": false,
+   "reason": "shot-state modifier that reads/writes caster hp, gold or wand mana, or rolls RNG",
+   "notes": []
+  },
+  {
+   "game_id": "MATTER_EATER",
+   "name": "Matter Eater",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "CELL_EATER"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): CELL_EATER",
+   "notes": []
+  },
+  {
+   "game_id": "NECROMANCY",
+   "name": "Necromancy",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "NOLLA",
+   "name": "Nolla",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "nolla.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ORBIT_NUKES",
+   "name": "Nuke Orbit",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "orbit_projectile.lua",
+    "orbit_projectile_rotation.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ZERO_DAMAGE",
+   "name": "Null Shot",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "zero_damage.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ROCKET_OCTAGON",
+   "name": "Octagonal Bolt Bundle",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "rocket_octagon.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "OIL_TRAIL",
+   "name": "Oil Trail",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "COLOUR_ORANGE",
+   "name": "Orange Glimmer",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": [
+    "cosmetic-script-only (colour_spell/mine_animate)",
+    "complex_logic flag is a false positive (clamp/loop of constants)"
+   ]
+  },
+  {
+   "game_id": "ORBIT_LARPA",
+   "name": "Orbit Larpa",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "orbit_projectile.lua",
+    "orbit_projectile_rotation.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ORBIT_SHOT",
+   "name": "Orbiting Arc",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "spiraling_shot.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "FIREBALL_RAY_ENEMY",
+   "name": "Personal Fireball Thrower",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "GRAVITY_FIELD_ENEMY",
+   "name": "Personal Gravity Field",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "LIGHTNING_RAY_ENEMY",
+   "name": "Personal Lightning Caster",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "TENTACLE_RAY_ENEMY",
+   "name": "Personal Tentacler",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "HITFX_PETRIFY",
+   "name": "Petrify",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "hit-effect entity (XML not in raw/game, sibling of other hitfx)",
+   "notes": [
+    "extra-entity XML missing from raw/game: UNVERIFIED"
+   ]
+  },
+  {
+   "game_id": "PHASING_ARC",
+   "name": "Phasing Arc",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "phasing_arc.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "PIERCING_SHOT",
+   "name": "Piercing Shot",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "piercing_shot.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "PINGPONG_PATH",
+   "name": "Ping-Pong Path",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "pingpong_path.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "BOUNCE_LASER_EMITTER",
+   "name": "Plasma Beam Bounce",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "bounce_laser_emitter.lua"
+   ],
+   "family": "on-bounce-spawner",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LASER_EMITTER_WIDER",
+   "name": "Plasma Beam Enhancer",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "laser_emitter_wider.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ORBIT_LASERS",
+   "name": "Plasma Beam Orbit",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "orbit_projectile.lua",
+    "orbit_projectile_rotation.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LASER_EMITTER_RAY",
+   "name": "Plasma Beam Thrower",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "laser_emitter_ray.lua"
+   ],
+   "family": "ray-thrower",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ARC_POISON",
+   "name": "Poison Arc",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "ARC"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): ARC",
+   "notes": []
+  },
+  {
+   "game_id": "POISON_TRAIL",
+   "name": "Poison Trail",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "HOMING_AREA",
+   "name": "Projectile Area Teleport",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "homing_area.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ENERGY_SHIELD_SHOT",
+   "name": "Projectile Energy Shield",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "SHIELD"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SHIELD",
+   "notes": []
+  },
+  {
+   "game_id": "COLOUR_PURPLE",
+   "name": "Purple Glimmer",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": [
+    "cosmetic-script-only (colour_spell/mine_animate)",
+    "complex_logic flag is a false positive (clamp/loop of constants)"
+   ]
+  },
+  {
+   "game_id": "QUANTUM_SPLIT",
+   "name": "Quantum Split",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "quantum_split.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "COLOUR_RAINBOW",
+   "name": "Rainbow Glimmer",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": [
+    "cosmetic-script-only (colour_spell/mine_animate)",
+    "complex_logic flag is a false positive (clamp/loop of constants)"
+   ]
+  },
+  {
+   "game_id": "RAINBOW_TRAIL",
+   "name": "Rainbow Trail",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "DAMAGE_RANDOM",
+   "name": "Random Damage",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "state-formula",
+   "wraps_trigger": false,
+   "reason": "shot-state modifier that reads/writes caster hp, gold or wand mana, or rolls RNG",
+   "notes": []
+  },
+  {
+   "game_id": "RANDOM_MODIFIER",
+   "name": "Random Modifier Spell",
+   "type": "modifier",
+   "primitive": "UTILITY",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "random",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "RECOIL",
+   "name": "Recoil",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "RECOIL_DAMPER",
+   "name": "Recoil Damper",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "COLOUR_RED",
+   "name": "Red Glimmer",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": [
+    "cosmetic-script-only (colour_spell/mine_animate)",
+    "complex_logic flag is a false positive (clamp/loop of constants)"
+   ]
+  },
+  {
+   "game_id": "LIFETIME_DOWN",
+   "name": "Reduce Lifetime",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "RECHARGE",
+   "name": "Reduce Recharge Time",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SPREAD_REDUCE",
+   "name": "Reduce Spread",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "REMOVE_BOUNCE",
+   "name": "Remove Bounce",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "extra entity remove_bounce.xml not in raw/game (UNVERIFIED, likely script setting bounces_left=0)",
+   "notes": [
+    "extra-entity XML missing from raw/game: UNVERIFIED"
+   ]
+  },
+  {
+   "game_id": "EXPLOSION_REMOVE",
+   "name": "Remove Explosion",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "explosion_remove.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "HOMING_ROTATE",
+   "name": "Rotate Towards Foes",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HOMING"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HOMING",
+   "notes": []
+  },
+  {
+   "game_id": "ORBIT_DISCS",
+   "name": "Sawblade Orbit",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "orbit_projectile.lua",
+    "orbit_projectile_rotation.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "HOMING_SHORT",
+   "name": "Short-range Homing",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HOMING"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HOMING",
+   "notes": []
+  },
+  {
+   "game_id": "SINEWAVE",
+   "name": "Slithering Path",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "SINE_WAVE"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SINE_WAVE",
+   "notes": []
+  },
+  {
+   "game_id": "SLOW_BUT_STEADY",
+   "name": "Slow But Steady",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BOUNCE_SMALL_EXPLOSION",
+   "name": "Sparkly Bounce",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "bounce_small_explosion.lua"
+   ],
+   "family": "on-bounce-spawner",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "SPEED",
+   "name": "Speed Up",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SPELLS_TO_POWER",
+   "name": "Spells To Power",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "spells_to_power.lua",
+    "spells_to_power_tag.lua"
+   ],
+   "family": "projectile-rewriter",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "SPIRALING_SHOT",
+   "name": "Spiral Arc",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "orbit_shot.lua",
+    "orbit_shot_init.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "TENTACLE_RAY",
+   "name": "Tentacler",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "tentacle_ray.lua"
+   ],
+   "family": "ray-thrower",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "TOXIC_TO_ACID",
+   "name": "Toxic Sludge To Acid",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "TRUE_ORBIT",
+   "name": "True Orbit",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "true_orbit.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "FIREBALL_RAY_LINE",
+   "name": "Two-Way Fireball Thrower",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "fireball_ray_line.lua"
+   ],
+   "family": "ray-thrower",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "LARPA_UPWARDS",
+   "name": "Upwards Larpa",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "larpa_upwards.lua"
+   ],
+   "family": "trajectory-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "BOUNCE_HOLE",
+   "name": "Vacuum Bounce",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "bounce_hole.lua"
+   ],
+   "family": "on-bounce-spawner",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "CURSE",
+   "name": "Venomous Curse",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "HOMING_WAND",
+   "name": "Wand Homing",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HOMING"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HOMING",
+   "notes": []
+  },
+  {
+   "game_id": "WATER_TO_POISON",
+   "name": "Water To Poison",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "WATER_TRAIL",
+   "name": "Water Trail",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "CURSE_WITHER_ELECTRICITY",
+   "name": "Weakening Curse - Electricity",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "CURSE_WITHER_EXPLOSION",
+   "name": "Weakening Curse - Explosives",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "CURSE_WITHER_MELEE",
+   "name": "Weakening Curse - Melee",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "CURSE_WITHER_PROJECTILE",
+   "name": "Weakening Curse - Projectiles",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D1",
+   "features": [
+    "HIT_EFFECT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): HIT_EFFECT",
+   "notes": []
+  },
+  {
+   "game_id": "COLOUR_YELLOW",
+   "name": "Yellow Glimmer",
+   "type": "modifier",
+   "primitive": "MODIFIER",
+   "base_primitive": "MODIFIER",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": [
+    "cosmetic-script-only (colour_spell/mine_animate)",
+    "complex_logic flag is a false positive (clamp/loop of constants)"
+   ]
+  },
+  {
+   "game_id": "SCATTER_2",
+   "name": "Double Scatter Spell",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BURST_2",
+   "name": "Double Spell",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "T_SHAPE",
+   "name": "Formation - Above And Below",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "I_SHAPE",
+   "name": "Formation - Behind Your Back",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "Y_SHAPE",
+   "name": "Formation - Bifurcated",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "CIRCLE_SHAPE",
+   "name": "Formation - Hexagon",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "PENTAGRAM_SHAPE",
+   "name": "Formation - Pentagon",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "W_SHAPE",
+   "name": "Formation - Trifurcated",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BURST_X",
+   "name": "Myriad Spell",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": [
+    "complex_logic flag is a false positive (clamp/loop of constants)"
+   ]
+  },
+  {
+   "game_id": "BURST_8",
+   "name": "Octuple Spell",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SCATTER_4",
+   "name": "Quadruple Scatter Spell",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BURST_4",
+   "name": "Quadruple Spell",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SCATTER_3",
+   "name": "Triple Scatter Spell",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "BURST_3",
+   "name": "Triple Spell",
+   "type": "multicast",
+   "primitive": "MULTICAST",
+   "base_primitive": "MULTICAST",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "MATERIAL_ACID",
+   "name": "Acid",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "MATERIAL_BLOOD",
+   "name": "Blood",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "MATERIAL_CEMENT",
+   "name": "Cement",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SOILBALL",
+   "name": "Chunk Of Soil",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "CIRCLE_ACID",
+   "name": "Circle of Acid",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "CIRCLE_FIRE",
+   "name": "Circle of Fire",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "CIRCLE_OIL",
+   "name": "Circle of Oil",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "CIRCLE_WATER",
+   "name": "Circle of water",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "MATERIAL_OIL",
+   "name": "Oil",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "SEA_ACID",
+   "name": "Sea Of Acid",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "SEA_SPAWNER"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SEA_SPAWNER",
+   "notes": []
+  },
+  {
+   "game_id": "SEA_ALCOHOL",
+   "name": "Sea Of Alcohol",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "SEA_SPAWNER"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SEA_SPAWNER",
+   "notes": []
+  },
+  {
+   "game_id": "SEA_ACID_GAS",
+   "name": "Sea Of Flammable Gas",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "SEA_SPAWNER"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SEA_SPAWNER",
+   "notes": []
+  },
+  {
+   "game_id": "SEA_LAVA",
+   "name": "Sea Of Lava",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "SEA_SPAWNER"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SEA_SPAWNER",
+   "notes": []
+  },
+  {
+   "game_id": "SEA_MIMIC",
+   "name": "Sea of Mimicium",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "SEA_SPAWNER"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SEA_SPAWNER",
+   "notes": []
+  },
+  {
+   "game_id": "SEA_OIL",
+   "name": "Sea Of Oil",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "SEA_SPAWNER"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SEA_SPAWNER",
+   "notes": []
+  },
+  {
+   "game_id": "SEA_WATER",
+   "name": "Sea Of Water",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "SEA_SPAWNER"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SEA_SPAWNER",
+   "notes": []
+  },
+  {
+   "game_id": "SEA_SWAMP",
+   "name": "Summon Swamp",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "SEA_SPAWNER"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): SEA_SPAWNER",
+   "notes": []
+  },
+  {
+   "game_id": "TOUCH_BLOOD",
+   "name": "Touch Of Blood",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "TOUCH_GOLD",
+   "name": "Touch Of Gold",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "TOUCH_PISS",
+   "name": "Touch of Gold?",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "TOUCH_GRASS",
+   "name": "Touch of Grass",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D2",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [
+    "touch_grass.lua"
+   ],
+   "family": "misc-world-script",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "TOUCH_OIL",
+   "name": "Touch Of Oil",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "TOUCH_SMOKE",
+   "name": "Touch Of Smoke",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "TOUCH_ALCOHOL",
+   "name": "Touch Of Spirits",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "TOUCH_WATER",
+   "name": "Touch Of Water",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D1",
+   "features": [
+    "MATERIAL_CONVERT"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): MATERIAL_CONVERT",
+   "notes": []
+  },
+  {
+   "game_id": "MATERIAL_WATER",
+   "name": "Water",
+   "type": "material",
+   "primitive": "MATERIAL",
+   "base_primitive": "MATERIAL",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "X_RAY",
+   "name": "All-Seeing Eye",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [
+    "XRAY"
+   ],
+   "scripts": [
+    "xray_effect.lua"
+   ],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "BLOOD_MAGIC",
+   "name": "Blood Magic",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "state-formula",
+   "wraps_trigger": false,
+   "reason": "shot-state modifier that reads/writes caster hp, gold or wand mana, or rolls RNG",
+   "notes": []
+  },
+  {
+   "game_id": "BLOOD_TO_POWER",
+   "name": "Blood To Power",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "state-formula",
+   "wraps_trigger": false,
+   "reason": "shot-state modifier that reads/writes caster hp, gold or wand mana, or rolls RNG",
+   "notes": []
+  },
+  {
+   "game_id": "MONEY_MAGIC",
+   "name": "Gold To Power",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "state-formula",
+   "wraps_trigger": false,
+   "reason": "shot-state modifier that reads/writes caster hp, gold or wand mana, or rolls RNG",
+   "notes": []
+  },
+  {
+   "game_id": "HEXA_SHOT",
+   "name": "Heplicate Spell",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "plicate",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "CASTER_CAST",
+   "name": "Inner Spell",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "teleport-cast",
+   "wraps_trigger": false,
+   "reason": "wiki tag scripted; extra entity XML not in raw/game",
+   "notes": [
+    "extra-entity XML missing from raw/game: UNVERIFIED"
+   ]
+  },
+  {
+   "game_id": "I_SHOT",
+   "name": "Iplicate Spell",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "plicate",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "LONG_DISTANCE_CAST",
+   "name": "Long-Distance Cast",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": true,
+   "reason": "parametric data only",
+   "notes": []
+  },
+  {
+   "game_id": "PENTA_SHOT",
+   "name": "Peplicate Spell",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "plicate",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "QUAD_SHOT",
+   "name": "Quplicate Spell",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "plicate",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "ALL_ACID",
+   "name": "Spells To Acid",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "all_acid.lua"
+   ],
+   "family": "spells-to-x",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ALL_BLACKHOLES",
+   "name": "Spells To Black Holes",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "all_blackholes.lua"
+   ],
+   "family": "spells-to-x",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ALL_DEATHCROSSES",
+   "name": "Spells To Death Crosses",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "all_deathcrosses.lua"
+   ],
+   "family": "spells-to-x",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ALL_DISCS",
+   "name": "Spells To Giga Sawblades",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "all_discs.lua"
+   ],
+   "family": "spells-to-x",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ALL_ROCKETS",
+   "name": "Spells To Magic Missiles",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "all_rockets.lua"
+   ],
+   "family": "spells-to-x",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "ALL_NUKES",
+   "name": "Spells To Nukes",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "all_nukes.lua"
+   ],
+   "family": "spells-to-x",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "TEMPORARY_PLATFORM",
+   "name": "Summon Platform",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D1",
+   "features": [
+    "PHYS_BODY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): PHYS_BODY",
+   "notes": []
+  },
+  {
+   "game_id": "SUMMON_WANDGHOST",
+   "name": "Summon Taikasauva",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [
+    "CREATURE_AI",
+    "MATERIAL_CONVERT",
+    "PHYS_BODY",
+    "PROJ_HP"
+   ],
+   "scripts": [
+    "wand_ghost.lua"
+   ],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "TEMPORARY_WALL",
+   "name": "Summon Wall",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D1",
+   "features": [
+    "PHYS_BODY"
+   ],
+   "scripts": [],
+   "family": null,
+   "wraps_trigger": false,
+   "reason": "needs engine feature(s): PHYS_BODY",
+   "notes": []
+  },
+  {
+   "game_id": "TELEPORT_CAST",
+   "name": "Teleporting Cast",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "teleport_cast.lua"
+   ],
+   "family": "teleport-cast",
+   "wraps_trigger": true,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "T_SHOT",
+   "name": "Tiplicate Spell",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "plicate",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "RESET",
+   "name": "Wand Refresh",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "deck-surgery",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "SUPER_TELEPORT_CAST",
+   "name": "Warp Cast",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "super_teleport_cast.lua"
+   ],
+   "family": "teleport-cast",
+   "wraps_trigger": true,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "W_SHOT",
+   "name": "Wuplicate Spell",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "plicate",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "Y_SHOT",
+   "name": "Yplicate Spell",
+   "type": "utility",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "plicate",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "TORCH_ELECTRIC",
+   "name": "Electric Torch",
+   "type": "passive",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D1",
+   "features": [
+    "PASSIVE_CARD"
+   ],
+   "scripts": [],
+   "family": "passive-card",
+   "wraps_trigger": false,
+   "reason": "effect lives in the wand-attached card entity",
+   "notes": []
+  },
+  {
+   "game_id": "ENERGY_SHIELD",
+   "name": "Energy Shield",
+   "type": "passive",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D1",
+   "features": [
+    "PASSIVE_CARD"
+   ],
+   "scripts": [],
+   "family": "passive-card",
+   "wraps_trigger": false,
+   "reason": "effect lives in the wand-attached card entity",
+   "notes": []
+  },
+  {
+   "game_id": "ENERGY_SHIELD_SECTOR",
+   "name": "Energy Shield Sector",
+   "type": "passive",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D1",
+   "features": [
+    "PASSIVE_CARD"
+   ],
+   "scripts": [],
+   "family": "passive-card",
+   "wraps_trigger": false,
+   "reason": "effect lives in the wand-attached card entity",
+   "notes": []
+  },
+  {
+   "game_id": "TINY_GHOST",
+   "name": "Summon Tiny Ghost",
+   "type": "passive",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "passive card with 3 Lua scripts (companion AI)",
+   "notes": []
+  },
+  {
+   "game_id": "TORCH",
+   "name": "Torch",
+   "type": "passive",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D1",
+   "features": [
+    "PASSIVE_CARD"
+   ],
+   "scripts": [],
+   "family": "passive-card",
+   "wraps_trigger": false,
+   "reason": "effect lives in the wand-attached card entity",
+   "notes": []
+  },
+  {
+   "game_id": "ADD_DEATH_TRIGGER",
+   "name": "Add Expiration Trigger",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "add-trigger",
+   "wraps_trigger": true,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "ADD_TIMER",
+   "name": "Add Timer",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "add-trigger",
+   "wraps_trigger": true,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "ADD_TRIGGER",
+   "name": "Add Trigger",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "add-trigger",
+   "wraps_trigger": true,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "ALPHA",
+   "name": "Alpha",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "greek-copy",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "CESSATION",
+   "name": "Cessation",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "deck-surgery",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "DRAW_RANDOM",
+   "name": "Copy Random Spell",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "random",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "DRAW_RANDOM_X3",
+   "name": "Copy Random Spell Thrice",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "random",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "DRAW_3_RANDOM",
+   "name": "Copy Three Random Spells",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "random",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "DIVIDE_10",
+   "name": "Divide By 10",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "divide",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "DIVIDE_2",
+   "name": "Divide By 2",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "divide",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "DIVIDE_3",
+   "name": "Divide By 3",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "divide",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "DIVIDE_4",
+   "name": "Divide By 4",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "divide",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "GAMMA",
+   "name": "Gamma",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "greek-copy",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "KANTELE_A",
+   "name": "Kantele - Note A",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "KANTELE_D",
+   "name": "Kantele - Note D",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "KANTELE_DIS",
+   "name": "Kantele - Note D+",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "KANTELE_E",
+   "name": "Kantele - Note E",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "KANTELE_G",
+   "name": "Kantele - Note G",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "MU",
+   "name": "Mu",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "greek-copy",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "OCARINA_A",
+   "name": "Ocarina - Note A",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "OCARINA_A2",
+   "name": "Ocarina - Note A2",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "OCARINA_B",
+   "name": "Ocarina - Note B",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "OCARINA_C",
+   "name": "Ocarina - Note C",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "OCARINA_D",
+   "name": "Ocarina - Note D",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "OCARINA_E",
+   "name": "Ocarina - Note E",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "OCARINA_F",
+   "name": "Ocarina - Note F",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "OCARINA_GSHARP",
+   "name": "Ocarina - Note G+",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "easter-egg-notes",
+   "wraps_trigger": false,
+   "reason": "note projectile + song-matching script (portal/bomb/worm/alchemy magic); DEFER",
+   "notes": []
+  },
+  {
+   "game_id": "OMEGA",
+   "name": "Omega",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "greek-copy",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "PHI",
+   "name": "Phi",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "greek-copy",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "RANDOM_SPELL",
+   "name": "Random Spell",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "random",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "IF_END",
+   "name": "Requirement - Endpoint",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": "requirement-marker",
+   "wraps_trigger": false,
+   "reason": "draw 1, marker consulted by IF_* spells",
+   "notes": []
+  },
+  {
+   "game_id": "IF_ENEMY",
+   "name": "Requirement - Enemies",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "requirement",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "IF_HALF",
+   "name": "Requirement - Every Other",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "requirement",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "IF_HP",
+   "name": "Requirement - Low Health",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "requirement",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "IF_ELSE",
+   "name": "Requirement - Otherwise",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D0",
+   "features": [],
+   "scripts": [],
+   "family": "requirement-marker",
+   "wraps_trigger": false,
+   "reason": "draw 1, marker consulted by IF_* spells",
+   "notes": []
+  },
+  {
+   "game_id": "IF_PROJECTILE",
+   "name": "Requirement - Projectile Spells",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "requirement",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "SIGMA",
+   "name": "Sigma",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "greek-copy",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "DUPLICATE",
+   "name": "Spell Duplication",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "greek-copy",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "SUMMON_PORTAL",
+   "name": "Summon Portal",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [
+    "summon_portal_position_check.lua"
+   ],
+   "family": "summoned-creature",
+   "wraps_trigger": false,
+   "reason": "spell-specific Lua script(s)",
+   "notes": []
+  },
+  {
+   "game_id": "TAU",
+   "name": "Tau",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "greek-copy",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "ALL_SPELLS",
+   "name": "The End Of Everything",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "deck-surgery",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  },
+  {
+   "game_id": "ZETA",
+   "name": "Zeta",
+   "type": "other",
+   "primitive": "UTILITY",
+   "base_primitive": "UTILITY",
+   "impl": "D2",
+   "features": [],
+   "scripts": [],
+   "family": "random",
+   "wraps_trigger": false,
+   "reason": "deck/hand/discard or wand-state logic",
+   "notes": []
+  }
+ ]
+}

@@ -1,0 +1,452 @@
+[
+ {
+  "rank": 1,
+  "id": "light_bullet",
+  "game_id": "LIGHT_BULLET",
+  "name": "Spark Bolt",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "baseline fast bolt; starter"
+ },
+ {
+  "rank": 2,
+  "id": "light_bullet_trigger",
+  "game_id": "LIGHT_BULLET_TRIGGER",
+  "name": "Spark Bolt With Trigger",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "canonical collision trigger"
+ },
+ {
+  "rank": 3,
+  "id": "light_bullet_timer",
+  "game_id": "LIGHT_BULLET_TIMER",
+  "name": "Spark Bolt With Timer",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "canonical timer trigger"
+ },
+ {
+  "rank": 4,
+  "id": "bullet",
+  "game_id": "BULLET",
+  "name": "Magic Arrow",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "Magic Arrow: mid-tier bolt, +2 deg spread, knockback 1.8, recoil 23"
+ },
+ {
+  "rank": 5,
+  "id": "rocket",
+  "game_id": "ROCKET",
+  "name": "Magic Missile",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "Magic Missile: slow accelerating explosive"
+ },
+ {
+  "rank": 6,
+  "id": "slow_bullet",
+  "game_id": "SLOW_BULLET",
+  "name": "Energy Orb",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "Energy Orb: slow explosive orb"
+ },
+ {
+  "rank": 7,
+  "id": "spitter",
+  "game_id": "SPITTER",
+  "name": "Spitter Bolt",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "Spitter Bolt: short-lived bouncing cheap bolt"
+ },
+ {
+  "rank": 8,
+  "id": "rubber_ball",
+  "game_id": "RUBBER_BALL",
+  "name": "Bouncing Burst",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "Bouncing Burst: 10 bounces, speed-scaled damage"
+ },
+ {
+  "rank": 9,
+  "id": "bouncy_orb",
+  "game_id": "BOUNCY_ORB",
+  "name": "Energy Sphere",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "Energy Sphere: bouncing speed-scaled orb"
+ },
+ {
+  "rank": 10,
+  "id": "bomb",
+  "game_id": "BOMB",
+  "name": "Bomb",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "physics-body bomb, 180-frame fuse, big hole"
+ },
+ {
+  "rank": 11,
+  "id": "dynamite",
+  "game_id": "DYNAMITE",
+  "name": "Dynamite",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "thrown physics stick, 50-frame fuse"
+ },
+ {
+  "rank": 12,
+  "id": "grenade",
+  "game_id": "GRENADE",
+  "name": "Firebolt",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "Firebolt: bouncing fire grenade"
+ },
+ {
+  "rank": 13,
+  "id": "fireball",
+  "game_id": "FIREBALL",
+  "name": "Fireball",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "ignites materials in radius, fire explosion"
+ },
+ {
+  "rank": 14,
+  "id": "lightning",
+  "game_id": "LIGHTNING",
+  "name": "Lightning Bolt",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "Lightning Bolt: instant lightning ray + electric explosion"
+ },
+ {
+  "rank": 15,
+  "id": "digger",
+  "game_id": "DIGGER",
+  "name": "Digging Bolt",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "Digging Bolt: zero-speed drill, destroys terrain"
+ },
+ {
+  "rank": 16,
+  "id": "chainsaw",
+  "game_id": "CHAINSAW",
+  "name": "Chainsaw",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "cast delay forced to 0, slice damage, recharge -10"
+ },
+ {
+  "rank": 17,
+  "id": "luminous_drill",
+  "game_id": "LUMINOUS_DRILL",
+  "name": "Luminous Drill",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "very fast 2-frame laser drill, penetrates terrain"
+ },
+ {
+  "rank": 18,
+  "id": "laser_luminous_drill",
+  "game_id": "LASER_LUMINOUS_DRILL",
+  "name": "Luminous Drill With Timer",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "Luminous Drill With Timer: 4-frame timer, -35 cast delay"
+ },
+ {
+  "rank": 19,
+  "id": "black_hole",
+  "game_id": "BLACK_HOLE",
+  "name": "Black Hole",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "eats all materials in radius 12, pulls projectiles"
+ },
+ {
+  "rank": 20,
+  "id": "nuke",
+  "game_id": "NUKE",
+  "name": "Nuke",
+  "type": "projectile",
+  "category": "projectile",
+  "why": "250px explosion, sets cast delay, +600 recharge"
+ },
+ {
+  "rank": 21,
+  "id": "explosion",
+  "game_id": "EXPLOSION",
+  "name": "Explosion",
+  "type": "static_projectile",
+  "category": "static_projectile",
+  "why": "point-blank explosion at caster"
+ },
+ {
+  "rank": 22,
+  "id": "delayed_spell",
+  "game_id": "DELAYED_SPELL",
+  "name": "Delayed Spellcast",
+  "type": "static_projectile",
+  "category": "static_projectile",
+  "why": "expiration trigger carrying 3 spells"
+ },
+ {
+  "rank": 23,
+  "id": "material_water",
+  "game_id": "MATERIAL_WATER",
+  "name": "Water",
+  "type": "material",
+  "category": "material",
+  "why": "liquid spray: water"
+ },
+ {
+  "rank": 24,
+  "id": "material_oil",
+  "game_id": "MATERIAL_OIL",
+  "name": "Oil",
+  "type": "material",
+  "category": "material",
+  "why": "liquid spray: oil"
+ },
+ {
+  "rank": 25,
+  "id": "material_acid",
+  "game_id": "MATERIAL_ACID",
+  "name": "Acid",
+  "type": "material",
+  "category": "material",
+  "why": "liquid spray: acid"
+ },
+ {
+  "rank": 26,
+  "id": "circle_fire",
+  "game_id": "CIRCLE_FIRE",
+  "name": "Circle of Fire",
+  "type": "material",
+  "category": "material",
+  "why": "circle-shaped fire emitter at caster"
+ },
+ {
+  "rank": 27,
+  "id": "speed",
+  "game_id": "SPEED",
+  "name": "Speed Up",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "speed x2.5"
+ },
+ {
+  "rank": 28,
+  "id": "decelerating_shot",
+  "game_id": "DECELERATING_SHOT",
+  "name": "Decelerating Shot",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "adds air friction (+6) after launch; closest to 'slow down'"
+ },
+ {
+  "rank": 29,
+  "id": "damage",
+  "game_id": "DAMAGE",
+  "name": "Damage Plus",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "Damage Plus +10 projectile"
+ },
+ {
+  "rank": 30,
+  "id": "heavy_shot",
+  "game_id": "HEAVY_SHOT",
+  "name": "Heavy Shot",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "+43.75 projectile dmg, speed x0.3"
+ },
+ {
+  "rank": 31,
+  "id": "critical_hit",
+  "game_id": "CRITICAL_HIT",
+  "name": "Critical Plus",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "Critical Plus +15% crit"
+ },
+ {
+  "rank": 32,
+  "id": "spread_reduce",
+  "game_id": "SPREAD_REDUCE",
+  "name": "Reduce Spread",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "Reduce Spread -60 deg"
+ },
+ {
+  "rank": 33,
+  "id": "lifetime",
+  "game_id": "LIFETIME",
+  "name": "Increase Lifetime",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "Increase Lifetime +75 frames"
+ },
+ {
+  "rank": 34,
+  "id": "homing",
+  "game_id": "HOMING",
+  "name": "Homing",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "HomingComponent coeff 130, vel mult 0.86"
+ },
+ {
+  "rank": 35,
+  "id": "bounce",
+  "game_id": "BOUNCE",
+  "name": "Bounce",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "Bouncing +10 bounces"
+ },
+ {
+  "rank": 36,
+  "id": "piercing_shot",
+  "game_id": "PIERCING_SHOT",
+  "name": "Piercing Shot",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "on_collision_die=0, -15 dmg, friendly fire"
+ },
+ {
+  "rank": 37,
+  "id": "pingpong_path",
+  "game_id": "PINGPONG_PATH",
+  "name": "Ping-Pong Path",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "velocity reflection script every N frames, +25 lifetime"
+ },
+ {
+  "rank": 38,
+  "id": "chain_shot",
+  "game_id": "CHAIN_SHOT",
+  "name": "Chain Spell",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "re-spawns the projectile up to 4 times on death"
+ },
+ {
+  "rank": 39,
+  "id": "explosive_projectile",
+  "game_id": "EXPLOSIVE_PROJECTILE",
+  "name": "Explosive Projectile",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "+15 radius, +5 explosion dmg, speed x0.75"
+ },
+ {
+  "rank": 40,
+  "id": "fire_trail",
+  "game_id": "FIRE_TRAIL",
+  "name": "Fire Trail",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "trail material fire x10 + apply on-fire"
+ },
+ {
+  "rank": 41,
+  "id": "water_trail",
+  "game_id": "WATER_TRAIL",
+  "name": "Water Trail",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "trail material water x20 + apply wet"
+ },
+ {
+  "rank": 42,
+  "id": "recharge",
+  "game_id": "RECHARGE",
+  "name": "Reduce Recharge Time",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "Reduce Recharge Time -20 frames, -10 cast delay"
+ },
+ {
+  "rank": 43,
+  "id": "mana_reduce",
+  "game_id": "MANA_REDUCE",
+  "name": "Add Mana",
+  "type": "modifier",
+  "category": "modifier",
+  "why": "Add Mana: mana -30 (i.e. +30 to wand), +10 cast delay"
+ },
+ {
+  "rank": 44,
+  "id": "burst_2",
+  "game_id": "BURST_2",
+  "name": "Double Spell",
+  "type": "multicast",
+  "category": "multicast",
+  "why": "draw 2"
+ },
+ {
+  "rank": 45,
+  "id": "burst_3",
+  "game_id": "BURST_3",
+  "name": "Triple Spell",
+  "type": "multicast",
+  "category": "multicast",
+  "why": "draw 3"
+ },
+ {
+  "rank": 46,
+  "id": "burst_4",
+  "game_id": "BURST_4",
+  "name": "Quadruple Spell",
+  "type": "multicast",
+  "category": "multicast",
+  "why": "draw 4"
+ },
+ {
+  "rank": 47,
+  "id": "add_trigger",
+  "game_id": "ADD_TRIGGER",
+  "name": "Add Trigger",
+  "type": "other",
+  "category": "other",
+  "why": "deck-surgery: next projectile becomes collision trigger"
+ },
+ {
+  "rank": 48,
+  "id": "add_timer",
+  "game_id": "ADD_TIMER",
+  "name": "Add Timer",
+  "type": "other",
+  "category": "other",
+  "why": "deck-surgery: next projectile becomes 20-frame timer trigger"
+ },
+ {
+  "rank": 49,
+  "id": "divide_2",
+  "game_id": "DIVIDE_2",
+  "name": "Divide By 2",
+  "type": "other",
+  "category": "other",
+  "why": "casts next spell twice at -5 dmg, recursion-limited"
+ },
+ {
+  "rank": 50,
+  "id": "reset",
+  "game_id": "RESET",
+  "name": "Wand Refresh",
+  "type": "utility",
+  "category": "utility",
+  "why": "Wand Refresh: moves hand+deck to discard, reload -25 frames"
+ }
+]
