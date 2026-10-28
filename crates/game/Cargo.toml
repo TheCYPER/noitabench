@@ -1,0 +1,24 @@
+[package]
+name = "cogbench-game"
+description = "Game logic of the Noita-like cogbench environment: spells, wands, the player, items, enemies and projectiles on top of the pixel simulation"
+edition.workspace = true
+version.workspace = true
+license.workspace = true
+publish.workspace = true
+rust-version.workspace = true
+
+[lib]
+name = "cogbench_game"
+
+[dependencies]
+cogbench-sim = { version = "0.1.0", path = "../sim" }
+cogbench-rules = { version = "0.1.0", path = "../rules" }
+serde = { version = "1.0.229", features = ["derive"] }
+# float_roundtrip: snapshots keep every f32 and f64 bit-exact through JSON.
+serde_json = { version = "1.0.154", features = ["float_roundtrip"] }
+thiserror = "2.0.21"
+
+[dev-dependencies]
+png = "0.18.1"
+tempfile = "3.27.0"
+

@@ -1,0 +1,391 @@
+{
+ "format": "cogbench-wand-fixtures/0",
+ "source": "research/wand-cast-test-cases.json, filtered to the 25 in-scope spells",
+ "default_wand": {
+  "shuffle": false,
+  "spells_per_cast": 1,
+  "cast_delay_frames": 0,
+  "recharge_frames": 0,
+  "mana_max": 100000,
+  "mana_charge_speed": 100000,
+  "capacity": 26,
+  "spread": 0,
+  "speed_multiplier": 1.0
+ },
+ "cases": [
+  {
+   "id": "draw_01_multicast_modifier",
+   "source": "Expert Guide: Draw",
+   "verified": "both",
+   "slots": [
+    "BURST_2",
+    "DAMAGE",
+    "LIGHT_BULLET",
+    "LIGHT_BULLET"
+   ],
+   "clicks": [
+    {
+     "projectiles": [
+      "LIGHT_BULLET",
+      "LIGHT_BULLET"
+     ],
+     "modifiers": [
+      "DAMAGE"
+     ],
+     "damage_projectile_add_internal": 0.4,
+     "crit_chance": 10,
+     "fire_rate_wait_frames": 11,
+     "recharge_after": true,
+     "mana_spent": 15
+    }
+   ],
+   "corrected": [
+    "mana_spent: 10 -> 15 (DN-WAND-09)"
+   ]
+  },
+  {
+   "id": "draw_03_separate_casts_separate_shot_states",
+   "source": "Expert Guide: Draw",
+   "verified": "both",
+   "slots": [
+    "BURST_2",
+    "LIGHT_BULLET",
+    "LIGHT_BULLET",
+    "DAMAGE",
+    "LIGHT_BULLET"
+   ],
+   "clicks": [
+    {
+     "projectiles": [
+      "LIGHT_BULLET",
+      "LIGHT_BULLET"
+     ],
+     "crit_chance": 10,
+     "damage_projectile_add_internal": 0.0,
+     "recharge_after": false
+    },
+    {
+     "projectiles": [
+      "LIGHT_BULLET"
+     ],
+     "crit_chance": 5,
+     "damage_projectile_add_internal": 0.4,
+     "recharge_after": true
+    }
+   ]
+  },
+  {
+   "id": "draw_04_trigger_payload_isolation",
+   "source": "Expert Guide: Draw",
+   "verified": "both",
+   "slots": [
+    "BURST_2",
+    "LIGHT_BULLET_TRIGGER",
+    "DAMAGE",
+    "DIGGER",
+    "SPEED"
+   ],
+   "clicks": [
+    {
+     "projectiles": [
+      "LIGHT_BULLET_TRIGGER"
+     ],
+     "modifiers": [
+      "SPEED"
+     ],
+     "root_speed_multiplier": 2.5,
+     "root_damage_projectile_add_internal": 0.0,
+     "payloads": [
+      {
+       "of": "LIGHT_BULLET_TRIGGER",
+       "kind": "hit_world",
+       "projectiles": [
+        "DIGGER"
+       ],
+       "modifiers": [
+        "DAMAGE"
+       ],
+       "damage_projectile_add_internal": 0.4
+      }
+     ],
+     "recharge_after": true
+    }
+   ]
+  },
+  {
+   "id": "tuple_01_two_doubles",
+   "source": "Tuple Spell page",
+   "verified": "both",
+   "slots": [
+    "BURST_2",
+    "BURST_2",
+    "LIGHT_BULLET",
+    "LIGHT_BULLET",
+    "LIGHT_BULLET",
+    "LIGHT_BULLET"
+   ],
+   "clicks": [
+    {
+     "projectiles": [
+      "LIGHT_BULLET",
+      "LIGHT_BULLET",
+      "LIGHT_BULLET"
+     ],
+     "recharge_after": false
+    },
+    {
+     "projectiles": [
+      "LIGHT_BULLET"
+     ],
+     "recharge_after": true
+    }
+   ]
+  },
+  {
+   "id": "tuple_02_double_pairs",
+   "source": "Tuple Spell page",
+   "verified": "both",
+   "slots": [
+    "BURST_2",
+    "LIGHT_BULLET",
+    "LIGHT_BULLET",
+    "BURST_2",
+    "LIGHT_BULLET",
+    "LIGHT_BULLET"
+   ],
+   "clicks": [
+    {
+     "projectiles": [
+      "LIGHT_BULLET",
+      "LIGHT_BULLET"
+     ],
+     "recharge_after": false
+    },
+    {
+     "projectiles": [
+      "LIGHT_BULLET",
+      "LIGHT_BULLET"
+     ],
+     "recharge_after": true
+    }
+   ]
+  },
+  {
+   "id": "spc_01_spells_per_cast_does_not_wrap",
+   "source": "Wands#Spells/Cast",
+   "verified": "wiki; recharge trigger mechanism unverified-engine",
+   "wand": {
+    "spells_per_cast": 2
+   },
+   "slots": [
+    "LIGHT_BULLET",
+    "LIGHT_BULLET",
+    "LIGHT_BULLET"
+   ],
+   "clicks": [
+    {
+     "projectiles": [
+      "LIGHT_BULLET",
+      "LIGHT_BULLET"
+     ],
+     "recharge_after": false
+    },
+    {
+     "projectiles": [
+      "LIGHT_BULLET"
+     ],
+     "wrapped": false,
+     "recharge_after": true
+    }
+   ]
+  },
+  {
+   "id": "shuffle_01_multicast_second_slot_wraps",
+   "source": "Guide: Wand Mechanics",
+   "verified": "both",
+   "wand": {
+    "shuffle": true
+   },
+   "forced_permutation": [
+    "SLOW_BULLET",
+    "BURST_3",
+    "RUBBER_BALL",
+    "LIGHT_BULLET"
+   ],
+   "slots": [
+    "BURST_3",
+    "SLOW_BULLET",
+    "RUBBER_BALL",
+    "LIGHT_BULLET"
+   ],
+   "clicks": [
+    {
+     "projectiles": [
+      "SLOW_BULLET"
+     ],
+     "recharge_after": false
+    },
+    {
+     "projectiles": [
+      "RUBBER_BALL",
+      "LIGHT_BULLET",
+      "SLOW_BULLET"
+     ],
+     "wrapped": true,
+     "recharge_after": true
+    }
+   ]
+  },
+  {
+   "id": "mana_02_add_mana_negative_cost",
+   "source": "gun.lua draw_action + Add Mana page",
+   "verified": "both",
+   "slots": [
+    "MANA_REDUCE",
+    "LIGHT_BULLET"
+   ],
+   "wand": {
+    "mana_max": 100
+   },
+   "variants": [
+    {
+     "mana": 0,
+     "expect": {
+      "projectiles": [
+       "LIGHT_BULLET"
+      ],
+      "mana_after": 25,
+      "fire_rate_wait_frames": 13
+     }
+    }
+   ]
+  },
+  {
+   "id": "always_cast_01_modifier_draws_nothing",
+   "source": "gun.lua draw_actions special rule + Wands#Always Casts",
+   "verified": "both",
+   "wand": {
+    "always_casts": [
+     "DAMAGE"
+    ]
+   },
+   "slots": [
+    "LIGHT_BULLET",
+    "LIGHT_BULLET"
+   ],
+   "clicks": [
+    {
+     "projectiles": [
+      "LIGHT_BULLET"
+     ],
+     "modifiers": [
+      "DAMAGE"
+     ],
+     "mana_spent": 5,
+     "recharge_after": false
+    },
+    {
+     "projectiles": [
+      "LIGHT_BULLET"
+     ],
+     "modifiers": [
+      "DAMAGE"
+     ],
+     "recharge_after": true
+    }
+   ]
+  }
+ ],
+ "excluded": {
+  "draw_02_nested_multicast_and_leftover": [
+   "NUKE"
+  ],
+  "draw_05_wrap_by_trailing_modifier": [
+   "LIGHT"
+  ],
+  "draw_06_wrap_then_remaining_root_draws_continue": [
+   "CHAINSAW",
+   "LIGHT"
+  ],
+  "mana_01_homing_sparkbolt_thresholds": [
+   "HOMING"
+  ],
+  "divide_01_projectile": [
+   "DIVIDE_10"
+  ],
+  "divide_02_chains": [
+   "DIVIDE_10",
+   "DIVIDE_2",
+   "DIVIDE_4"
+  ],
+  "divide_03_modifier_single_divide": [
+   "DIVIDE_10"
+  ],
+  "divide_04_modifier_draw_cancelled_chain": [
+   "DIVIDE_10"
+  ],
+  "divide_05_two_divides_on_modifier_collapse": [
+   "DIVIDE_10",
+   "DIVIDE_4"
+  ],
+  "greek_01_tau_recursion": [
+   "TAU"
+  ],
+  "greek_02_omega_from_gamma": [
+   "GAMMA",
+   "OMEGA",
+   "RESET"
+  ],
+  "greek_03_alpha_search_order": [
+   "ALPHA",
+   "DIVIDE_10"
+  ],
+  "addtrigger_01_basic": [
+   "ADD_TRIGGER",
+   "SPITTER"
+  ],
+  "addtrigger_02_free_modifiers": [
+   "ADD_TRIGGER",
+   "OMEGA",
+   "PIERCING_SHOT",
+   "SPITTER"
+  ],
+  "addtrigger_03_no_payload_calls_target_plainly": [
+   "ADD_TRIGGER",
+   "DEATH_CROSS"
+  ],
+  "addtrigger_04_invalid_target_no_discard": [
+   "ADD_TRIGGER",
+   "ANTIHEAL",
+   "BLOOD_MAGIC",
+   "HOMING_SHOOTER",
+   "PIERCING_SHOT"
+  ],
+  "refresh_01_single_refresh_no_recharge": [
+   "RESET",
+   "SPITTER"
+  ],
+  "refresh_02_triple_recasts_through": [
+   "RESET",
+   "SPITTER"
+  ],
+  "refresh_03_spells_per_cast_forces_wrap": [
+   "(replaced by KV-01)",
+   "RESET",
+   "SPITTER"
+  ],
+  "always_cast_02_trigger_empty_payload": [
+   "SPITTER"
+  ],
+  "always_cast_03_double_trigger_draws": [
+   "LIGHT_BULLET_TRIGGER_2",
+   "SPITTER"
+  ],
+  "timing_01_worked_example": [
+   "SPITTER"
+  ],
+  "timing_02_wrap_example": [
+   "SPITTER"
+  ]
+ }
+}
