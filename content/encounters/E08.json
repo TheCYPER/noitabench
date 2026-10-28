@@ -1,0 +1,78 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E08",
+  "name_zh": "淹水通道",
+  "name_en": "Flooded passage",
+  "nodes": [
+    "N4",
+    "N5"
+  ],
+  "must_pass": true,
+  "layer": 1,
+  "biomes": [
+    "mine"
+  ],
+  "art": "E08.scene",
+  "variants": 4,
+  "dig_zone": true,
+  "markers": {
+    "1": {
+      "type": "spawn_enemy",
+      "enemy": "longleg"
+    }
+  },
+  "anchor_y": 18,
+  "regions": {
+    "water": [
+      4,
+      8,
+      72,
+      15
+    ],
+    "floor": [
+      4,
+      23,
+      72,
+      3
+    ],
+    "cellar": [
+      4,
+      26,
+      72,
+      10
+    ]
+  },
+  "lab": {
+    "goal": [
+      70,
+      38
+    ]
+  },
+  "requires": [],
+  "trap": "The room is full of water and has no way on except down: swimming does not get out of it, the floor must be dug",
+  "cue": "The floor under the water is thin ground, and the cellar below it is an empty hall with a doorway at its far end",
+  "notes": "Dig the floor and the water runs into the cellar and out through the doorway; the player either drains the room first (stands on the floor, digs, waits) or falls through with it. Natural connectivity counts the floor as passable (dig_zone).",
+  "lessons": [
+    {
+      "claim": {
+        "kind": "scene",
+        "encounter": "E08",
+        "topic": "flooded_room_exit",
+        "value": "dig_the_floor"
+      },
+      "tier": "game",
+      "note": "The flooded room has no other exit; the way out is to dig through the floor under the water: the water drains into the cellar below and you follow it down"
+    }
+  ],
+  "lesson_topics": {
+    "flooded_room_exit": {
+      "values": [
+        "dig_the_floor",
+        "swim_to_a_side_door",
+        "levitate_across",
+        "blast_the_wall"
+      ],
+      "about": "how to get out of the room that is full of water"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E10",
+  "name_zh": "水池挡道",
+  "name_en": "The pool in the way",
+  "nodes": [
+    "N4",
+    "N1"
+  ],
+  "must_pass": false,
+  "once": true,
+  "layer": null,
+  "biomes": [
+    "fungal",
+    "oil_cave"
+  ],
+  "art": "E10.scene",
+  "variants": 2,
+  "markers": {
+    "3": {
+      "type": "spawn_enemy",
+      "enemy": "longleg"
+    },
+    "4": {
+      "type": "spawn_enemy",
+      "enemy": "longleg"
+    },
+    "5": {
+      "type": "spawn_enemy",
+      "enemy": "longleg"
+    },
+    "6": {
+      "type": "item",
+      "item": "wand",
+      "tier": 2,
+      "role": "reward"
+    }
+  },
+  "anchor_y": 24,
+  "regions": {
+    "near": [
+      4,
+      2,
+      28,
+      26
+    ],
+    "pool": [
+      32,
+      28,
+      32,
+      22
+    ],
+    "surface": [
+      32,
+      28,
+      32,
+      3
+    ],
+    "bottom": [
+      32,
+      44,
+      32,
+      6
+    ],
+    "far": [
+      64,
+      2,
+      32,
+      26
+    ],
+    "pack": [
+      80,
+      20,
+      16,
+      8
+    ],
+    "reward": [
+      66,
+      21,
+      10,
+      7
+    ]
+  },
+  "lab": {
+    "goal": [
+      70,
+      27
+    ]
+  },
+  "requires": [],
+  "trap": "A pit of water 32 cells wide and 22 deep fills the hall between the door and a wand; three Hämis wait on the far ledge and come at the player as soon as they see them. A Hämis jumps 16 cells: one that falls into the pit cannot climb out of it (it wades along the bottom, wet, harmless), so the pack never reaches the near ledge; the swimmer crosses at the surface, slowly (60 % speed), and pays for what leaps across the water before it falls",
+  "cue": "The pit is drawn as water from ledge to ledge with sheer walls; the Hämis are in view from the door and come straight at the player; inspect names the water; a Hämis that falls in stays at the bottom",
+  "notes": "Walk to the pit, swim across at the surface (jump to keep the head up) and take the wand; or stay 25 or more cells from the edge and let the pack fall in. The pack cannot leave the pit but its jumpers bite anything within 16 cells of the wall they are at, through the ground: standing at the edge, or swimming past the wall they follow along, costs HP. No fire barrier: a creature that wades through water is wet and cannot burn, and the enemies do not avoid fire, so a film of oil burning on the water stops no one (a Hämis that steps from dry ground into a burning film does catch fire, but the ones in the pit are already wet). The scorer reads: Hämis in `pool` below the surface (trapped), melee damage taken near `pool`, the player's time in `pool`, HP at `reward`.",
+  "lessons": [
+    {
+      "claim": {
+        "kind": "creature",
+        "creature": "longleg",
+        "trait": "cannot_cross_deep_water"
+      },
+      "tier": "game",
+      "note": "Hämis cannot jump out of a water pit deeper than it can jump: once it falls in, it is stuck"
+    }
+  ]
+}

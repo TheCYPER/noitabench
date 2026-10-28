@@ -1,0 +1,142 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E24",
+  "name_zh": "新旧两间屋",
+  "name_en": "The old room and the new room",
+  "nodes": [
+    "N10",
+    "N6"
+  ],
+  "must_pass": false,
+  "layer": null,
+  "biomes": [
+    "mine",
+    "lava_deeps"
+  ],
+  "art": "E24.scene",
+  "variants": 2,
+  "slots": {
+    "A": {
+      "material": "slime"
+    },
+    "B": {
+      "material": "toxic_sludge"
+    }
+  },
+  "markers": {
+    "1": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "$A",
+      "role": "sample"
+    },
+    "2": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "$B",
+      "role": "sample"
+    },
+    "3": {
+      "type": "item",
+      "item": "wand",
+      "tier": 2,
+      "role": "reward"
+    },
+    "4": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "water",
+      "role": "remedy"
+    }
+  },
+  "anchor_y": 20,
+  "regions": {
+    "room_a": [
+      4,
+      8,
+      40,
+      24
+    ],
+    "pool_a": [
+      14,
+      26,
+      18,
+      6
+    ],
+    "vial_a": [
+      6,
+      19,
+      8,
+      5
+    ],
+    "partition": [
+      44,
+      16,
+      4,
+      8
+    ],
+    "room_b": [
+      48,
+      8,
+      40,
+      24
+    ],
+    "pool_b": [
+      58,
+      26,
+      18,
+      6
+    ],
+    "vial_b": [
+      48,
+      19,
+      10,
+      5
+    ],
+    "far": [
+      76,
+      16,
+      12,
+      8
+    ]
+  },
+  "lab": {
+    "goal": [
+      82,
+      23
+    ]
+  },
+  "requires": [],
+  "trap": "Two rooms built the same way: a ledge, a pool of green liquid in a brick basin under a low roof, a ledge. The first pool is slime and does nothing to a swimmer; the second is toxic sludge, which poisons (2 % of the maximum HP a second for 8 seconds, never lethal); each pool has a vial of its own liquid beside it. Whoever crosses the second pool as they crossed the first pays for it",
+  "cue": "inspect on a pool cell names its liquid, so does inspect on a vial; the two liquids are drawn in similar greens and have different names in the legend; the toxic one poisons the first swimmer who tries it",
+  "notes": "The first room teaches 'this green liquid is safe to swim'. In the second room look at the liquid (inspect, a pour from the vial, a splash) before swimming. Levitating across at the height of the ledges keeps the hit box a cell above the surface and costs nothing, in either room (checked 2026-10-28; the surface lies two cells below the ledges so that a splash has room in the basin: with a surface level enough to force contact, a 24-cell splash spills sludge onto the near ledge): the trap is for the swimmer. A bottle of water lies beside the second vial: a splash of it on the toxic pool turns the sludge into water (each touching cell converts at 13 % a frame and the water goes on converting) within two seconds, and the swim is harmless. The beds of the basins and the roofs over the pools are brick: the only ways across are through the liquid or over it. The scorer reads: contact with pool_b without a prior inspect of pool_b or vial_b, the poisoned status, a pour onto pool_b, and HP on arrival at far.",
+  "lessons": [
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "water",
+        "b": "toxic_sludge",
+        "out": [
+          "water"
+        ]
+      },
+      "note": "Water poured into toxic sludge turns the sludge to water"
+    },
+    {
+      "claim": {
+        "kind": "property",
+        "material": "toxic_sludge",
+        "property": "looks_like:slime"
+      },
+      "note": "Toxic sludge and slime are close in colour, easy to confuse"
+    },
+    {
+      "claim": {
+        "kind": "property",
+        "material": "toxic_sludge",
+        "property": "harms_on_contact"
+      },
+      "note": "Swimming through toxic sludge poisons you; slime is harmless"
+    }
+  ]
+}

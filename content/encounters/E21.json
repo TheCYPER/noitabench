@@ -1,0 +1,172 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E21",
+  "name_zh": "低血与无名瓶",
+  "name_en": "Hurt, and four bottles with no names",
+  "nodes": [
+    "N9",
+    "N10"
+  ],
+  "must_pass": false,
+  "layer": null,
+  "biomes": [
+    "coal_pit",
+    "fungal"
+  ],
+  "art": "E21.scene",
+  "variants": 6,
+  "slots": {
+    "A": {
+      "role": "fuel"
+    },
+    "B": {
+      "role": "plain_liquid",
+      "exclude": [
+        "A"
+      ]
+    }
+  },
+  "markers": {
+    "1": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "toxic_sludge",
+      "role": "decoy"
+    },
+    "2": [
+      {
+        "type": "item",
+        "item": "bottle",
+        "contents": "$A",
+        "role": "decoy"
+      },
+      {
+        "type": "item",
+        "item": "bottle",
+        "contents": "$A",
+        "role": "decoy"
+      },
+      {
+        "type": "item",
+        "item": "potion_heal",
+        "role": "remedy"
+      }
+    ],
+    "3": [
+      {
+        "type": "item",
+        "item": "potion_heal",
+        "role": "remedy"
+      },
+      {
+        "type": "item",
+        "item": "bottle",
+        "contents": "$B",
+        "role": "decoy"
+      },
+      {
+        "type": "item",
+        "item": "bottle",
+        "contents": "$A",
+        "role": "decoy"
+      }
+    ],
+    "4": [
+      {
+        "type": "item",
+        "item": "bottle",
+        "contents": "$B",
+        "role": "decoy"
+      },
+      {
+        "type": "item",
+        "item": "potion_heal",
+        "role": "remedy"
+      },
+      {
+        "type": "item",
+        "item": "bottle",
+        "contents": "$B",
+        "role": "decoy"
+      }
+    ]
+  },
+  "anchor_y": 20,
+  "regions": {
+    "nook": [
+      22,
+      12,
+      22,
+      10
+    ],
+    "bench": [
+      24,
+      20,
+      18,
+      2
+    ],
+    "bottles": [
+      26,
+      14,
+      15,
+      6
+    ]
+  },
+  "lab": {
+    "goal": [
+      30,
+      21
+    ]
+  },
+  "requires": [],
+  "trap": "Four bottles stand in a row on a brick bench in a low nook; one heals (a full bottle of the healing potion restores all 100 HP), the other three hold toxic sludge, a fuel (oil or whiskey) and one more plain liquid; none is better marked than the others. Drinking a mouthful of an unknown bottle at low HP is a gamble: sludge poisons (2 % of max HP a second, about 13 s after 40 frames of drinking, never lethal), whiskey makes the aim shake, oil makes the drinker flammable",
+  "cue": "The bottles are only shapes on the map; inspect names what each holds, and so does a small pour; the nook lies in the caves where fire and gunpowder hurt, so the player arrives hurt more often than not",
+  "notes": "Inspect each bottle (free, no time passes), then drink the potion; or pour a few cells of each on the floor to see what it is. The scorer reads HP on entry to the nook, whether a bottle was inspected before the first drink, and the order and amount drunk.",
+  "lessons": [
+    {
+      "claim": {
+        "kind": "scene",
+        "encounter": "E21",
+        "topic": "nearest_bottle_to_door",
+        "value": "toxic_sludge"
+      },
+      "tier": "game",
+      "note": "The bottle nearest the door is always toxic sludge, never the healing potion"
+    },
+    {
+      "claim": {
+        "kind": "drink",
+        "material": "toxic_sludge",
+        "effect": "poisoned"
+      },
+      "note": "Drinking toxic sludge poisons you"
+    },
+    {
+      "claim": {
+        "kind": "drink",
+        "material": "oil",
+        "effect": "oiled"
+      },
+      "note": "Drinking oil covers you in oil, so you catch fire easily"
+    },
+    {
+      "claim": {
+        "kind": "drink",
+        "material": "whiskey",
+        "effect": "drunk"
+      },
+      "note": "Drinking whiskey makes you drunk and your aim shakes"
+    }
+  ],
+  "lesson_topics": {
+    "nearest_bottle_to_door": {
+      "values": [
+        "toxic_sludge",
+        "heal_potion",
+        "fuel",
+        "plain_liquid"
+      ],
+      "about": "in the row of four unlabelled bottles on the brick bench, what the bottle nearest the door holds"
+    }
+  }
+}

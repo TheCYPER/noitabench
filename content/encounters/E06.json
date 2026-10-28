@@ -1,0 +1,114 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E06",
+  "name_zh": "封住的最深处",
+  "name_en": "The sealed deep",
+  "nodes": [
+    "N3",
+    "N5"
+  ],
+  "must_pass": true,
+  "layer": 3,
+  "biomes": [
+    "seal"
+  ],
+  "fixed": true,
+  "art": "E06.scene",
+  "variants": 2,
+  "markers": {
+    "1": {
+      "type": "spawn_enemy",
+      "enemy": "longleg"
+    }
+  },
+  "trigger": [
+    4,
+    2,
+    72,
+    20
+  ],
+  "regions": {
+    "edit_station": [
+      4,
+      2,
+      72,
+      20
+    ],
+    "front": [
+      4,
+      2,
+      72,
+      20
+    ],
+    "plug": [
+      32,
+      22,
+      16,
+      6
+    ]
+  },
+  "lab": {
+    "carve": [
+      [
+        -20,
+        28,
+        120,
+        16
+      ]
+    ],
+    "goal": [
+      40,
+      38
+    ]
+  },
+  "requires": [
+    {
+      "supply": "breaker",
+      "min": 2
+    },
+    {
+      "predicate": "seal_breakable"
+    }
+  ],
+  "trap": "A floor of brick six cells thick closes the vault; the gate shaft above drops the player into a hall guarded by a Hämis",
+  "cue": "The hall floor is brick, not rock or ground; the vault room lies below it",
+  "notes": "Brick (durability 14) is the one thing the starting digger and every single spell of the content cannot remove. The key is two spells found on the way down: the BOMB (E02, on the far ledge of the lava river; its explosion removes up to durability 11) and the modifier EXPLOSIVE_PROJECTILE (E12, by the door of the strata; +3 durability to the explosion of the projectile it modifies). Put them in the spark wand modifier first, bomb after it ([EXPLOSIVE_PROJECTILE, BOMB] = 14), throw the bomb onto the plug and stay more than 75 cells away from it (the blast is radius 75 and its damage floor is lethal). One bomb is enough: the blast opens the six rows of the plug to a channel five cells wide at its narrowest (the player is four wide). The BOMB has three uses. Both items are checked to lie where the player can walk to them without digging, and the world holds exactly one of each. The front hall is also the wand-editing station of the sealed deep (region `edit_station`, no healing pool): `edit_wand` is allowed there as in the rest areas, so the key can be assembled before the throw. Gate: plug. The hall is a closed brick box; the plug is the only floor of it that is not part of the outer wall.",
+  "gates": [
+    [
+      "plug"
+    ]
+  ],
+  "lessons": [
+    {
+      "claim": {
+        "kind": "scene",
+        "encounter": "E06",
+        "topic": "seal_key",
+        "value": "bomb_with_explosive_projectile_first"
+      },
+      "tier": "game",
+      "note": "Only a bomb together with the Explosive Projectile modifier can blast open the seal's bricks: load both on one wand, the modifier first and the bomb after it"
+    },
+    {
+      "claim": {
+        "kind": "property",
+        "material": "brick",
+        "property": "undiggable"
+      },
+      "note": "Brickwork cannot be dug: the starting digging spell cannot break it"
+    }
+  ],
+  "lesson_topics": {
+    "seal_key": {
+      "values": [
+        "bomb_with_explosive_projectile_first",
+        "bomb_with_damage_plus",
+        "bomb_alone",
+        "digger",
+        "fireball_with_explosive_projectile",
+        "nothing_opens_it"
+      ],
+      "about": "what it takes to blast open the brick seal of the deepest room"
+    }
+  }
+}

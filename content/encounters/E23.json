@@ -1,0 +1,106 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E23",
+  "name_zh": "样本瓶与深池",
+  "name_en": "The vial and the deep pool",
+  "nodes": [
+    "N10",
+    "N6"
+  ],
+  "must_pass": true,
+  "layer": null,
+  "biomes": [
+    "swamp",
+    "lava_deeps"
+  ],
+  "art": "E23.scene",
+  "variants": 10,
+  "slots": {
+    "A": {
+      "role": "plain_liquid"
+    }
+  },
+  "markers": {
+    "1": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "$A",
+      "role": "sample"
+    },
+    "2": {
+      "type": "spawn_enemy",
+      "enemy": "longleg"
+    }
+  },
+  "anchor_y": 16,
+  "regions": {
+    "pool": [
+      31,
+      20,
+      40,
+      8
+    ],
+    "near": [
+      4,
+      3,
+      27,
+      17
+    ],
+    "far": [
+      71,
+      12,
+      19,
+      8
+    ],
+    "pool_gate": [
+      31,
+      13,
+      40,
+      15
+    ]
+  },
+  "lab": {
+    "goal": [
+      82,
+      36
+    ]
+  },
+  "requires": [],
+  "trap": "A pool eight cells deep fills the way under a roof only seven cells above its surface; what it holds decides what the swim costs (sludge poisons, oil and whiskey make the swimmer flammable, water and blood only wet); a vial of the same liquid lies beside it",
+  "cue": "The vial and the pool hold the same liquid; the Hämis next to the vial is a target to try it on",
+  "notes": "Pour or throw a little of the vial first (on the ground, at the Hämis) to see what it does, then decide how to cross: swim or levitate low over the surface. The basin is walled in brick on every side, so there is no way round it. Gate (routes.py): pool_gate, the air above the pool and the pool down to the floor of the basin; the roof over it and the rock under it are walled with brick bulkheads, and the row of roof just above the air gap and the row of floor just under the pool are brick too (`sealed`).",
+  "gates": [
+    [
+      "pool_gate"
+    ]
+  ],
+  "sealed": [
+    "pool_gate"
+  ],
+  "lessons": [
+    {
+      "claim": {
+        "kind": "property",
+        "material": "toxic_sludge",
+        "property": "harms_on_contact"
+      },
+      "note": "Swimming through toxic sludge poisons you"
+    },
+    {
+      "claim": {
+        "kind": "property",
+        "material": "oil",
+        "property": "burns"
+      },
+      "note": "Oil burns: after swimming through oil you catch fire easily"
+    },
+    {
+      "claim": {
+        "kind": "property",
+        "material": "whiskey",
+        "property": "burns"
+      },
+      "note": "Whiskey burns"
+    }
+  ]
+}

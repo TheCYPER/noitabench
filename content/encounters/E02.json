@@ -1,0 +1,150 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E02",
+  "name_zh": "熔岩河",
+  "name_en": "Lava river",
+  "nodes": [
+    "N1"
+  ],
+  "must_pass": true,
+  "layer": 3,
+  "biomes": [
+    "lava_deeps"
+  ],
+  "art": "E02.scene",
+  "variants": 8,
+  "slots": {
+    "A": {
+      "role": "lava_solidifier"
+    },
+    "B": {
+      "role": "not_lava_solidifier",
+      "pick": 1
+    }
+  },
+  "markers": {
+    "1": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "$A",
+      "role": "solvent"
+    },
+    "2": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "$A",
+      "role": "solvent"
+    },
+    "3": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "$B"
+    },
+    "4": {
+      "type": "spawn_enemy",
+      "enemy": "longleg"
+    },
+    "5": {
+      "type": "item",
+      "item": "spell",
+      "spell": "BOMB",
+      "role": "breaker"
+    },
+    "6": {
+      "type": "item",
+      "item": "potion_heal"
+    }
+  },
+  "anchor_y": 17,
+  "regions": {
+    "river": [
+      39,
+      21,
+      30,
+      1
+    ],
+    "entry": [
+      4,
+      3,
+      27,
+      18
+    ],
+    "far": [
+      69,
+      13,
+      11,
+      8
+    ],
+    "river_gate": [
+      39,
+      13,
+      30,
+      10
+    ]
+  },
+  "lab": {
+    "goal": [
+      85,
+      38
+    ]
+  },
+  "requires": [
+    {
+      "predicate": "lava_solidifier"
+    },
+    {
+      "supply": "solvent",
+      "min": 2,
+      "own": true
+    }
+  ],
+  "trap": "A 30-cell lava river under a roof too low to fly over unhurt; beside the bottles for the crossing stands a decoy bottle of a liquid that does not solidify lava (oil or whiskey burn on it, a water-family liquid may be the odd one out)",
+  "cue": "Bottles on the entry floor; the river glows; inspect tells what each bottle holds and what lies in the river",
+  "notes": "Solve: pour the right liquid on the lava to crust it and walk over the crust (1 cell thick: the lava under it still burns the feet a little); the far ledge holds the BOMB spell that E06 needs. Gate (routes.py): river_gate, the air above the river and the river down to its bed, wall to wall. The roof over it and the rock under it are walled with brick bulkheads, and the row of roof just above the gap and the row of bed just under the river are brick too (`sealed`): a digger who hovers up from the bank into the roof, or dives into the bed, finds nothing to tunnel in, so the only way to the far ledge is over the crust.",
+  "gates": [
+    [
+      "river_gate"
+    ]
+  ],
+  "sealed": [
+    "river_gate"
+  ],
+  "lessons": [
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "water",
+        "out": [
+          "rock",
+          "steam"
+        ]
+      },
+      "note": "Water poured on lava turns the lava to rock: you can walk over the rock crust to cross the river"
+    },
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "blood",
+        "out": [
+          "rock",
+          "steam"
+        ]
+      },
+      "note": "Blood poured on lava also turns the lava to rock"
+    },
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "toxic_sludge",
+        "out": [
+          "rock",
+          "flammable_gas"
+        ]
+      },
+      "note": "Toxic sludge poured on lava also turns it to rock, but gives off flammable gas"
+    }
+  ]
+}

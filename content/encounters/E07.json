@@ -1,0 +1,153 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E07",
+  "name_zh": "连环关卡",
+  "name_en": "The chain",
+  "nodes": [
+    "N3",
+    "N1"
+  ],
+  "must_pass": true,
+  "layer": 2,
+  "biomes": [
+    "swamp"
+  ],
+  "art": "E07.scene",
+  "variants": 8,
+  "allow_acid": true,
+  "slots": {
+    "A": {
+      "role": "lava_solidifier"
+    }
+  },
+  "markers": {
+    "1": {
+      "type": "item",
+      "item": "bottle",
+      "role": "container"
+    },
+    "2": {
+      "type": "spawn_enemy",
+      "enemy": "longleg"
+    },
+    "3": {
+      "type": "item",
+      "item": "potion_heal"
+    }
+  },
+  "anchor_y": 18,
+  "regions": {
+    "pool": [
+      22,
+      23,
+      14,
+      10
+    ],
+    "acid": [
+      44,
+      23,
+      28,
+      3
+    ],
+    "lava": [
+      82,
+      23,
+      12,
+      1
+    ],
+    "roof": [
+      80,
+      3,
+      28,
+      12
+    ],
+    "acid_gate": [
+      44,
+      3,
+      28,
+      23
+    ],
+    "lava_gate": [
+      80,
+      15,
+      14,
+      9
+    ]
+  },
+  "lab": {
+    "goal": [
+      104,
+      37
+    ]
+  },
+  "requires": [
+    {
+      "predicate": "lava_solidifier"
+    }
+  ],
+  "trap": "Three obstacles in a row, each wants the liquid of the pool: an empty bottle and a pool; a trough of acid, 28 cells long (a water-family liquid eats the acid, anything else does not; levitation clears it); a river of lava under a low roof. Spend the pool's liquid on the acid and there may be too little left for the lava",
+  "cue": "The bottle lies empty at the entry; the pool, the trough and the river are all drawn; inspect names them",
+  "notes": "Fill the bottle at the pool (the scene's only supply: 140 cells). Fly over the acid or neutralise it, then crust the lava with the same liquid. Gates (routes.py), in series: acid_gate, the air above the trough and the trough itself; lava_gate, the air above the river and the river. The rock under the trough, the roof over the river and the rock under it are walled with brick bulkheads, and the row of roof just above the lava gap and the row of bed just under the river are brick too (`sealed`), so each obstacle has to be crossed, not tunnelled round.",
+  "gates": [
+    [
+      "acid_gate"
+    ],
+    [
+      "lava_gate"
+    ]
+  ],
+  "sealed": [
+    "acid_gate",
+    "lava_gate"
+  ],
+  "lessons": [
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "water",
+        "out": [
+          "rock",
+          "steam"
+        ]
+      },
+      "note": "Water poured on lava turns the lava to rock: you can walk over the rock crust to cross the river"
+    },
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "blood",
+        "out": [
+          "rock",
+          "steam"
+        ]
+      },
+      "note": "Blood poured on lava also turns the lava to rock"
+    },
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "toxic_sludge",
+        "out": [
+          "rock",
+          "flammable_gas"
+        ]
+      },
+      "note": "Toxic sludge poured on lava also turns it to rock, but gives off flammable gas"
+    },
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "acid",
+        "b": "water",
+        "out": [
+          "flammable_gas",
+          "air"
+        ]
+      },
+      "note": "Acid meets water-family liquids (water, blood), eats them away and turns them into flammable gas: this is how the acid trough gets cleared"
+    }
+  ]
+}

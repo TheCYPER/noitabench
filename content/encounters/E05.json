@@ -1,0 +1,165 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E05",
+  "name_zh": "上锁的宝库",
+  "name_en": "The vault behind the lava door",
+  "nodes": [
+    "N2",
+    "N5"
+  ],
+  "must_pass": false,
+  "layer": null,
+  "biomes": [
+    "fungal",
+    "brick_ruins"
+  ],
+  "art": "E05.scene",
+  "variants": 6,
+  "slots": {
+    "A": {
+      "role": "extinguisher"
+    },
+    "B": {
+      "role": "not_lava_solidifier"
+    }
+  },
+  "markers": {
+    "1": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "$A",
+      "role": "solvent"
+    },
+    "2": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "$B",
+      "role": "decoy"
+    },
+    "6": {
+      "type": "item",
+      "item": "wand",
+      "tier": 2,
+      "role": "reward"
+    },
+    "7": {
+      "type": "item",
+      "item": "potion_heal",
+      "role": "reward"
+    }
+  },
+  "anchor_y": 14,
+  "regions": {
+    "key_hall": [
+      4,
+      2,
+      56,
+      14
+    ],
+    "key": [
+      10,
+      10,
+      10,
+      6
+    ],
+    "decoy": [
+      20,
+      12,
+      8,
+      4
+    ],
+    "shaft": [
+      44,
+      16,
+      10,
+      19
+    ],
+    "landing": [
+      28,
+      22,
+      32,
+      13
+    ],
+    "river": [
+      13,
+      35,
+      14,
+      1
+    ],
+    "river_gate": [
+      13,
+      27,
+      14,
+      9
+    ],
+    "vault": [
+      4,
+      27,
+      9,
+      8
+    ],
+    "drop": [
+      44,
+      16,
+      5,
+      19
+    ],
+    "roof": [
+      4,
+      20,
+      56,
+      2
+    ],
+    "stairs": [
+      49,
+      22,
+      5,
+      8
+    ]
+  },
+  "lab": {
+    "goal": [
+      7,
+      34
+    ]
+  },
+  "requires": [
+    {
+      "predicate": "lava_solidifier"
+    },
+    {
+      "supply": "solvent",
+      "min": 1,
+      "own": true
+    }
+  ],
+  "trap": "The vault is a brick box whose only door is a 14-wide lava river under a roof too low to fly over unhurt; the liquid that crusts the lava is a bottle on a pedestal in the first hall, on the way in, 30 cells from the shaft and out of sight of the river, beside a decoy bottle of a liquid that does not crust it. Whoever drops down the shaft without it must climb back (two ledges)",
+  "cue": "Both bottles are named by inspect; the pedestal is the one thing in the first hall that is built, and the river and the vault can be seen from the foot of the shaft",
+  "notes": "Take the bottles in hall A, drop down the shaft, pour the one that makes rock on the river in bursts and walk over the crust; the vault holds a wand and a healing potion. The vault and the river are walled in brick on every side (no tunnelling round), the first hall is plain rock. The scorer reads: whether the solvent bottle was picked up before the foot of the shaft was reached (landing), how many times the shaft was climbed, what was poured on the river. The solvent is water or blood (the liquids that crust lava without a gas: toxic sludge also works but makes a gas that burns and shatters the vault's bottles).",
+  "lessons": [
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "water",
+        "out": [
+          "rock",
+          "steam"
+        ]
+      },
+      "note": "Water poured on lava turns the lava to rock: you can walk over the rock crust to cross the river"
+    },
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "blood",
+        "out": [
+          "rock",
+          "steam"
+        ]
+      },
+      "note": "Blood poured on lava also turns the lava to rock"
+    }
+  ]
+}

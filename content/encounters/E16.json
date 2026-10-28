@@ -1,0 +1,95 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E16",
+  "name_zh": "薄酸层",
+  "name_en": "Thin acid layer",
+  "nodes": [
+    "N7",
+    "N9"
+  ],
+  "must_pass": true,
+  "layer": 1,
+  "biomes": [
+    "mine"
+  ],
+  "art": "E16.scene",
+  "variants": 4,
+  "allow_acid": true,
+  "markers": {
+    "1": {
+      "type": "item",
+      "item": "potion_heal"
+    },
+    "2": {
+      "type": "spawn_enemy",
+      "enemy": "longleg"
+    }
+  },
+  "anchor_y": 15,
+  "regions": {
+    "trough": [
+      28,
+      18,
+      33,
+      5
+    ],
+    "film": [
+      28,
+      19,
+      33,
+      2
+    ],
+    "islet": [
+      42,
+      18,
+      5,
+      5
+    ],
+    "crossing": [
+      28,
+      3,
+      33,
+      20
+    ]
+  },
+  "lab": {
+    "goal": [
+      84,
+      31
+    ]
+  },
+  "requires": [],
+  "trap": "A brick trough across the floor holds a film of acid only two cells deep; walking through it costs about 60 HP, a potion on an islet in the middle lures the careless",
+  "cue": "The trough is lined with brick instead of ground; inspect reports acid; the islet is a stepping stone with two jumps of 14 cells each",
+  "notes": "Acid is allowed here because the brick trough holds it (brick is not corrodible). Solutions: two jumps over the islet, levitate over, or pour water on the film (acid eats the water and dissolves). Gate (routes.py): crossing, the air above the trough and the trough. The left wall of the trough runs down to the floor of the scene, so the rock under it cannot be tunnelled.",
+  "gates": [
+    [
+      "crossing"
+    ]
+  ],
+  "sealed": [
+    "crossing"
+  ],
+  "lessons": [
+    {
+      "claim": {
+        "kind": "property",
+        "material": "acid",
+        "property": "harms_on_contact"
+      },
+      "note": "Acid burns whoever touches it"
+    },
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "acid",
+        "b": "water",
+        "out": [
+          "flammable_gas",
+          "air"
+        ]
+      },
+      "note": "Acid meets water-family liquids (water, blood), eats them away and turns them into flammable gas: this is how the thin acid layer gets cleared"
+    }
+  ]
+}

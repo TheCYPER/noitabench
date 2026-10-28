@@ -1,0 +1,120 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E22",
+  "name_zh": "近路与远路",
+  "name_en": "Short way, long way",
+  "nodes": [
+    "N9",
+    "N3"
+  ],
+  "must_pass": true,
+  "layer": 2,
+  "biomes": [
+    "swamp"
+  ],
+  "art": "E22.scene",
+  "variants": 4,
+  "markers": {
+    "1": {
+      "type": "spawn_enemy",
+      "enemy": "shotgunner"
+    },
+    "2": {
+      "type": "spawn_enemy",
+      "enemy": "shotgunner"
+    },
+    "3": {
+      "type": "item",
+      "item": "barrel_gunpowder"
+    },
+    "4": {
+      "type": "spawn_enemy",
+      "enemy": "longleg"
+    },
+    "5": {
+      "type": "item",
+      "item": "potion_heal"
+    },
+    "6": {
+      "type": "item",
+      "item": "spell",
+      "spell": "FIREBALL"
+    }
+  },
+  "anchor_y": 24,
+  "regions": {
+    "short_route": [
+      31,
+      3,
+      53,
+      11
+    ],
+    "long_route": [
+      4,
+      34,
+      68,
+      10
+    ],
+    "hole": [
+      22,
+      26,
+      8,
+      8
+    ],
+    "guards": [
+      60,
+      3,
+      14,
+      11
+    ],
+    "ledge": [
+      31,
+      14,
+      41,
+      16
+    ],
+    "short_gate": [
+      54,
+      3,
+      18,
+      13
+    ]
+  },
+  "lab": {
+    "goal": [
+      78,
+      47
+    ]
+  },
+  "requires": [],
+  "trap": "The short way is a corridor twelve cells above the entry floor that ends at two shotgunners; a gunpowder barrel stands a few cells in front of them. The long way drops through a hole in the entry floor into a lane under the floor, three times as long, with a Hämis and a potion",
+  "cue": "The raised corridor is out of sight until the player climbs onto its ledge; the guards and the barrel show in the entity list once seen; the hole is plain in the floor; a Fireball spell lies at the foot of the ledge and the guards stand on a brick floor",
+  "notes": "Light the barrel with the Fireball from the ledge (the spark bolt does not hurt a barrel) to kill both guards, or take the long way. Gate (routes.py): short_gate (the corridor above the guards' brick floor) or long_route (the lane); either is a way through. A brick pier under the west end of the guards' floor seals the block of ground between the corridor and the lane.",
+  "gates": [
+    [
+      "short_gate",
+      "long_route"
+    ]
+  ],
+  "sealed": [
+    "short_gate"
+  ],
+  "lessons": [
+    {
+      "claim": {
+        "kind": "property",
+        "material": "gunpowder",
+        "property": "explodes_when_lit"
+      },
+      "note": "A gunpowder barrel explodes when fire reaches it and kills whoever is near"
+    },
+    {
+      "claim": {
+        "kind": "spell",
+        "spell": "FIREBALL",
+        "trait": "ignites"
+      },
+      "note": "A fireball sets things on fire: you can set off a gunpowder barrel from a distance"
+    }
+  ]
+}

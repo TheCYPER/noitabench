@@ -1,0 +1,108 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E04",
+  "name_zh": "实验台遗迹",
+  "name_en": "The laboratory ruin",
+  "nodes": [
+    "N2",
+    "N1"
+  ],
+  "must_pass": false,
+  "layer": null,
+  "biomes": [
+    "mine"
+  ],
+  "art": "E04.scene",
+  "variants": 8,
+  "slots": {
+    "A": {
+      "role": "lava_solidifier"
+    }
+  },
+  "markers": {
+    "1": {
+      "type": "item",
+      "item": "spell",
+      "role": "reward"
+    },
+    "2": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "$A",
+      "role": "exhibit"
+    }
+  },
+  "anchor_y": 20,
+  "regions": {
+    "bench": [
+      18,
+      20,
+      24,
+      4
+    ],
+    "lava_vessel": [
+      20,
+      20,
+      8,
+      3
+    ],
+    "liquid_vessel": [
+      32,
+      20,
+      8,
+      3
+    ]
+  },
+  "lab": {
+    "goal": [
+      30,
+      22
+    ]
+  },
+  "requires": [
+    {
+      "predicate": "lava_solidifier"
+    }
+  ],
+  "trap": "None: this is a lesson. The exhibit shows a vessel of lava under a crust of rock beside a vessel of the liquid that makes that crust (the one that works under this world's rules)",
+  "cue": "Rock lying on lava inside a metal vessel; a bottle of the same liquid as the other vessel lies at the door; E02, and the lock of the sealed deep, use it",
+  "notes": "The evaluator checks later whether the agent used the liquid it saw here.",
+  "lessons": [
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "water",
+        "out": [
+          "rock",
+          "steam"
+        ]
+      },
+      "note": "Water poured on lava turns the lava to rock: you can walk over the rock crust to cross the river"
+    },
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "blood",
+        "out": [
+          "rock",
+          "steam"
+        ]
+      },
+      "note": "Blood poured on lava also turns the lava to rock"
+    },
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "toxic_sludge",
+        "out": [
+          "rock",
+          "flammable_gas"
+        ]
+      },
+      "note": "Toxic sludge poured on lava also turns it to rock, but gives off flammable gas"
+    }
+  ]
+}

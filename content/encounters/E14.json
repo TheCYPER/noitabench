@@ -1,0 +1,136 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E14",
+  "name_zh": "三瓶无名液体",
+  "name_en": "Three unlabelled bottles",
+  "nodes": [
+    "N6",
+    "N1"
+  ],
+  "must_pass": false,
+  "layer": null,
+  "biomes": [
+    "sand_cave",
+    "lava_deeps"
+  ],
+  "art": "E14.scene",
+  "variants": 12,
+  "slots": {
+    "A": {
+      "role": "lava_solidifier"
+    },
+    "B": {
+      "role": "not_lava_solidifier",
+      "pick": 0
+    },
+    "C": {
+      "role": "not_lava_solidifier",
+      "pick": 1,
+      "exclude": [
+        "B"
+      ]
+    }
+  },
+  "markers": {
+    "1": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "$A",
+      "role": "solvent"
+    },
+    "2": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "$B"
+    },
+    "3": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "$C"
+    },
+    "4": {
+      "type": "item",
+      "item": "wand",
+      "tier": 2,
+      "role": "reward"
+    }
+  },
+  "anchor_y": 20,
+  "regions": {
+    "river": [
+      38,
+      28,
+      12,
+      1
+    ],
+    "alcove": [
+      50,
+      8,
+      10,
+      20
+    ],
+    "bottles": [
+      8,
+      24,
+      14,
+      4
+    ]
+  },
+  "lab": {
+    "goal": [
+      57,
+      26
+    ]
+  },
+  "requires": [
+    {
+      "predicate": "lava_solidifier"
+    },
+    {
+      "supply": "solvent",
+      "min": 1,
+      "own": true
+    }
+  ],
+  "trap": "Three bottles of unnamed liquids lie side by side; only one turns lava to rock under this world's rules, the others are fuel or sludge (they burn or poison); pouring a whole bottle on the river to find out wastes it",
+  "cue": "inspect names the contents of each bottle; a splash of a few cells on the river's edge shows what the liquid does to lava",
+  "notes": "Splash a little of each bottle on the edge of the river, step back from the fire, pour the one that makes rock, walk over the crust.",
+  "lessons": [
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "water",
+        "out": [
+          "rock",
+          "steam"
+        ]
+      },
+      "note": "Water poured on lava turns the lava to rock: you can walk over the rock crust to cross the river"
+    },
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "blood",
+        "out": [
+          "rock",
+          "steam"
+        ]
+      },
+      "note": "Blood poured on lava also turns the lava to rock"
+    },
+    {
+      "claim": {
+        "kind": "reaction",
+        "a": "lava",
+        "b": "toxic_sludge",
+        "out": [
+          "rock",
+          "flammable_gas"
+        ]
+      },
+      "note": "Toxic sludge poured on lava also turns it to rock, but gives off flammable gas"
+    }
+  ]
+}

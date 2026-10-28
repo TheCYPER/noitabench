@@ -1,0 +1,121 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E09",
+  "name_zh": "木平台上的敌人",
+  "name_en": "The shooter on the wooden perch",
+  "nodes": [
+    "N4",
+    "N1"
+  ],
+  "must_pass": false,
+  "once": true,
+  "layer": null,
+  "biomes": [
+    "mine"
+  ],
+  "art": "E09.scene",
+  "variants": 2,
+  "markers": {
+    "2": {
+      "type": "item",
+      "item": "barrel_gunpowder"
+    },
+    "3": {
+      "type": "spawn_enemy",
+      "enemy": "shotgunner"
+    },
+    "6": {
+      "type": "item",
+      "item": "wand",
+      "tier": 2,
+      "role": "reward"
+    }
+  },
+  "anchor_y": 20,
+  "regions": {
+    "hall": [
+      4,
+      2,
+      92,
+      26
+    ],
+    "bunker": [
+      70,
+      2,
+      18,
+      16
+    ],
+    "interior": [
+      72,
+      4,
+      14,
+      12
+    ],
+    "posts": [
+      70,
+      18,
+      18,
+      12
+    ],
+    "gutter": [
+      46,
+      28,
+      40,
+      3
+    ],
+    "barrel": [
+      29,
+      3,
+      6,
+      25
+    ],
+    "crater": [
+      2,
+      2,
+      60,
+      38
+    ],
+    "reward": [
+      88,
+      21,
+      8,
+      7
+    ]
+  },
+  "lab": {
+    "goal": [
+      92,
+      27
+    ]
+  },
+  "requires": [],
+  "trap": "A shotgunner (23 HP, buckshot every 100 frames, 27 HP a volley at 40 cells) sits in a bunker of planks 12 cells over the floor, in the way to a wand. Its slits, at the height of its eyes in both end walls, let it see and shoot the floor of the hall from about 30 cells; spark bolts do not mark the planks (wood is durability 10, a spark bolt breaks 8) and reach it only through a slit. A gunpowder barrel (blast radius 30, 75 HP to anything in the open within it) stands on a brick pedestal 32 cells from the door and 38 cells from the bunker, and an oil gutter runs from inside its blast to the bunker's left post and under the bunker",
+  "cue": "The bunker, its posts and the gutter are drawn as wood and oil in the legend, the gutter ends at the post; inspect names the barrel; the guard shoots at the player as soon as the player is in the line of a slit",
+  "notes": "Shoot the barrel from outside the door (stand more than 36 cells from it, centre to centre: the blast reaches 30 plus the reach of the player's hit box, and the door is only 33 cells from it, so stand a few cells outside): its fire lights the end of the oil that lies outside its crater, the oil lights the left post (a well of oil lies against it), the posts and the bunker burn away (about 15 seconds) and the guard burns in it and dies (about 5 to 8 seconds after the oil catches). The blast digs the floor of the hall up for about 45 cells (9 deep); the barrel's pedestal is brick and stands. A shot from inside the hall costs 26 HP of blast. The wand lies beyond the bunker. Shooting the guard through a slit works only while it stands in line with one (it moves about the bunker): one duel took 70 frames and 44 HP, another did nothing in 900 frames. The brick pedestal blocks the floor of the hall, so whoever goes on has to rise over it next to the barrel, in the line of the slits: the guard fires and its buckshot sets the barrel off beside the player (checked 2026-10-28: 56 to 91 HP lost, once fatal from 100); a `hit` event of a `buckshot` on the barrel marks that case. The scorer reads: barrel_break (and the player's distance to it), fire in `posts`/`bunker`, the guard's death and its cause, HP lost in `hall`.",
+  "lessons": [
+    {
+      "claim": {
+        "kind": "property",
+        "material": "gunpowder",
+        "property": "explodes_when_lit"
+      },
+      "note": "A gunpowder barrel explodes when fire reaches it"
+    },
+    {
+      "claim": {
+        "kind": "property",
+        "material": "wood",
+        "property": "burns"
+      },
+      "note": "Wood burns: when the posts of the wooden fort burn away, the whole fort collapses"
+    },
+    {
+      "claim": {
+        "kind": "property",
+        "material": "oil",
+        "property": "burns"
+      },
+      "note": "Oil burns: the fire runs along the oil channel"
+    }
+  ]
+}

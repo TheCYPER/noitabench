@@ -1,0 +1,88 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E03",
+  "name_zh": "火免疫的守卫",
+  "name_en": "The guard that fire cannot hurt",
+  "nodes": [
+    "N1",
+    "N6"
+  ],
+  "must_pass": false,
+  "layer": null,
+  "biomes": [
+    "oil_cave"
+  ],
+  "art": "E03.scene",
+  "variants": 4,
+  "markers": {
+    "1": {
+      "type": "item",
+      "item": "spell",
+      "spell": "FIREBALL"
+    },
+    "2": {
+      "type": "item",
+      "item": "bottle",
+      "contents": "water"
+    },
+    "3": {
+      "type": "spawn_enemy",
+      "enemy": "firemage_weak"
+    },
+    "6": {
+      "type": "item",
+      "item": "wand",
+      "tier": 2,
+      "role": "reward"
+    }
+  },
+  "anchor_y": 20,
+  "regions": {
+    "guard": [
+      40,
+      22,
+      16,
+      6
+    ],
+    "hall": [
+      4,
+      2,
+      56,
+      26
+    ],
+    "oil": [
+      20,
+      28,
+      14,
+      2
+    ]
+  },
+  "lab": {
+    "goal": [
+      58,
+      26
+    ]
+  },
+  "requires": [],
+  "trap": "A fire mage (immune to fire, 80 HP) stands on a platform between the player and a wand; a Fireball spell lies at the door as the obvious weapon and does nothing to it; a trough of oil lies in front of its platform (its own fireballs light it) and a bottle of water lies at the door",
+  "cue": "inspect or the entity list shows the mage's fire resistance in how fireballs behave; the oil trough is drawn; water wets the mage and hurts it",
+  "notes": "Water thrown at the mage hurts it (45 HP/s while wet); the Fireball spell is the wrong tool; the oil burns away once the mage has shot into it.",
+  "lessons": [
+    {
+      "claim": {
+        "kind": "creature",
+        "creature": "firemage_weak",
+        "trait": "immune_to_fire"
+      },
+      "note": "The guard is a fire mage: fireballs do nothing to it"
+    },
+    {
+      "claim": {
+        "kind": "creature",
+        "creature": "firemage_weak",
+        "trait": "hurt_by_water"
+      },
+      "note": "The guard is hurt by water: throw water on it"
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E12",
+  "name_zh": "夹层挖掘",
+  "name_en": "Layered rock",
+  "nodes": [
+    "N5",
+    "N3"
+  ],
+  "must_pass": true,
+  "layer": 3,
+  "biomes": [
+    "lava_deeps"
+  ],
+  "art": "E12.scene",
+  "variants": 4,
+  "dig_zone": true,
+  "markers": {
+    "1": {
+      "type": "spawn_enemy",
+      "enemy": "longleg"
+    },
+    "2": {
+      "type": "item",
+      "item": "spell",
+      "spell": "EXPLOSIVE_PROJECTILE",
+      "role": "breaker"
+    }
+  },
+  "anchor_y": 27,
+  "regions": {
+    "corridor1": [
+      4,
+      3,
+      72,
+      8
+    ],
+    "corridor2": [
+      4,
+      23,
+      72,
+      8
+    ],
+    "corridor3": [
+      4,
+      43,
+      72,
+      10
+    ],
+    "seam1": [
+      4,
+      14,
+      72,
+      3
+    ],
+    "seam2": [
+      4,
+      34,
+      72,
+      3
+    ],
+    "safe1": [
+      44,
+      11,
+      20,
+      12
+    ],
+    "trap1": [
+      12,
+      11,
+      14,
+      12
+    ],
+    "safe2": [
+      12,
+      31,
+      20,
+      12
+    ],
+    "trap2": [
+      50,
+      31,
+      14,
+      12
+    ]
+  },
+  "lab": {
+    "goal": [
+      70,
+      54
+    ]
+  },
+  "requires": [],
+  "trap": "Two seams of lava lie between the corridors; each seam is crossed through a plug of rock (a dig stays small) or a plug of ground (the digger's blast reaches six cells and opens the lava beside it); the nearer plug is always the ground one",
+  "cue": "Plugs are drawn in a different material (ground against rock); the lava seams show in the cross-section; the slabs over the corridors are six cells thick because lava within fourteen cells above the feet burns through the rock",
+  "notes": "Dig only the rock plug, then walk the next corridor to its far end. Natural connectivity counts the strata as passable (dig_zone). The first corridor holds the EXPLOSIVE_PROJECTILE spell by the door, on the floor where the player lands: the second half of the key E06 needs (the BOMB comes from E02)."
+}

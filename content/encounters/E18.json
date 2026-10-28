@@ -1,0 +1,69 @@
+{
+  "format": "cogbench-encounter/0",
+  "id": "E18",
+  "name_zh": "厚墙后的宝藏",
+  "name_en": "Treasure behind the thick wall",
+  "nodes": [
+    "N8",
+    "N1"
+  ],
+  "must_pass": false,
+  "layer": null,
+  "biomes": [
+    "brick_ruins"
+  ],
+  "art": "E18.scene",
+  "variants": 4,
+  "markers": {
+    "1": {
+      "type": "item",
+      "item": "spell",
+      "spell": "BOMB"
+    },
+    "2": {
+      "type": "item",
+      "item": "wand",
+      "tier": 3,
+      "role": "reward"
+    },
+    "3": {
+      "type": "item",
+      "item": "potion_heal"
+    },
+    "4": {
+      "type": "item",
+      "item": "barrel_gunpowder"
+    }
+  },
+  "anchor_y": 12,
+  "regions": {
+    "floor": [
+      4,
+      20,
+      56,
+      20
+    ],
+    "pocket": [
+      18,
+      28,
+      16,
+      3
+    ],
+    "room": [
+      6,
+      40,
+      52,
+      12
+    ]
+  },
+  "lab": {
+    "goal": [
+      30,
+      50
+    ]
+  },
+  "requires": [],
+  "trap": "The way to the wand is straight down through twenty cells of rock; a pocket of lava hangs in the rock under the left half of the hall, and a digging bolt opens whatever lava lies within six cells of where it lands",
+  "cue": "The lava pocket shows in the cross-section; a Bomb spell lies in the hall (its blast clears rock to sixty cells)",
+  "notes": "Dig down on the right of the hall (or the far left), well away from the pocket; the room is sealed by brick on every side, so there is no way in but through the rock."
+}
