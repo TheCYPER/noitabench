@@ -21,6 +21,7 @@ from noitabench.harness import ModelConfig, RunConfig
 _NEEDS = {
     "test_harness_anthropic.py": ("anthropic", "httpx2"),
     "test_harness_openai.py": ("openai", "httpx2"),
+    "test_harness_deepseek.py": ("openai", "httpx2"),
     "test_harness_gemini.py": ("google.genai", "httpx"),
 }
 

@@ -41,8 +41,9 @@ class ConfigError(HarnessError, ValueError):
 
 class ModelError(HarnessError):
     """A model call failed. `kind` is one of: auth, permission, not_found, bad_request,
-    rate_limit, overloaded, server, timeout, connection, unknown. `retryable` errors may
-    work again after a pause (the SDK has already retried them `max_retries` times)."""
+    rate_limit, overloaded, server, timeout, connection, balance (DeepSeek: no money left on the
+    account), unknown. `retryable` errors may work again after a pause (the SDK has already
+    retried them `max_retries` times)."""
 
     def __init__(
         self,

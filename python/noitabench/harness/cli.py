@@ -8,9 +8,11 @@
 `run` plays one game, or `--runs N` games of one family (same rules, a new cave each, the
 workspace kept between games, or emptied before each with `--clear-workspace`). Credentials come
 from the provider's usual environment variables (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`,
-`GOOGLE_API_KEY`) or from the variable named by `--api-key-env`; nothing is read from the command
-line and nothing is written to disk. `--provider fake` plays a harmless scripted policy without
-network or cost, to check the plumbing.
+`GOOGLE_API_KEY`, `DEEPSEEK_API_KEY`) or from the variable named by `--api-key-env`; nothing is
+read from the command line and nothing is written to disk. `--provider fake` plays a harmless
+scripted policy without network or cost, to check the plumbing. `--max-output-tokens` and
+`--request-timeout` default per provider (`model.PROVIDER_LIMITS`: 8192 and 180 s, but 32768 and
+600 s for DeepSeek). `docs/running-models.md` has one section per provider.
 """
 
 from __future__ import annotations
@@ -51,10 +53,31 @@ def _add_model_args(p: argparse.ArgumentParser) -> None:
     )
     g.add_argument("--base-url", default=None, help="endpoint (default: the provider's public one)")
     g.add_argument("--api-key-env", default=None, help="name of the variable that holds the key")
-    g.add_argument("--effort", choices=("low", "medium", "high", "xhigh", "max"), default=None)
-    g.add_argument("--thinking", choices=("adaptive", "off", "default"), default="adaptive")
-    g.add_argument("--max-output-tokens", type=int, default=8192)
-    g.add_argument("--request-timeout", type=float, default=180.0)
+    g.add_argument(
+        "--effort",
+        choices=("low", "medium", "high", "xhigh", "max"),
+        default=None,
+        help="reasoning effort (not sent when not given; DeepSeek: with --thinking off it is "
+        "ignored)",
+    )
+    g.add_argument(
+        "--thinking",
+        choices=("adaptive", "off", "default"),
+        default="adaptive",
+        help="Anthropic and DeepSeek only; DeepSeek thinks unless this is off",
+    )
+    g.add_argument(
+        "--max-output-tokens",
+        type=int,
+        default=None,
+        help="limit on one answer (default 8192; DeepSeek 32768, its thinking counts against it)",
+    )
+    g.add_argument(
+        "--request-timeout",
+        type=float,
+        default=None,
+        help="seconds to wait for one answer (default 180; DeepSeek 600, it keeps requests waiting)",
+    )
     g.add_argument("--max-retries", type=int, default=4, help="the SDK's own retries per call")
     g.add_argument("--allow-unpriced", action="store_true", help="run a model with no known price")
     g.add_argument("--price-input", type=float, default=None, help="USD per million input tokens")

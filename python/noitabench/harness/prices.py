@@ -18,6 +18,9 @@ from .usage import Usage
 
 MILLION = 1_000_000
 ANTHROPIC_SOURCE = "Anthropic pricing, model overview and prompt caching docs, retrieved 2026-10-06"
+# DeepSeek charges less in its off-peak hours (half, outside weekday 01-04 and 06-10 UTC); the table
+# holds the peak rates, so a budget set from it is an upper bound.
+DEEPSEEK_SOURCE = "DeepSeek pricing page, peak-hour rates (off-peak is half), retrieved 2026-10-28"
 DEFAULT_CONTEXT_LIMIT = 120_000
 LIMIT_MARGIN = 0.9  # compact when the prompt reaches this share of a rate-card boundary
 
@@ -63,6 +66,21 @@ PRICES: dict[str, ModelPrice] = {
     # Cache reads on Opus 5.5 are 0.05x the input rate ($0.20 per million tokens), says the doc.
     "claude-opus-5-5": ModelPrice(
         (PriceTier(None, 4.00, 20.00),), cache_read_factor=0.05, source=ANTHROPIC_SOURCE
+    ),
+    # DeepSeek: a cache hit costs 0.02x (flash) and 1/30x (pro) of a miss; there is no cache write
+    # fee, so a written token is a plain input token. Both models have a 1M context window; the
+    # general compaction limit is kept so that runs stay comparable across providers.
+    "deepseek-flash": ModelPrice(
+        (PriceTier(None, 0.30, 1.20),),
+        cache_read_factor=0.02,
+        cache_write_factor=1.0,
+        source=DEEPSEEK_SOURCE,
+    ),
+    "deepseek-v4-pro": ModelPrice(
+        (PriceTier(None, 1.32, 3.96),),
+        cache_read_factor=1 / 30,
+        cache_write_factor=1.0,
+        source=DEEPSEEK_SOURCE,
     ),
     # The scripted test model and the demo policy cost nothing.
     "fake": ModelPrice((PriceTier(None, 0.0, 0.0),), source="no real calls"),

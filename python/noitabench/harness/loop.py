@@ -91,6 +91,7 @@ class LoopResult:
     usage: Usage = field(default_factory=Usage)
     cost_usd: float | None = 0.0  # None when the model has no price
     wall_seconds: float = 0.0
+    models_seen: list[str] = field(default_factory=list)  # the model ids the answers named
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -104,6 +105,7 @@ class LoopResult:
             "usage": self.usage.as_dict(),
             "cost_usd": None if self.cost_usd is None else round(self.cost_usd, 6),
             "wall_seconds": round(self.wall_seconds, 2),
+            "models_seen": list(self.models_seen),
         }
 
 
@@ -137,6 +139,7 @@ class AgentLoop:
         self.usage = Usage()
         self.cost_usd: float | None = 0.0 if price is not None else None
         self.summaries = 0
+        self.models_seen: list[str] = []  # a floating alias (`deepseek-flash`) can change under us
         self.stalls_total = 0
         self._stalls = 0
         self._refusals = 0
@@ -164,6 +167,7 @@ class AgentLoop:
             usage=self.usage,
             cost_usd=self.cost_usd,
             wall_seconds=time.monotonic() - started,
+            models_seen=list(self.models_seen),
         )
 
     def _play(self) -> tuple[str, str]:
@@ -211,6 +215,9 @@ class AgentLoop:
                 self._sleep(self.cfg.backoff_s * 2 ** (attempt - 1))
         if purpose == "play":
             self._plays_since_briefing += 1
+        served = turn.model or self.adapter.model
+        if served not in self.models_seen:
+            self.models_seen.append(served)
         cost = self.price.cost(turn.usage) if self.price is not None else None
         self.budget.charge(cost)
         self.usage += turn.usage
@@ -221,7 +228,7 @@ class AgentLoop:
                 "call": self._call_no,
                 "purpose": purpose,
                 "provider": self.adapter.provider,
-                "model": turn.model or self.adapter.model,
+                "model": served,
                 "decision": self.session.decisions,
                 **turn.usage.as_dict(),
                 "prompt_tokens": turn.usage.prompt_tokens,

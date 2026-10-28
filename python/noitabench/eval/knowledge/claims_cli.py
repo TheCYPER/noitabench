@@ -49,7 +49,7 @@ def model_config(provider: str, model: str, api_key_env: str | None = None) -> A
         model,
         api_key_env=key_env,
         max_output_tokens=4096,
-        thinking="off" if "haiku" in model else "adaptive",
+        thinking="off" if "haiku" in model or provider == "deepseek" else "adaptive",
     )
 
 

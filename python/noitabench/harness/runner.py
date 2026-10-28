@@ -7,7 +7,11 @@ or, in the control setting, emptied before each one. Files of a run (all in its 
 
     recording files and decisions.jsonl   from the agent layer (the game, step by step)
     harness.jsonl, transcript.jsonl       from the loop (`logs.py`)
-    summary.json                          how the run ended, tokens, dollars
+    summary.json                          how the run ended, tokens, dollars; `result.models_seen`
+                                          lists the model ids the answers of the player's own
+                                          calls named, in order of first sight (a name such as
+                                          `deepseek-flash` can point at another model one day;
+                                          helpers' calls name theirs in `harness.jsonl`)
     world/                                the world files of the game
     workspace_start/                      the workspace as the game began (the notebook it
                                           started with; the evaluation reads it, agents never)
@@ -27,6 +31,7 @@ from noitabench.agent import AgentSession, SessionConfig, ViewConfig
 from noitabench.game import Game
 
 from .adapters import make_adapter
+from .adapters.deepseek_adapter import refuse_screenshot
 from .budget import Budget
 from .errors import ConfigError
 from .layers import CODE_LAYERS, MINIMAL_LAYERS, build_toolbox, check_layers
@@ -80,6 +85,8 @@ class RunConfig:
             raise ConfigError("max_decisions must be at least 1")
         if self.budget_usd is not None and self.budget_usd <= 0:
             raise ConfigError("the budget in dollars must be positive")
+        if self.view.screenshot:
+            refuse_screenshot(self.model)
 
     @property
     def family_name(self) -> str:
@@ -248,6 +255,16 @@ def _summary(
     }
 
 
+def _out_of_balance(summary: dict[str, Any]) -> bool:
+    """Did the game end because the provider said the account has no money left? Another game
+    would fail at its first call in the same way. `AgentLoop._call` is the only place that makes a
+    `model_error` result, and it writes the detail as `<ModelError.kind>: <message>`."""
+    result = summary.get("result", {})
+    return result.get("over") == "model_error" and str(result.get("detail", "")).startswith(
+        "balance:"
+    )
+
+
 def run_family(
     config: RunConfig,
     *,
@@ -302,6 +319,9 @@ def run_family(
         )
         family_spent += budget.spent_usd
         summaries.append(summary)
+        if _out_of_balance(summary):
+            log.warning("the account balance is used up: no more games after game %d", index + 1)
+            break
     if config.runs > 1:
         config.out.mkdir(parents=True, exist_ok=True)
         family = {

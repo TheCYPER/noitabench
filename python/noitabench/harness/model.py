@@ -104,21 +104,42 @@ class ModelAdapter(ABC):
     def new_conversation(self, system: str, tools: Sequence[ToolSpec]) -> Conversation: ...
 
 
+DEFAULT_MAX_OUTPUT_TOKENS = 8192
+DEFAULT_REQUEST_TIMEOUT = 180.0  # seconds
+# Providers whose models need more: (max output tokens, request timeout in seconds). DeepSeek
+# counts its thinking against the output limit (8192 risks cut-off answers) and keeps a waiting
+# request open for up to ten minutes.
+PROVIDER_LIMITS: dict[str, tuple[int, float]] = {"deepseek": (32768, 600.0)}
+
+
 @dataclass(frozen=True)
 class ModelConfig:
     """How to reach and drive a model. Credentials are never part of it: they come from the
-    provider's usual environment variables, or from the variable named in `api_key_env`."""
+    provider's usual environment variables, or from the variable named in `api_key_env`.
 
-    provider: str  # anthropic, openai, gemini or fake
+    `max_output_tokens` and `request_timeout` left out (None) take the default of the provider
+    (`PROVIDER_LIMITS`, else 8192 and 180 s); they are never None afterwards, and `as_log` writes
+    the values in force. This is the one place that resolves them, for the CLI and for code."""
+
+    provider: str  # anthropic, openai, gemini, deepseek or fake
     model: str
     base_url: str | None = None  # None: the provider's public endpoint (never an env override)
     api_key_env: str | None = None
     effort: str | None = None
-    max_output_tokens: int = 8192
-    request_timeout: float = 180.0
+    max_output_tokens: int | None = None
+    request_timeout: float | None = None
     max_retries: int = 4
-    thinking: str = "adaptive"  # adaptive, off or default (Anthropic only)
+    thinking: str = "adaptive"  # adaptive, off or default (Anthropic and DeepSeek only)
     server_compaction: int | None = None  # Anthropic only: trigger, in prompt tokens
+
+    def __post_init__(self) -> None:
+        tokens, seconds = PROVIDER_LIMITS.get(
+            self.provider, (DEFAULT_MAX_OUTPUT_TOKENS, DEFAULT_REQUEST_TIMEOUT)
+        )
+        if self.max_output_tokens is None:
+            object.__setattr__(self, "max_output_tokens", tokens)
+        if self.request_timeout is None:
+            object.__setattr__(self, "request_timeout", seconds)
 
     def as_log(self) -> dict[str, Any]:
         """The config as it may be written to disk (no credentials; a base URL without

@@ -11,7 +11,7 @@ from typing import Any
 from ..errors import ConfigError
 from ..model import ModelAdapter, ModelConfig
 
-PROVIDERS = ("anthropic", "openai", "gemini", "fake")
+PROVIDERS = ("anthropic", "openai", "gemini", "deepseek", "fake")
 
 
 def make_adapter(
@@ -32,6 +32,10 @@ def make_adapter(
         from .gemini_adapter import GeminiAdapter
 
         return GeminiAdapter(config, client)
+    if provider == "deepseek":
+        from .deepseek_adapter import DeepSeekAdapter
+
+        return DeepSeekAdapter(config, client)
     if provider == "fake":
         from .scripted import ScriptedAdapter, demo_policy
 
