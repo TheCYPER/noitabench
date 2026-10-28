@@ -23,8 +23,18 @@ from noitabench.content_tools.noita_xml import (
 )
 
 
+# The spell table is built from the game's own XML files, which are research material that stays
+# out of the repository (research/RAW-DATA.md). Without them these tests cannot run.
+needs_raw_game_data = pytest.mark.skipif(
+    not build_spells.GAME_FILES.is_dir(),
+    reason="needs the raw game data in research/raw/game (not in the repository)",
+)
+
+
 @pytest.fixture(scope="module")
 def built() -> dict:
+    if not build_spells.GAME_FILES.is_dir():
+        pytest.skip("needs the raw game data in research/raw/game (not in the repository)")
     return build_spells.build()
 
 
@@ -32,6 +42,7 @@ def by_key(document: dict) -> dict:
     return {spell["key"]: spell for spell in document["spells"]}
 
 
+@needs_raw_game_data
 def test_committed_spells_file_is_up_to_date():
     assert build_spells.main(["--check"]) == 0
 
@@ -116,6 +127,7 @@ def test_only_explosive_projectile_raises_the_explosion_durability(built):
     assert reaching == {"BOMB"} and own["BOMB"] < brick
 
 
+@needs_raw_game_data
 def test_the_durability_bonus_is_for_modifiers_only(monkeypatch):
     monkeypatch.setitem(build_spells.EXPLOSION_DURABILITY, "BOMB", 3)
     with pytest.raises(build_spells.BuildError, match="BOMB.*only modifiers"):
@@ -165,6 +177,7 @@ def test_every_number_is_finite(built):
     walk(built)
 
 
+@needs_raw_game_data
 def test_build_fails_when_the_research_data_disagrees(monkeypatch):
     research = build_spells._load_research()
     broken = copy.deepcopy(research)
@@ -174,6 +187,7 @@ def test_build_fails_when_the_research_data_disagrees(monkeypatch):
         build_spells.build()
 
 
+@needs_raw_game_data
 def test_build_fails_on_a_shot_field_it_does_not_model(monkeypatch):
     research = build_spells._load_research()
     broken = copy.deepcopy(research)
