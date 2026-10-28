@@ -76,7 +76,7 @@ def _add_model_args(p: argparse.ArgumentParser) -> None:
         "--request-timeout",
         type=float,
         default=None,
-        help="seconds to wait for one answer (default 180; DeepSeek 600, it keeps requests waiting)",
+        help="seconds to wait for one answer (default 180; DeepSeek 600, it holds requests open)",
     )
     g.add_argument("--max-retries", type=int, default=4, help="the SDK's own retries per call")
     g.add_argument("--allow-unpriced", action="store_true", help="run a model with no known price")

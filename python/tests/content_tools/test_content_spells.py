@@ -22,7 +22,6 @@ from noitabench.content_tools.noita_xml import (
     number,
 )
 
-
 # The spell table is built from the game's own XML files, which are research material that stays
 # out of the repository (research/RAW-DATA.md). Without them these tests cannot run.
 needs_raw_game_data = pytest.mark.skipif(
