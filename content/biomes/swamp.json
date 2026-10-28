@@ -1,0 +1,96 @@
+{
+  "format": "cogbench-biome/0",
+  "key": "swamp",
+  "name_zh": "毒沼",
+  "name_en": "Toxic Swamp",
+  "layer": 2,
+  "slot": "mid",
+  "tile": {
+    "short_side": 48,
+    "band": 3,
+    "margin": 7,
+    "variants": 2,
+    "edge_weights": {"tb": [0.65, 0.0875, 0.0875, 0.0875, 0.0875], "lr": [0.42, 0.145, 0.145, 0.145, 0.145]},
+    "tunnel_width": [12, 17],
+    "shape": "organic",
+    "wobble": 0.2,
+    "chamber_prob": 0.9,
+    "chamber_radius": [14, 22],
+    "chamber_aspect": 1.7,
+    "cavern_prob": 0.55,
+    "nook_prob": 0.15,
+    "isolated_prob": 0.1,
+    "roughness": 0.35,
+    "smooth_iters": 2,
+    "smooth_sigma": 2.0,
+    "smooth_noise": 1.0
+  },
+  "shape": {
+    "widen": {"max": 3, "scale": 40},
+    "halls": {"per_10k": 0.5, "w": [70, 120], "h": [26, 40]},
+    "shafts": {"per_10k": 0.3, "w": [9, 12], "len": [40, 90]},
+    "passages": {"per_10k": 0.5, "w": [9, 12], "len": [80, 160]},
+    "alcoves": {"per_10k": 1.2, "h": [7, 10], "depth": [10, 26]},
+    "ledges": {"per_10k": 0.8, "len": [10, 22], "thick": [3, 5]},
+    "cracks": {"per_10k": 1.5, "len": [14, 30]}
+  },
+  "fill": {
+    "scale": 28,
+    "stretch": 3.5,
+    "speckle": 0.12,
+    "depth_bias": 0.3,
+    "materials": [{"material": "ground", "weight": 0.72}, {"material": "rock", "weight": 0.28}],
+    "veins": [{"material": "coal", "per_10k": 1.0, "length": [20, 50], "thickness": [1.5, 2.5], "buried": 3}],
+    "edge_material": "ground",
+    "edge_depth": 2,
+    "edge_prob": 0.9
+  },
+  "features": {
+    "pools": {
+      "attempts_per_10k": 6.0,
+      "depth": [3, 11],
+      "max_area": 1000,
+      "liquids": [
+        {"material": "toxic_sludge", "weight": 3},
+        {"material": "water", "weight": 2},
+        {"material": "blood", "weight": 1}
+      ],
+      "lining": {"material": "rock", "depth": 2}
+    },
+    "piles": {"attempts_per_10k": 0.6, "radius": [5, 9], "powders": [{"material": "coal", "weight": 1}]},
+    "gas": {
+      "attempts_per_10k": 1.0,
+      "max_area": 300,
+      "gases": [{"material": "flammable_gas", "weight": 1}]
+    }
+  },
+  "decor": {},
+  "hazards": {
+    "lava_crust": {"per_10k": 1.5, "w": [8, 14], "depth": [5, 8], "crust": [2, 3]},
+    "sand_pocket": {"per_10k": 6.0, "w": [14, 26], "h": [5, 8], "crust": [3, 4]}
+  },
+  "markers": {
+    "enemy_per_10k": 0.8,
+    "enemies": [{"enemy": "shotgunner", "weight": 1}],
+    "item_per_10k": 0.55,
+    "items": [
+      {"item": "potion_heal", "weight": 1},
+      {"item": "bottle", "weight": 2, "contents": "toxic_sludge"},
+      {"item": "spell", "weight": 1},
+      {"item": "barrel_oil", "weight": 2},
+      {"item": "barrel_gunpowder", "weight": 1}
+    ]
+  },
+  "supply": {
+    "deposits": [
+      {"material": "slime", "form": "pool", "count": 1, "min_cells": 60, "depth": [3, 6], "max_area": 500},
+      {"material": "fungus_powder", "form": "pile", "count": 1, "min_cells": 70, "radius": [11, 14]}
+    ],
+    "bottles": [
+      {"contents": "slime"},
+      {"contents": ""}
+    ],
+    "bowls": 0
+  },
+  "encounters": {"slots": 3, "pool": ["E15", "E23", "E07"], "size": {"w": [44, 64], "h": [24, 34]}}
+}

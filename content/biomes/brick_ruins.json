@@ -1,0 +1,89 @@
+{
+  "format": "cogbench-biome/0",
+  "key": "brick_ruins",
+  "name_zh": "砖墟",
+  "name_en": "Brick Ruins",
+  "layer": 3,
+  "slot": "right",
+  "layout": "rooms",
+  "rooms": {
+    "min_w": 62,
+    "min_h": 46,
+    "margin": [7, 10],
+    "door_w": 12,
+    "door_h": 12,
+    "loops": 0.25,
+    "ragged": 3
+  },
+  "fill": {
+    "scale": 20,
+    "stretch": 2.0,
+    "speckle": 0.1,
+    "depth_bias": 0.2,
+    "materials": [
+      {"material": "brick", "weight": 0.55},
+      {"material": "rock", "weight": 0.3},
+      {"material": "ground", "weight": 0.15}
+    ],
+    "veins": [],
+    "edge_material": "brick",
+    "edge_depth": 3,
+    "edge_prob": 0.9
+  },
+  "features": {
+    "pools": {
+      "attempts_per_10k": 1.0,
+      "depth": [2, 5],
+      "max_area": 400,
+      "liquids": [{"material": "lava", "weight": 1}]
+    },
+    "piles": {"attempts_per_10k": 2.5, "radius": [5, 9], "powders": [{"material": "gunpowder", "weight": 1}]},
+    "gas": {
+      "attempts_per_10k": 2.5,
+      "max_area": 300,
+      "gases": [{"material": "flammable_gas", "weight": 1}]
+    }
+  },
+  "decor": {
+    "breaches": {"per_10k": 0.7},
+    "pillars": {
+      "per_room": [0, 2],
+      "w": [5, 8],
+      "min_room_w": 40,
+      "gap": 10,
+      "broken": 0.35
+    },
+    "broken_walls": {"chance": 0.9, "height": [9, 18], "min_room_w": 40},
+    "rubble": {"per_room": [0, 3], "radius": [3, 5]},
+    "barrel_rows": {
+      "per_room": [0, 1],
+      "count": [2, 4],
+      "spacing": 9,
+      "weights": {"barrel_gunpowder": 2, "barrel_oil": 1}
+    },
+    "collapses": {"per_10k": 0.8, "stump": [6, 16], "hang": [3, 9]}
+  },
+  "hazards": {},
+  "markers": {
+    "enemy_per_10k": 1.1,
+    "enemies": [{"enemy": "firemage_weak", "weight": 1}, {"enemy": "shotgunner", "weight": 1}],
+    "item_per_10k": 0.65,
+    "items": [
+      {"item": "wand", "weight": 2},
+      {"item": "spell", "weight": 2},
+      {"item": "potion_heal", "weight": 1},
+      {"item": "potion_haste", "weight": 1},
+      {"item": "barrel_gunpowder", "weight": 1}
+    ]
+  },
+  "supply": {
+    "deposits": [
+      {"material": "gold_dust", "form": "pile", "count": 1, "min_cells": 70, "radius": [11, 14], "optional": true},
+      {"material": "bone_dust", "form": "pile", "count": 1, "min_cells": 70, "radius": [11, 14], "optional": true}
+    ],
+    "bottles": [
+    ],
+    "bowls": 0
+  },
+  "encounters": {"slots": 3, "pool": ["E05", "E18", "E19"], "size": {"w": [44, 64], "h": [24, 34]}}
+}

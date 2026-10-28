@@ -1,0 +1,84 @@
+{
+  "format": "cogbench-biome/0",
+  "key": "lava_deeps",
+  "name_zh": "熔岩深处",
+  "name_en": "Lava Deeps",
+  "layer": 3,
+  "slot": "mid",
+  "tile": {
+    "short_side": 48,
+    "band": 3,
+    "margin": 7,
+    "variants": 2,
+    "edge_weights": {"tb": [0.55, 0.1125, 0.1125, 0.1125, 0.1125], "lr": [0.5, 0.125, 0.125, 0.125, 0.125]},
+    "tunnel_width": [9, 15],
+    "shape": "organic",
+    "wobble": 0.3,
+    "chamber_prob": 0.8,
+    "chamber_radius": [12, 20],
+    "chamber_aspect": 1.1,
+    "cavern_prob": 0.4,
+    "nook_prob": 0.25,
+    "isolated_prob": 0.1,
+    "roughness": 0.4,
+    "smooth_iters": 2,
+    "smooth_sigma": 2.0,
+    "smooth_noise": 1.0
+  },
+  "shape": {
+    "widen": {"max": 3, "scale": 36},
+    "halls": {"per_10k": 0.45, "w": [60, 110], "h": [28, 44]},
+    "shafts": {"per_10k": 0.7, "w": [9, 12], "len": [50, 120]},
+    "passages": {"per_10k": 0.35, "w": [9, 11], "len": [70, 140]},
+    "alcoves": {"per_10k": 1.0, "h": [7, 10], "depth": [10, 26]},
+    "ledges": {"per_10k": 0.8, "len": [10, 22], "thick": [3, 5]},
+    "cracks": {"per_10k": 3.0, "len": [14, 40]}
+  },
+  "fill": {
+    "scale": 24,
+    "stretch": 3.0,
+    "speckle": 0.12,
+    "depth_bias": 0.3,
+    "materials": [
+      {"material": "rock", "weight": 0.76},
+      {"material": "ground", "weight": 0.14},
+      {"material": "brick", "weight": 0.1}
+    ],
+    "veins": [],
+    "edge_material": "rock",
+    "edge_depth": 1,
+    "edge_prob": 0.5
+  },
+  "features": {
+    "pools": {
+      "attempts_per_10k": 4.0,
+      "depth": [3, 10],
+      "max_area": 900,
+      "liquids": [{"material": "lava", "weight": 1}]
+    },
+    "piles": {"attempts_per_10k": 0.0, "radius": [5, 9], "powders": [{"material": "coal", "weight": 1}]},
+    "gas": {
+      "attempts_per_10k": 5.0,
+      "max_area": 300,
+      "gases": [{"material": "flammable_gas", "weight": 1}]
+    }
+  },
+  "decor": {},
+  "hazards": {
+    "lava_crust": {"per_10k": 120.0, "w": [8, 16], "depth": [5, 9], "crust": [2, 3]},
+    "sand_pocket": {"per_10k": 14.0, "w": [14, 26], "h": [5, 8], "crust": [3, 4]}
+  },
+  "markers": {
+    "enemy_per_10k": 1.0,
+    "enemies": [{"enemy": "firemage_weak", "weight": 1}],
+    "item_per_10k": 0.5,
+    "items": [
+      {"item": "potion_heal", "weight": 1},
+      {"item": "potion_mana", "weight": 1},
+      {"item": "spell", "weight": 1},
+      {"item": "barrel_gunpowder", "weight": 2},
+      {"item": "barrel_oil", "weight": 1}
+    ]
+  },
+  "encounters": {"slots": 3, "pool": ["E14", "E24", "E23"], "size": {"w": [44, 64], "h": [24, 34]}}
+}

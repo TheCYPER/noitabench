@@ -1,0 +1,91 @@
+{
+  "format": "cogbench-biome/0",
+  "key": "oil_cave",
+  "name_zh": "油窟",
+  "name_en": "Oil Caverns",
+  "layer": 2,
+  "slot": "right",
+  "tile": {
+    "short_side": 48,
+    "band": 3,
+    "margin": 7,
+    "variants": 2,
+    "edge_weights": {"tb": [0.55, 0.1125, 0.1125, 0.1125, 0.1125], "lr": [0.45, 0.1375, 0.1375, 0.1375, 0.1375]},
+    "tunnel_width": [12, 17],
+    "shape": "organic",
+    "wobble": 0.25,
+    "chamber_prob": 0.9,
+    "chamber_radius": [14, 22],
+    "chamber_aspect": 1.4,
+    "cavern_prob": 0.55,
+    "nook_prob": 0.2,
+    "isolated_prob": 0.1,
+    "roughness": 0.35,
+    "smooth_iters": 2,
+    "smooth_sigma": 2.0,
+    "smooth_noise": 1.0
+  },
+  "shape": {
+    "widen": {"max": 3, "scale": 40},
+    "halls": {"per_10k": 0.5, "w": [70, 120], "h": [30, 46]},
+    "shafts": {"per_10k": 0.5, "w": [9, 12], "len": [40, 100]},
+    "passages": {"per_10k": 0.45, "w": [9, 12], "len": [70, 150]},
+    "alcoves": {"per_10k": 1.4, "h": [7, 10], "depth": [10, 28]},
+    "ledges": {"per_10k": 1.2, "len": [10, 24], "thick": [3, 5]},
+    "cracks": {"per_10k": 2.5, "len": [14, 36]}
+  },
+  "fill": {
+    "scale": 26,
+    "stretch": 3.0,
+    "speckle": 0.12,
+    "depth_bias": 0.3,
+    "materials": [{"material": "ground", "weight": 0.4}, {"material": "rock", "weight": 0.6}],
+    "veins": [{"material": "coal", "per_10k": 2.5, "length": [24, 60], "thickness": [1.5, 3.0], "buried": 3}],
+    "edge_material": "rock",
+    "edge_depth": 1,
+    "edge_prob": 0.6
+  },
+  "features": {
+    "pools": {
+      "attempts_per_10k": 4.0,
+      "depth": [3, 11],
+      "max_area": 1000,
+      "liquids": [{"material": "oil", "weight": 4}, {"material": "whiskey", "weight": 1}]
+    },
+    "piles": {"attempts_per_10k": 1.5, "radius": [5, 10], "powders": [{"material": "coal", "weight": 1}]},
+    "gas": {
+      "attempts_per_10k": 2.0,
+      "max_area": 300,
+      "gases": [{"material": "flammable_gas", "weight": 1}]
+    }
+  },
+  "decor": {"seams": {"per_10k": 5.0, "len": [10, 26]}, "timber": {"per_10k": 0.5}},
+  "hazards": {
+    "lava_crust": {"per_10k": 3.0, "w": [8, 14], "depth": [5, 8], "crust": [2, 3]},
+    "sand_pocket": {"per_10k": 5.0, "w": [14, 26], "h": [5, 8], "crust": [3, 4]}
+  },
+  "markers": {
+    "enemy_per_10k": 0.8,
+    "enemies": [{"enemy": "firemage_weak", "weight": 1}],
+    "item_per_10k": 0.55,
+    "items": [
+      {"item": "potion_haste", "weight": 1},
+      {"item": "bottle", "weight": 1, "contents": "oil"},
+      {"item": "spell", "weight": 1},
+      {"item": "wand", "weight": 1},
+      {"item": "barrel_oil", "weight": 2},
+      {"item": "barrel_gunpowder", "weight": 1}
+    ]
+  },
+  "supply": {
+    "deposits": [
+      {"material": "whiskey", "form": "pool", "count": 1, "min_cells": 60, "depth": [3, 6], "max_area": 600}
+    ],
+    "bottles": [
+      {"contents": "whiskey"},
+      {"contents": ""}
+    ],
+    "bowls": 1
+  },
+  "encounters": {"slots": 3, "pool": ["E03", "E10", "E19"], "size": {"w": [44, 64], "h": [24, 34]}}
+}

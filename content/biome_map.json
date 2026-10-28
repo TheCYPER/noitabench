@@ -1,0 +1,93 @@
+{
+  "format": "cogbench-biome-map/0",
+  "cell_size": 128,
+  "cols": 6,
+  "rows": 13,
+  "ring": 6,
+  "border": 3,
+  "cells": [
+    ["start", "start", "start", "start", "start", "start"],
+    ["coal_pit", "coal_pit", "mine", "mine", "sand_cave", "sand_cave"],
+    ["coal_pit", "coal_pit", "mine", "mine", "sand_cave", "sand_cave"],
+    ["coal_pit", "coal_pit", "mine", "mine", "sand_cave", "sand_cave"],
+    ["rest_1", "rest_1", "rest_1", "rest_1", "rest_1", "rest_1"],
+    ["fungal", "fungal", "swamp", "swamp", "oil_cave", "oil_cave"],
+    ["fungal", "fungal", "swamp", "swamp", "oil_cave", "oil_cave"],
+    ["fungal", "fungal", "swamp", "swamp", "oil_cave", "oil_cave"],
+    ["rest_2", "rest_2", "rest_2", "rest_2", "rest_2", "rest_2"],
+    ["workshop", "workshop", "lava_deeps", "lava_deeps", "brick_ruins", "brick_ruins"],
+    ["workshop", "workshop", "lava_deeps", "lava_deeps", "brick_ruins", "brick_ruins"],
+    ["workshop", "workshop", "lava_deeps", "lava_deeps", "brick_ruins", "brick_ruins"],
+    ["seal", "seal", "seal", "seal", "seal", "seal"]
+  ],
+  "layers": [
+    {
+      "layer": 1,
+      "rows": [1, 3],
+      "left": "coal_pit",
+      "mid": "mine",
+      "right": "sand_cave",
+      "must_pass": ["E16", "E08"]
+    },
+    {
+      "layer": 2,
+      "rows": [5, 7],
+      "left": "fungal",
+      "mid": "swamp",
+      "right": "oil_cave",
+      "must_pass": ["E07", "E23", "E22"]
+    },
+    {
+      "layer": 3,
+      "rows": [9, 11],
+      "left": "workshop",
+      "mid": "lava_deeps",
+      "right": "brick_ruins",
+      "must_pass": ["E02", "E23", "E12"],
+      "last": "E12"
+    }
+  ],
+  "scenes": {
+    "start": {
+      "row": 0,
+      "ground_level": [70, 84],
+      "spawn_x": [70, 150],
+      "shaft_x": [300, 468]
+    },
+    "rest": {
+      "rows": [4, 8],
+      "hall": {"x": [208, 560], "top": 36, "h": 56, "pool_w": 48},
+      "wall": 6,
+      "slots": [
+        {"encounter_id": "E17", "w": 84, "h": 30, "anchor": 0.277},
+        {"encounter_id": "E20", "w": 84, "h": 30, "anchor": 0.726}
+      ],
+      "gate_x": [296, 472]
+    },
+    "seal": {
+      "row": 12,
+      "encounter_id": "E06",
+      "gate_x": [300, 468],
+      "top": 16,
+      "room": {"w": 136, "h": 56, "wall": 6}
+    },
+    "bands": {
+      "wall": 10,
+      "wave": 4,
+      "margin": 4,
+      "seam": 4,
+      "chamber_w": [56, 80],
+      "chamber_h": [26, 34]
+    },
+    "gate_w": 14,
+    "alchemy": {
+      "bowl": {"w": 20, "h": 10, "wall": 2},
+      "reach": 6,
+      "min_cells": 40,
+      "start_bottles": 2,
+      "rest_bottles": 2,
+      "early_empty_bottles": 6,
+      "min_empty_bottles": 10
+    }
+  }
+}

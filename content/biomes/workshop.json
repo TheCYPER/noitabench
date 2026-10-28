@@ -1,0 +1,79 @@
+{
+  "format": "cogbench-biome/0",
+  "key": "workshop",
+  "name_zh": "废弃工坊",
+  "name_en": "Abandoned Workshop",
+  "layer": 3,
+  "slot": "left",
+  "layout": "rooms",
+  "rooms": {
+    "min_w": 60,
+    "min_h": 44,
+    "margin": [7, 10],
+    "door_w": 12,
+    "door_h": 12,
+    "loops": 0.35
+  },
+  "fill": {
+    "scale": 20,
+    "stretch": 2.0,
+    "speckle": 0.1,
+    "depth_bias": 0.2,
+    "materials": [
+      {"material": "brick", "weight": 0.62},
+      {"material": "rock", "weight": 0.28},
+      {"material": "ground", "weight": 0.1}
+    ],
+    "veins": [],
+    "edge_material": "brick",
+    "edge_depth": 3,
+    "edge_prob": 1.0
+  },
+  "features": {
+    "pools": {
+      "attempts_per_10k": 0.0,
+      "depth": [2, 4],
+      "max_area": 300,
+      "liquids": [{"material": "water", "weight": 1}]
+    },
+    "piles": {"attempts_per_10k": 0.8, "radius": [5, 9], "powders": [{"material": "gunpowder", "weight": 1}]},
+    "gas": {
+      "attempts_per_10k": 4.5,
+      "max_area": 300,
+      "gases": [{"material": "flammable_gas", "weight": 1}]
+    }
+  },
+  "decor": {
+    "channels": {"per_room": 0.7, "len": [20, 48], "depth": 3, "oil_prob": 0.5},
+    "pipes": {"ceiling": 0.7, "wall": 0.5, "thick": [4, 6]},
+    "barrel_rows": {
+      "per_room": [1, 3],
+      "count": [3, 7],
+      "spacing": 9,
+      "weights": {"barrel_acid": 4, "barrel_oil": 3, "barrel_gunpowder": 3}
+    },
+    "catwalks": {"per_10k": 60.0, "len": [18, 36], "height": [9, 14]}
+  },
+  "hazards": {},
+  "markers": {
+    "enemy_per_10k": 1.1,
+    "enemies": [{"enemy": "shotgunner", "weight": 1}],
+    "item_per_10k": 0.5,
+    "items": [
+      {"item": "spell", "weight": 1},
+      {"item": "potion_mana", "weight": 1},
+      {"item": "potion_heal", "weight": 1},
+      {"item": "barrel_acid", "weight": 1},
+      {"item": "barrel_oil", "weight": 1}
+    ]
+  },
+  "supply": {
+    "deposits": [
+      {"material": "gold_dust", "form": "pile", "count": 1, "min_cells": 70, "radius": [11, 14], "optional": true}
+    ],
+    "bottles": [
+    ],
+    "bowls": 0
+  },
+  "encounters": {"slots": 3, "pool": ["E01", "E11", "E13"], "size": {"w": [44, 64], "h": [24, 34]}}
+}

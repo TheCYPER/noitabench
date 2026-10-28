@@ -1,0 +1,90 @@
+{
+  "format": "cogbench-biome/0",
+  "key": "sand_cave",
+  "name_zh": "沙穴",
+  "name_en": "Sand Caves",
+  "layer": 1,
+  "slot": "right",
+  "tile": {
+    "short_side": 48,
+    "band": 3,
+    "margin": 7,
+    "variants": 2,
+    "edge_weights": {"tb": [0.5, 0.125, 0.125, 0.125, 0.125], "lr": [0.45, 0.1375, 0.1375, 0.1375, 0.1375]},
+    "tunnel_width": [10, 16],
+    "shape": "organic",
+    "wobble": 0.3,
+    "chamber_prob": 0.9,
+    "chamber_radius": [14, 22],
+    "chamber_aspect": 1.3,
+    "cavern_prob": 0.65,
+    "nook_prob": 0.15,
+    "isolated_prob": 0.1,
+    "roughness": 0.4,
+    "smooth_iters": 2,
+    "smooth_sigma": 2.0,
+    "smooth_noise": 1.0
+  },
+  "shape": {
+    "widen": {"max": 3, "scale": 40},
+    "halls": {"per_10k": 0.45, "w": [70, 120], "h": [30, 46]},
+    "shafts": {"per_10k": 0.7, "w": [9, 13], "len": [50, 120]},
+    "passages": {"per_10k": 0.35, "w": [9, 11], "len": [70, 140]},
+    "alcoves": {"per_10k": 1.0, "h": [7, 10], "depth": [10, 26]},
+    "ledges": {"per_10k": 1.0, "len": [10, 24], "thick": [3, 5]},
+    "cracks": {"per_10k": 1.5, "len": [14, 32]}
+  },
+  "fill": {
+    "scale": 26,
+    "stretch": 3.0,
+    "speckle": 0.12,
+    "depth_bias": 0.3,
+    "materials": [{"material": "ground", "weight": 0.64}, {"material": "rock", "weight": 0.36}],
+    "veins": [{"material": "coal", "per_10k": 1.2, "length": [20, 50], "thickness": [1.5, 2.5], "buried": 3}],
+    "edge_material": "ground",
+    "edge_depth": 2,
+    "edge_prob": 0.9
+  },
+  "features": {
+    "pools": {
+      "attempts_per_10k": 1.2,
+      "depth": [2, 5],
+      "max_area": 500,
+      "liquids": [{"material": "water", "weight": 1}]
+    },
+    "piles": {"attempts_per_10k": 5.0, "radius": [8, 16], "powders": [{"material": "sand", "weight": 1}]},
+    "gas": {
+      "attempts_per_10k": 0.0,
+      "max_area": 300,
+      "gases": [{"material": "flammable_gas", "weight": 1}]
+    }
+  },
+  "decor": {},
+  "hazards": {
+    "sand_pit": {"per_10k": 30.0, "w": [12, 24], "depth": [12, 22]},
+    "sand_pocket": {"per_10k": 25.0, "w": [14, 30], "h": [5, 9], "crust": [3, 4]}
+  },
+  "markers": {
+    "enemy_per_10k": 0.8,
+    "enemies": [{"enemy": "longleg", "weight": 1}],
+    "item_per_10k": 0.55,
+    "items": [
+      {"item": "wand", "weight": 1},
+      {"item": "potion_haste", "weight": 1},
+      {"item": "spell", "weight": 1},
+      {"item": "bottle", "weight": 1, "contents": "water"},
+      {"item": "barrel_oil", "weight": 1}
+    ]
+  },
+  "supply": {
+    "deposits": [
+      {"material": "sand", "form": "pile", "count": 1, "min_cells": 70, "radius": [11, 14]}
+    ],
+    "bottles": [
+      {"contents": "sand"},
+      {"contents": ""}
+    ],
+    "bowls": 0
+  },
+  "encounters": {"slots": 3, "pool": ["E13", "E14", "E16"], "size": {"w": [44, 64], "h": [24, 34]}}
+}

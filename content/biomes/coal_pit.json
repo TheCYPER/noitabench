@@ -1,0 +1,97 @@
+{
+  "format": "cogbench-biome/0",
+  "key": "coal_pit",
+  "name_zh": "煤坑",
+  "name_en": "Coal Pits",
+  "layer": 1,
+  "slot": "left",
+  "tile": {
+    "short_side": 40,
+    "band": 3,
+    "margin": 6,
+    "variants": 2,
+    "edge_weights": {"tb": [0.52, 0.12, 0.12, 0.12, 0.12], "lr": [0.48, 0.13, 0.13, 0.13, 0.13]},
+    "tunnel_width": [9, 13],
+    "shape": "organic",
+    "wobble": 0.3,
+    "chamber_prob": 0.6,
+    "chamber_radius": [9, 15],
+    "chamber_aspect": 1.0,
+    "cavern_prob": 0.2,
+    "nook_prob": 0.3,
+    "isolated_prob": 0.12,
+    "roughness": 0.4,
+    "smooth_iters": 2,
+    "smooth_sigma": 2.0,
+    "smooth_noise": 1.0
+  },
+  "shape": {
+    "widen": {"max": 2, "scale": 30},
+    "halls": {"per_10k": 0.2, "w": [56, 90], "h": [26, 40]},
+    "shafts": {"per_10k": 0.4, "w": [9, 11], "len": [40, 90]},
+    "passages": {"per_10k": 0.5, "w": [9, 11], "len": [70, 130]},
+    "alcoves": {"per_10k": 2.0, "h": [7, 10], "depth": [10, 26]},
+    "ledges": {"per_10k": 0.9, "len": [10, 20], "thick": [3, 5]},
+    "cracks": {"per_10k": 4.0, "len": [14, 40]}
+  },
+  "fill": {
+    "scale": 22,
+    "stretch": 3.0,
+    "speckle": 0.14,
+    "depth_bias": 0.3,
+    "materials": [{"material": "rock", "weight": 0.52}, {"material": "ground", "weight": 0.48}],
+    "veins": [{"material": "coal", "per_10k": 9.0, "length": [30, 90], "thickness": [2.0, 5.0], "buried": 2}],
+    "edge_material": "ground",
+    "edge_depth": 1,
+    "edge_prob": 0.6
+  },
+  "features": {
+    "pools": {
+      "attempts_per_10k": 1.5,
+      "depth": [2, 6],
+      "max_area": 400,
+      "liquids": [{"material": "oil", "weight": 3}, {"material": "water", "weight": 1}]
+    },
+    "piles": {
+      "attempts_per_10k": 3.0,
+      "radius": [5, 10],
+      "powders": [{"material": "coal", "weight": 3}, {"material": "gunpowder", "weight": 1}]
+    },
+    "gas": {
+      "attempts_per_10k": 2.0,
+      "max_area": 260,
+      "gases": [{"material": "flammable_gas", "weight": 1}]
+    }
+  },
+  "decor": {"timber": {"per_10k": 1.2}, "frames": {"per_10k": 20.0}},
+  "hazards": {"sand_pocket": {"per_10k": 8.0, "w": [14, 24], "h": [5, 8], "crust": [3, 4]}},
+  "markers": {
+    "enemy_per_10k": 1.1,
+    "enemies": [{"enemy": "longleg", "weight": 2}, {"enemy": "shotgunner", "weight": 1}],
+    "item_per_10k": 0.65,
+    "items": [
+      {"item": "potion_mana", "weight": 1},
+      {"item": "spell", "weight": 2},
+      {"item": "bottle", "weight": 1, "contents": "oil"},
+      {"item": "barrel_gunpowder", "weight": 2},
+      {"item": "barrel_oil", "weight": 1}
+    ]
+  },
+  "supply": {
+    "deposits": [
+      {"material": "bone_dust", "form": "pile", "count": 1, "min_cells": 70, "radius": [11, 14]},
+      {"material": "gunpowder", "form": "pile", "count": 1, "min_cells": 70, "radius": [11, 14]},
+      {"material": "coal", "form": "pile", "count": 1, "min_cells": 70, "radius": [11, 14]},
+      {"material": "oil", "form": "pool", "count": 1, "min_cells": 60, "depth": [3, 6], "max_area": 500}
+    ],
+    "bottles": [
+      {"contents": "bone_dust"},
+      {"contents": "gunpowder"},
+      {"contents": "coal"},
+      {"contents": "oil"},
+      {"contents": ""}
+    ],
+    "bowls": 0
+  },
+  "encounters": {"slots": 3, "pool": ["E01", "E11", "E21"], "size": {"w": [40, 56], "h": [22, 30]}}
+}

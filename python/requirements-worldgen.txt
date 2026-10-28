@@ -1,0 +1,7 @@
+# World generator (python/noitabench/worldgen) and its tests. Install with:
+#   uv pip install --python .venv/bin/python -r python/requirements-worldgen.txt
+numpy>=1.26
+pillow>=10.1      # ImageFont.load_default(size=...) is used by the preview tool
+scipy>=1.11       # ndimage (labelling, erosion, filters) and sparse Dijkstra
+pytest>=8
+ruff>=0.5
