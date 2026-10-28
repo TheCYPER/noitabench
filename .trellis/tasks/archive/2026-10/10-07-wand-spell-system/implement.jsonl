@@ -1,0 +1,7 @@
+{"file": ".trellis/spec/game-design/index.md", "reason": "KB index: conventions, units, golden rules, rule-ID scheme"}
+{"file": ".trellis/spec/game-design/glossary.md", "reason": "Noita terms"}
+{"file": ".trellis/spec/game-design/decisions-needed.md", "reason": "open decisions and their defaults"}
+{"file": ".trellis/spec/game-design/wand-casting.md", "reason": "WAND rules, casting pseudocode, KV vectors"}
+{"file": ".trellis/spec/game-design/spells.md", "reason": "SPELL rules, spell taxonomy, MVP-50 behaviours"}
+{"file": ".trellis/spec/game-design/entities-damage.md", "reason": "DAMAGE rules, statuses, enemies"}
+{"file": ".trellis/tasks/10-07-noita-clone/research/wand-mechanics.md", "reason": "casting research (verified against game data)"}

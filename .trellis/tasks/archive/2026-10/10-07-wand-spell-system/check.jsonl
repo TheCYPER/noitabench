@@ -1,0 +1,6 @@
+{"file": ".trellis/spec/game-design/index.md", "reason": "KB index: conventions, units, golden rules, rule-ID scheme"}
+{"file": ".trellis/spec/game-design/glossary.md", "reason": "Noita terms"}
+{"file": ".trellis/spec/game-design/decisions-needed.md", "reason": "open decisions and their defaults"}
+{"file": ".trellis/spec/game-design/wand-casting.md", "reason": "KV vectors and corrected fixtures"}
+{"file": ".trellis/spec/game-design/spells.md", "reason": "TV vectors"}
+{"file": ".trellis/spec/game-design/entities-damage.md", "reason": "damage pipeline order"}

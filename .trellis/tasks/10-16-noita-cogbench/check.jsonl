@@ -1,0 +1,7 @@
+{"file": ".trellis/tasks/10-16-noita-cogbench/prd.md", "reason": "acceptance criteria AC1-AC10 to verify against"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/design.md", "reason": "contracts: reproducibility, no game logic outside Rust, observation/action schema, budget"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/capability-graph.md", "reason": "every encounter maps to nodes; evaluation stays hidden from the agent"}
+{"file": ".trellis/spec/game-design/materials-reactions.md", "reason": "pitfalls and common misreadings of fire, acid and explosions"}
+{"file": ".trellis/spec/game-design/wand-casting.md", "reason": "casting test vectors and pitfalls"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/tick-design.md", "reason": "time model: fixed tick, durative commands, interrupts, decision points"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/world-design.md", "reason": "Noita-style world generation: biome map, Wang tiles, pixel scenes, checks"}

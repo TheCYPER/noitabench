@@ -1,0 +1,15 @@
+{"file": ".trellis/tasks/10-16-noita-cogbench/prd.md", "reason": "confirmed requirements R1-R11 and acceptance AC1-AC10 (Chinese)"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/design.md", "reason": "v1 architecture, content lists, perturbation, cross-run memory, agent interface, budget"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/capability-graph.md", "reason": "capability nodes, encounter templates, hidden evaluation and composite score"}
+{"file": ".trellis/spec/game-design/index.md", "reason": "KB conventions, units and rule-ID scheme; mechanics follow Noita per F1"}
+{"file": ".trellis/spec/game-design/pixel-simulation.md", "reason": "cell model, movement, chunk sleep, stateless per-cell RNG"}
+{"file": ".trellis/spec/game-design/materials-reactions.md", "reason": "reaction semantics, fire, durability and ray explosions, contact damage"}
+{"file": ".trellis/spec/game-design/wand-casting.md", "reason": "deck/hand/discard casting algorithm used by the 25-spell lite set"}
+{"file": ".trellis/spec/game-design/spells.md", "reason": "per-spell numbers for the 25 chosen spells"}
+{"file": ".trellis/spec/game-design/entities-damage.md", "reason": "player movement numbers, enemies, damage and statuses"}
+{"file": ".trellis/spec/game-design/benchmark.md", "reason": "JSON Lines protocol and scoring rules reused minus RL and hashing"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/tick-design.md", "reason": "time model: fixed tick, durative commands, interrupts, decision points"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/world-design.md", "reason": "Noita-style world generation: biome map, Wang tiles, pixel scenes, checks"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/research/worldgen.md", "reason": "research on Noita biome layout, Wang tiles, spawn tables (moves with research dir)"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/research/game-bench-time-minecraft.md", "reason": "how Minecraft agent benchmarks pace game time vs decisions (precedents for tick-design)"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/research/game-bench-time-others.md", "reason": "how other game benchmarks pace game time vs decisions (precedents for tick-design)"}

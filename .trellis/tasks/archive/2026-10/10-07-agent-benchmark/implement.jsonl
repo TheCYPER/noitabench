@@ -1,0 +1,6 @@
+{"file": ".trellis/spec/game-design/index.md", "reason": "KB index: conventions, units, golden rules, rule-ID scheme"}
+{"file": ".trellis/spec/game-design/glossary.md", "reason": "Noita terms"}
+{"file": ".trellis/spec/game-design/decisions-needed.md", "reason": "open decisions and their defaults"}
+{"file": ".trellis/spec/game-design/benchmark.md", "reason": "PROTO/ACT/OBS/SCORE/SEED/DET/VER rules and task suite"}
+{"file": ".trellis/spec/game-design/worldgen.md", "reason": "benchmark arena generation"}
+{"file": ".trellis/tasks/10-07-noita-clone/research/benchmark-design.md", "reason": "survey of prior agent benchmarks"}

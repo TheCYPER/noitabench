@@ -1,0 +1,7 @@
+{"file": ".trellis/spec/game-design/index.md", "reason": "KB index: conventions, units, golden rules, rule-ID scheme"}
+{"file": ".trellis/spec/game-design/glossary.md", "reason": "Noita terms"}
+{"file": ".trellis/spec/game-design/decisions-needed.md", "reason": "open decisions and their defaults"}
+{"file": ".trellis/spec/game-design/frontend.md", "reason": "FE rules: render loop, input, UI, debug tools"}
+{"file": ".trellis/spec/game-design/worldgen.md", "reason": "WORLD rules for the game world"}
+{"file": ".trellis/spec/game-design/entities-damage.md", "reason": "player movement and levitation numbers"}
+{"file": ".trellis/tasks/10-07-noita-clone/research/frontend-tech.md", "reason": "macroquad research and crate versions"}

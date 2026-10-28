@@ -1,0 +1,5 @@
+{"file": ".trellis/spec/backend/contracts.md", "reason": "cross-module contracts: layout, content files, world files, recordings, sim Python API"}
+{"file": ".trellis/spec/game-design/v1-scope.md", "reason": "what v1 uses from the KB and its deliberate deviations"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/prd.md", "reason": "parent requirements and acceptance"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/design.md", "reason": "task design input"}
+{"file": ".trellis/tasks/10-16-noita-cogbench/tick-design.md", "reason": "task design input"}

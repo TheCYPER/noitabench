@@ -1,0 +1,5 @@
+{"file": ".trellis/spec/game-design/index.md", "reason": "KB index: conventions, units, golden rules, rule-ID scheme"}
+{"file": ".trellis/spec/game-design/glossary.md", "reason": "Noita terms"}
+{"file": ".trellis/spec/game-design/decisions-needed.md", "reason": "open decisions and their defaults"}
+{"file": ".trellis/spec/game-design/pixel-simulation.md", "reason": "SIM rules and SIM-T vectors to verify"}
+{"file": ".trellis/spec/game-design/materials-reactions.md", "reason": "MV vectors to verify"}

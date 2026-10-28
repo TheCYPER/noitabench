@@ -1,0 +1,7 @@
+{"file": ".trellis/spec/game-design/index.md", "reason": "KB index: conventions, units, golden rules, rule-ID scheme"}
+{"file": ".trellis/spec/game-design/glossary.md", "reason": "Noita terms"}
+{"file": ".trellis/spec/game-design/decisions-needed.md", "reason": "open decisions and their defaults"}
+{"file": ".trellis/spec/game-design/pixel-simulation.md", "reason": "SIM rules: grid, chunks, scheduler, motion rules, explosions, determinism"}
+{"file": ".trellis/spec/game-design/materials-reactions.md", "reason": "MAT/RXN/FIRE/DUR rules, MVP-40 materials and reactions"}
+{"file": ".trellis/tasks/10-07-noita-clone/research/pixel-sim-tech.md", "reason": "engine-tech research and prior-art patterns"}
+{"file": ".trellis/tasks/10-07-noita-clone/research/rust-prior-art.md", "reason": "permissive repos to port ideas from; licence rules"}

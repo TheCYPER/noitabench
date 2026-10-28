@@ -1,0 +1,31 @@
+{
+  "id": "noita-clone",
+  "name": "noita-clone",
+  "title": "Noita-like game: pixel physics sim, wand/spell system, agent benchmark",
+  "description": "",
+  "status": "completed",
+  "dev_type": null,
+  "scope": null,
+  "package": null,
+  "priority": "P2",
+  "creator": "percy",
+  "assignee": "percy",
+  "createdAt": "2026-10-07",
+  "completedAt": "2026-10-26",
+  "branch": null,
+  "base_branch": "main",
+  "worktree_path": null,
+  "commit": null,
+  "pr_url": null,
+  "subtasks": [],
+  "children": [
+    "10-07-pixel-sim-core",
+    "10-07-wand-spell-system",
+    "10-07-agent-benchmark",
+    "10-07-playable-frontend"
+  ],
+  "parent": null,
+  "relatedFiles": [],
+  "notes": "",
+  "meta": {}
+}
