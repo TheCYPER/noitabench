@@ -41,7 +41,7 @@ A game's **composite** = 0.8 × mean of the 11 capability scores (each discounte
 | L4 | `spawn_agent`, `fork_agent`, `wand_range` | helpers that think but never act; a wand practice range |
 | L5 | `plugin_*`, `lib_*` | tools and prompt fragments of its own; libraries from an offline whitelist |
 
-Every model call, helpers included, is charged to one budget per game. `--minimal` (L0 and L1 only) is the control setting. Adapters exist for Anthropic, OpenAI-compatible and Gemini endpoints, plus a `fake` scripted model for plumbing tests.
+Every model call, helpers included, is charged to one budget per game. `--minimal` (L0 and L1 only) is the control setting. Adapters exist for Anthropic, OpenAI-compatible, Gemini and DeepSeek endpoints, plus a `fake` scripted model for plumbing tests.
 
 **The human baseline.** `web/play.html` plays the same game in a browser with the same commands, pause-mode time rules, decision budget, notebook, recording format and scoring.
 
@@ -118,7 +118,7 @@ python -m http.server 8000
 
 ## Run a model with your own API key
 
-The key is read from the environment and never written anywhere. The default variables are `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` and `GOOGLE_API_KEY`; `--api-key-env NAME` reads any other variable (handy when `ANTHROPIC_API_KEY` is already used by other tools on your machine). Start runs from a shell that exports no other secrets: the sandbox scrubs its output, but code in the box can still read the environment of other processes of your user.
+The key is read from the environment and never written anywhere. The default variables are `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GOOGLE_API_KEY` and `DEEPSEEK_API_KEY`; `--api-key-env NAME` reads any other variable (handy when `ANTHROPIC_API_KEY` is already used by other tools on your machine). Start runs from a shell that exports no other secrets: the sandbox scrubs its output, but code in the box can still read the environment of other processes of your user.
 
 ```sh
 # 1. see what a game would cost (no key, no model call)
@@ -134,20 +134,20 @@ python -m noitabench eval runs/haiku-1
 python -m http.server 8000     # http://localhost:8000/web/report.html?profile=../runs/haiku-1/profile.json
 ```
 
-What to expect: the first real game (Claude Haiku 5.5, every layer on, 2026-10-27) took 235 decisions, 47 model calls and $0.05 with prompt caching, in about 4 minutes, and died on layer 2. A full 1,000-decision Haiku game is estimated at about $1 to $2. See `python -m noitabench harness run --help` for every option; the ones you will want:
+What to expect: the first real game (Claude Haiku 5.5, every layer on, 2026-10-27) took 235 decisions, 47 model calls and $0.05 with prompt caching, in about 4 minutes, and died on layer 2. A full 1,000-decision Haiku game is estimated at about $1 to $2. [docs/running-models.md](docs/running-models.md) has one section per provider, how to price a model that is not in the table, how to keep a key out of your shell history, and a three-game pilot from estimate to report. `python -m noitabench harness run --help` lists every option; the ones you will want:
 
 | Option | Meaning |
 |---|---|
-| `--provider anthropic\|openai\|gemini\|fake`, `--model ID` | the model, spelled exactly as the provider does |
+| `--provider anthropic\|openai\|gemini\|deepseek\|fake`, `--model ID` | the model, spelled exactly as the provider does |
 | `--base-url URL` + `--api-key-env NAME` | an OpenAI-compatible or custom endpoint (open models, proxies) |
-| `--price-input X --price-output Y` or `--allow-unpriced` | prices in USD per million tokens. Only the Claude 5.5 models have built-in prices; every other model needs one of these |
+| `--price-input X --price-output Y` or `--allow-unpriced` | prices in USD per million tokens. Only the Claude 5.5 models and `deepseek-flash` / `deepseek-v4-pro` have built-in prices; every other model needs one of these |
 | `--budget-usd`, `--max-decisions`, `--max-model-calls` | the caps of one game; `--family-budget-usd` caps a whole family |
 | `--runs N` | N games of one family: same rule seed, a new cave each, the notebook kept between games (`--clear-workspace` is the control) |
 | `--minimal` or `--layers L0,L1,...` | the control harness, or any subset of layers |
 | `--mode text` | commands as plain text instead of tool calls (then only L0 and L1 are possible) |
 | `--context summary\|server\|none` | how long games are compacted (default: the loop's own briefing) |
 | `--no-text`, `--no-ascii`, `--screenshot` | the observation channels |
-| `--thinking`, `--effort`, `--max-output-tokens` | passed through to the provider where it applies |
+| `--thinking`, `--effort`, `--max-output-tokens`, `--request-timeout` | passed through to the provider where it applies; the last two default per provider (DeepSeek gets 32768 tokens and 600 s) |
 
 **Linux.** Layers L2, L3 and L5 run the agent's code inside `sandbox-exec` and refuse to start without it. Use `--layers L0,L1,L4` (or `--minimal`) there until a Linux sandbox exists. The offline library whitelist (`wheelhouse.lock`) was built for CPython 3.10 on macOS arm64; the comment at the top of the lock file says how to download it for another platform.
 
@@ -172,6 +172,7 @@ The page shows only what an agent may see. The recording has the same format as 
 - `.trellis/tasks/10-16-noita-cogbench/`: `prd.md` (requirements and acceptance criteria), `design.md`, `tick-design.md` (time model), `world-design.md`, `capability-graph.md` (encounters and scoring), `implement.md` (schedule and checkpoint results). These were written in Chinese during planning; STATUS.md carries the substance in English.
 - `.trellis/spec/game-design/`: the knowledge base of Noita mechanics with rule ids (`SIM-R32`, `WAND-R20`, ...), what we simplified, and `v1-scope.md` for what the first version uses.
 - `docs/knowledge-base.md`: the facts the agent's notes are scored against. `docs/noita-benchmark-design.pdf`: the original bilingual design note. `docs/plan-report.zh.md`: the first plan report (2026-10-07, superseded by the PRD).
+- `docs/running-models.md`: running the harness on each provider, pricing, keys, a pilot family.
 - `web/README.md`: the viewer pages, their files and limits.
 
 ## Development notes
