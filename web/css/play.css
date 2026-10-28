@@ -1,0 +1,38 @@
+/* Play page only; shared styles are in app.css. */
+.play-stage { height: clamp(300px, 70vh, 820px); }
+.play-stage canvas { cursor: crosshair; }
+.cmdrow { display: flex; gap: 8px; margin: 6px 0; }
+.cmdrow input { flex: 1 1 auto; min-width: 0; font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; }
+.panel h2 { margin-top: 8px; }
+.kv { margin: 3px 0; overflow-wrap: anywhere; }
+.kv.small, .small { font-size: 12px; }
+.kv.bad { color: var(--err); }
+button.small { min-height: 24px; padding: 1px 7px; font-size: 12px; margin: 0 3px 3px 0; }
+button.slot { min-width: 60px; text-align: left; }
+button.slot.emptyslot { color: var(--muted); }
+button.picked { border-color: var(--accent); background: rgba(226,162,58,.25); }
+.row-left { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 4px 0; }
+.barrow { display: grid; grid-template-columns: 38px minmax(0, 1fr) 64px; gap: 6px; align-items: center; margin: 2px 0; }
+.bar { height: 10px; background: #0b0907; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+.bar .fill { height: 100%; }
+.fill.hp { background: #ef4444; }
+.fill.fly { background: #60a5fa; }
+.fill.air { background: #a3e635; }
+.bartext { text-align: right; }
+.wand { border: 1px solid var(--line); border-radius: 6px; padding: 6px; margin-bottom: 6px; }
+.wand.active { border-color: var(--accent); }
+.wandhead { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 4px; margin-bottom: 4px; }
+.slots { display: flex; flex-wrap: wrap; }
+.item { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 2px; margin: 2px 0; }
+.item.chosen { background: rgba(226,162,58,.08); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 12px; }
+.legenditem { display: inline-flex; align-items: center; }
+.inspect { margin: 0; max-height: 220px; overflow: auto; font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+.notes { display: grid; gap: 6px; }
+.notes input, .notes textarea, .notes select { width: 100%; font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text); background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; }
+.notes textarea { resize: vertical; }
+#results li.bad { color: var(--err); }
+#sec-edit[hidden] { display: none; }
+dl.cmdhelp { margin: 6px 0 0; font-size: 12px; }
+dl.cmdhelp dt { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; margin-top: 6px; color: var(--accent); }
+dl.cmdhelp dd { margin: 0; color: var(--muted); }

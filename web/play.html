@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>游玩 · Cogbench</title>
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/play.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="index.html">Cogbench</a>
+  <nav><a href="replay.html">回放</a><a href="preview.html">世界预览</a><a href="play.html" aria-current="page">游玩</a></nav>
+</header>
+<main>
+  <p id="message" class="message" role="alert" hidden></p>
+  <p id="banner" class="message warn" hidden></p>
+  <div class="layout">
+    <div class="stage-col">
+      <div class="stage play-stage"><canvas id="canvas" tabindex="0" aria-label="游戏画面"></canvas></div>
+      <div id="readout" class="readout">移动指针查看坐标。左键：走到那一列，点敌人则瞄准开火；右键：inspect（算一次决策）；Shift+左键：朝那里瞄准并施法。</div>
+      <form id="cmd-form" class="cmdrow" autocomplete="off">
+        <input id="cmd-text" type="text" spellcheck="false" placeholder="walk_to(x=180); jump(right)   最多 4 条，用分号隔开" aria-label="命令">
+        <button id="cmd-run" class="primary" type="submit">执行</button>
+      </form>
+      <div class="controls">
+        <span class="group">
+          <label>一步 <select id="step-ticks" aria-label="一步的长度"></select></label>
+          <button id="zoom-out" type="button" aria-label="缩小" title="缩小 (-)">−</button>
+          <span id="zoom-label" class="mono"></span>
+          <button id="zoom-in" type="button" aria-label="放大" title="放大 (+)">+</button>
+          <button id="zoom-fit" type="button" title="适应窗口 (0)">适应</button>
+        </span>
+        <span class="group wide">
+          <label><input id="chk-fire" type="checkbox" checked> 着火的格子</label>
+          <label><input id="chk-aim" type="checkbox" checked> 瞄准线</label>
+          <button id="btn-end" type="button" title="结束这一局，保存录像">结束这局</button>
+        </span>
+      </div>
+      <section class="panel">
+        <h2>上一个决策</h2>
+        <div id="budget" class="kv mono"></div>
+        <div id="stop" class="kv"></div>
+        <ul id="results" class="plain"></ul>
+        <h2>期间发生的事</h2>
+        <ol id="events" class="events"></ol>
+      </section>
+    </div>
+    <aside class="side">
+      <section><h2>状态</h2><div id="vitals"></div></section>
+      <section><h2>法杖</h2><div id="wands"></div></section>
+      <section id="sec-edit">
+        <h2>改法杖</h2>
+        <div id="edit-hint" class="kv"></div>
+        <div id="edit-actions" class="row-left"></div>
+        <h2>带着的法术</h2>
+        <div id="spells"></div>
+      </section>
+      <section><h2>瓶子</h2><div id="bottles"></div></section>
+      <section><h2>查看结果 (inspect)</h2><pre id="inspect" class="inspect">还没有查看过东西。</pre></section>
+      <section><h2>画面里有的材料</h2><div id="legend" class="legend"></div></section>
+      <section>
+        <h2>笔记</h2>
+        <div class="notes">
+          <select id="notes-select" aria-label="笔记文件"></select>
+          <input id="notes-name" type="text" placeholder="文件名，如 chemistry.md（没写文件夹就放进 notes/）" aria-label="笔记名">
+          <textarea id="notes-text" rows="8" spellcheck="false" aria-label="笔记内容"></textarea>
+          <div class="row-left"><button id="notes-save" type="button" class="primary small">保存</button><button id="notes-new" type="button" class="small">新建</button><button id="notes-delete" type="button" class="small">删除</button></div>
+          <div id="notes-quota" class="kv mono"></div>
+          <div id="notes-status" class="kv"></div>
+        </div>
+      </section>
+      <section>
+        <h2>命令（命令框里用）</h2>
+        <details><summary>一览</summary><dl id="cmd-help" class="cmdhelp"></dl></details>
+      </section>
+      <section><h2>按键</h2><table id="keys" class="list"></table><p class="kv small">按一次键就是一个决策，按住不重复。W 例外：轻点是跳，按住是悬浮，松开时才算一个决策（按住期间按 A/D 只是选方向）。</p></section>
+    </aside>
+  </div>
+</main>
+<script type="module" src="js/pages/play.js"></script>
+</body>
+</html>
