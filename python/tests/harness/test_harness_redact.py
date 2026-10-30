@@ -282,6 +282,17 @@ def test_strings_shaped_like_keys_are_hidden_without_being_known(name: str) -> N
     assert out == f"token was {HIDDEN}, then more", name
 
 
+@pytest.mark.parametrize("name", sorted(shaped_examples()))
+def test_without_shapes_only_known_values_are_hidden(name: str) -> None:
+    example = shaped_examples()[name]
+    redactor = Redactor()
+    assert redactor.redact(f"token was {example}", shapes=False) == f"token was {example}"
+    assert redactor.redact_id(example) == example
+    redactor.add([example])
+    assert redactor.redact(f"token was {example}", shapes=False) == f"token was {HIDDEN}"
+    assert redactor.redact_id(example) == HIDDEN
+
+
 def test_a_private_key_and_the_password_of_a_url_are_hidden() -> None:
     redactor = Redactor()
     key = (

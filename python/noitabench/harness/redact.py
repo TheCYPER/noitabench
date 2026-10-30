@@ -48,6 +48,9 @@ What is hidden (replaced by `[hidden]`):
   32 or more characters; long base64). These are tuned to leave ordinary game text (words,
   identifiers, paths, ASCII maps) alone: `tests/harness/test_harness_redact.py`
   checks that on whole games.
+  The one place that skips the shapes is the `id` of a tool call or result in `transcript.jsonl`
+  (`Redactor.redact_id`: known values only), because providers make ids that are as long and as
+  random as a key and a recording must keep calls and results linked.
 
 What is not covered: a secret that is cut into pieces shorter than `WINDOW` characters and sent
 one piece at a time, or with anything put between its characters (spaces, one character per
@@ -436,15 +439,16 @@ class Redactor:
 
     # -- hiding them --------------------------------------------------------------------------------
 
-    def redact(self, text: str, marker: str = HIDDEN) -> str:
+    def redact(self, text: str, marker: str = HIDDEN, *, shapes: bool = True) -> str:
         """`text` with every known secret, form of one and key-shaped string replaced by `marker`
-        (and any character that cannot be written to a file spelled out: see `_encodable`)."""
+        (and any character that cannot be written to a file spelled out: see `_encodable`).
+        `shapes=False`: only the known secrets and their forms, not strings shaped like keys."""
         if not self.enabled or not isinstance(text, str):
             return text
         text = _encodable(text)
         if len(text) < MIN_SECRET_LENGTH:
             return text
-        spans = self._spans(text)
+        spans = self._spans(text, shapes)
         if not spans:
             return text
         spans.sort()
@@ -464,12 +468,12 @@ class Redactor:
         pieces.append(text[at:])
         return "".join(pieces)
 
-    def _spans(self, text: str) -> list[tuple[int, int]]:
+    def _spans(self, text: str, shapes: bool = True) -> list[tuple[int, int]]:
         """Where in `text` something has to be hidden, as `(start, end)`, unsorted."""
         seen, origin = _prepare(text)
         found = _unfold(self._known_spans(_lower(seen)), origin)
         spans = [_grow(text, start, end) for start, end in found]
-        if self.shapes:
+        if self.shapes and shapes:
             spans.extend(_unfold(_shape_spans(seen), origin))
         return spans
 
@@ -496,6 +500,14 @@ class Redactor:
             if first >= 0:
                 found.append((first, end))
         return found
+
+    def redact_id(self, value: Any, marker: str = HIDDEN) -> Any:
+        """A tool-call id: hidden when it is, or holds, a known secret (or a form of one), but not
+        for looking like a key. DeepSeek's `call_00_...` and the like are long and random by
+        design; hiding them would unlink every call from its result."""
+        if isinstance(value, str):
+            return self.redact(value, marker, shapes=False)
+        return self.redact_value(value, marker)
 
     def redact_value(self, value: Any, marker: str = HIDDEN, _depth: int = 0) -> Any:
         """`value` (text, numbers, or lists and dicts of them) with the secrets in it hidden.

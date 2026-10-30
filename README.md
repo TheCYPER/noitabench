@@ -134,7 +134,7 @@ python -m noitabench eval runs/haiku-1
 python -m http.server 8000     # http://localhost:8000/web/report.html?profile=../runs/haiku-1/profile.json
 ```
 
-What to expect: the first real game (Claude Haiku 5.5, every layer on, 2026-10-27) took 235 decisions, 47 model calls and $0.05 with prompt caching, in about 4 minutes, and died on layer 2. A full 1,000-decision Haiku game is estimated at about $1 to $2. [docs/running-models.md](docs/running-models.md) has one section per provider, how to price a model that is not in the table, how to keep a key out of your shell history, and a three-game pilot from estimate to report. `python -m noitabench harness run --help` lists every option; the ones you will want:
+What to expect: the first real game (Claude Haiku 5.5, every layer on, 2026-10-27) took 235 decisions, 47 model calls and $0.05 with prompt caching, in about 4 minutes, and died on layer 2. A full 1,000-decision Haiku game is estimated at about $0.20 (the printed range is $0.08 to $1.50; the top assumes a model call for every decision, which Haiku did not do: it made 0.2 calls per decision). [docs/running-models.md](docs/running-models.md) has one section per provider, how to price a model that is not in the table, how to keep a key out of your shell history, and a three-game pilot from estimate to report. `python -m noitabench harness run --help` lists every option; the ones you will want:
 
 | Option | Meaning |
 |---|---|
@@ -142,6 +142,7 @@ What to expect: the first real game (Claude Haiku 5.5, every layer on, 2026-10-2
 | `--base-url URL` + `--api-key-env NAME` | an OpenAI-compatible or custom endpoint (open models, proxies) |
 | `--price-input X --price-output Y` or `--allow-unpriced` | prices in USD per million tokens. Only the Claude 5.5 models and `deepseek-flash` / `deepseek-v4-pro` have built-in prices; every other model needs one of these |
 | `--budget-usd`, `--max-decisions`, `--max-model-calls` | the caps of one game; `--family-budget-usd` caps a whole family |
+| `--patience-s N` | how long one failed model call may wait in all before the game ends with `model_error`: an outage, or a key the provider refuses after it had worked (default 3600; `0`: give up after the two quick retries). `harness estimate` takes `--calls-per-decision` and `--output-tokens` |
 | `--runs N` | N games of one family: same rule seed, a new cave each, the notebook kept between games (`--clear-workspace` is the control) |
 | `--minimal` or `--layers L0,L1,...` | the control harness, or any subset of layers |
 | `--mode text` | commands as plain text instead of tool calls (then only L0 and L1 are possible) |

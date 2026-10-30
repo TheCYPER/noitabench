@@ -6,8 +6,8 @@
 
 - **The whole loop works on a real model.** Generate a world, let a model play it through the harness, record everything, score the recording into a capability profile, look at the replay and the report in the browser. First real game: Claude Haiku 5.5 on 2026-10-27 (details below).
 - **Where we are in the plan.** The first phase was planned as four "weeks" of work with a checkpoint each (CP1 to CP4). CP1, CP2 and CP3 are passed. Week 4 (evaluation, web report, more encounters, the knowledge base) is implemented; what remains of it is the **CP4 trial: one model from each of four providers plus a human, compared on composite score and profile.** The "weeks" are plan units: the implementation itself ran from 2026-10-26 to 2026-10-28 after three weeks of research and planning.
-- **Tests are green** on macOS arm64 as of 2026-10-28: 498 Rust tests, 2,589 Python tests (1 skipped: live API calls), 304 web tests.
-- **Biggest gaps.** No model other than Claude Haiku has played yet (the OpenAI, Gemini and DeepSeek adapters are only tested against mocked transports); no formal human baseline games yet; 7 of 24 encounters are not built; six global metrics are declared but not measured; the code sandbox is macOS-only; note extraction was tried with Claude Haiku 5.5 on two sample notebooks only (one English, one Chinese, $0.0023 in all; every verdict as expected), not yet on a real game's notes.
+- **Tests are green** on macOS arm64 as of 2026-10-30: 498 Rust tests, 2,762 Python tests (1 skipped: live API calls), 304 web tests.
+- **Biggest gaps.** Besides Claude Haiku, only DeepSeek flash has played (one game of 702 decisions for $0.39 on 2026-10-29, ended by a 401 that DeepSeek withdrew a day later; the harness now waits such errors out); the OpenAI and Gemini adapters are only tested against mocked transports; no formal human baseline games yet; 7 of 24 encounters are not built; six global metrics are declared but not measured; the code sandbox is macOS-only; note extraction was tried with Claude Haiku 5.5 on two sample notebooks only (one English, one Chinese, $0.0023 in all; every verdict as expected), not yet on a real game's notes.
 
 ## Timeline
 
@@ -34,7 +34,7 @@ Claude Haiku 5.5, tool-call mode, all six layers, notebook kept, world seed 42, 
 | cost | **$0.051** with prompt caching; 257 s wall time |
 | notebook | empty at the end (the model used no workspace tools in this game) |
 
-The run is `runs/cp3-haiku-42/` locally (not in the repository: 200 MB of frames); cut-down copies of its decisions, transcript and harness log are the test fixtures in `web/tests/fixtures/harness_run/`. The estimator says a full 1,000-decision Haiku game costs about $1.1 (range $1.0 to $2.2, $6.6 without caching).
+The run is `runs/cp3-haiku-42/` locally (not in the repository: 200 MB of frames); cut-down copies of its decisions, transcript and harness log are the test fixtures in `web/tests/fixtures/harness_run/`. The estimator, set from this game (0.2 model calls per decision), says a full 1,000-decision Haiku game costs about $0.20 (range $0.08 to $1.50, $1.11 without caching).
 
 ## What is built
 
@@ -71,7 +71,7 @@ From `prd.md` section 5. The status is my reading of the code and tests; it is n
 | AC7 | at least 12 encounters; per game a composite, 11 capability scores, depth and coverage; no score ever reaches the agent | done (17 encounters; secrecy guard tests) |
 | AC8 | families: several games with the same rules and new maps; workspace kept, or cleared in the control | done (`--runs`, `--clear-workspace`) |
 | AC9 | the six harness layers, two quotas, budget over all calls, no way to change the engine, scoring or budget; minimal setting | done on macOS; **L2/L3/L5 need `sandbox-exec`, so not on Linux** |
-| AC10 | four providers run; tokens and dollars recorded; a default-size run on the reference model under $50 | **partly**: adapters for four providers plus fake, cost recorded; only Claude Haiku has actually played ($0.05 for a short game, about $1 estimated for a full one); GPT, Gemini, DeepSeek and open models untried; only the Claude 5.5 and DeepSeek models have built-in prices |
+| AC10 | four providers run; tokens and dollars recorded; a default-size run on the reference model under $50 | **partly**: adapters for four providers plus fake, cost recorded; Claude Haiku ($0.05 for a short game, about $0.20 estimated for a full one) and DeepSeek flash ($0.39 for 702 decisions) have played; GPT, Gemini and open models untried; only the Claude 5.5 and DeepSeek models have built-in prices |
 | AC11 | a human plays a whole game in the browser in pause mode; same recording, same scores | **partly**: the page and the pipeline work (the PI played one game at CP3); no participants recruited, no human profile published |
 | AC12 | replay, speed control, side-by-side comparison, report, world preview; no game logic in the browser | done |
 | AC13 | spot-check of model transcripts for "this is a test" remarks | **partly**: the evaluator flags phrases automatically (`test_awareness` in the profile); a systematic human spot-check over several models has not happened |

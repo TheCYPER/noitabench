@@ -11,7 +11,9 @@ or, in the control setting, emptied before each one. Files of a run (all in its 
                                           lists the model ids the answers of the player's own
                                           calls named, in order of first sight (a name such as
                                           `deepseek-flash` can point at another model one day;
-                                          helpers' calls name theirs in `harness.jsonl`)
+                                          helpers' calls name theirs in `harness.jsonl`);
+                                          `result.model_wait_seconds` is the time spent waiting
+                                          to try failed model calls again (`loop.LoopConfig`)
     world/                                the world files of the game
     workspace_start/                      the workspace as the game began (the notebook it
                                           started with; the evaluation reads it, agents never)
@@ -36,7 +38,15 @@ from .budget import Budget
 from .errors import ConfigError
 from .layers import CODE_LAYERS, MINIMAL_LAYERS, build_toolbox, check_layers
 from .logs import RunLogs
-from .loop import SERVER, SUMMARY, AgentLoop, LoopConfig, LoopResult
+from .loop import (
+    PATIENCE_S,
+    PATIENCE_WAIT_S,
+    SERVER,
+    SUMMARY,
+    AgentLoop,
+    LoopConfig,
+    LoopResult,
+)
 from .model import ModelAdapter, ModelConfig
 from .prices import ModelPrice, default_context_limit, resolve_price
 from .prompt import system_prompt
@@ -76,6 +86,8 @@ class RunConfig:
     allow_unpriced: bool = False
     price: ModelPrice | None = None  # replaces the table
     wheelhouse: Path | None = None  # libraries that may be installed (None: this checkout's)
+    patience_s: float = PATIENCE_S  # one model call may wait this long (in total) to be answered
+    patience_wait_s: float = PATIENCE_WAIT_S  # the longest single wait
 
     def __post_init__(self) -> None:
         check_layers(self.layers, mode=self.mode)
@@ -85,6 +97,8 @@ class RunConfig:
             raise ConfigError("max_decisions must be at least 1")
         if self.budget_usd is not None and self.budget_usd <= 0:
             raise ConfigError("the budget in dollars must be positive")
+        if not (self.patience_s >= 0 and self.patience_wait_s > 0):  # NaN fails both
+            raise ConfigError("the patience must be at least 0 s, and its longest wait above 0 s")
         if self.view.screenshot:
             refuse_screenshot(self.model)
 
@@ -99,7 +113,13 @@ class RunConfig:
 
 def _loop_config(config: RunConfig, price: ModelPrice | None) -> LoopConfig:
     limit = config.context_limit or default_context_limit(price)
-    return LoopConfig(mode=config.mode, context=config.context, context_limit=limit)
+    return LoopConfig(
+        mode=config.mode,
+        context=config.context,
+        context_limit=limit,
+        patience_s=config.patience_s,
+        patience_wait_s=config.patience_wait_s,
+    )
 
 
 def _model_config(config: RunConfig, loop: LoopConfig) -> ModelConfig:
@@ -132,8 +152,10 @@ def play_game(
     budget: Budget,
     meta: dict[str, Any] | None = None,
     sleep: Callable[[float], None] | None = None,
+    key_accepted: bool = False,
 ) -> dict[str, Any]:
-    """Play one game with the model; write the run folder; return the summary dict."""
+    """Play one game with the model; write the run folder; return the summary dict.
+    `key_accepted`: the provider has answered with this key in an earlier game of the family."""
     default_redactor().track(config.model.api_key_env)  # a key whose variable has an odd name
     run_dir.mkdir(parents=True, exist_ok=True)
     _save_start_notebook(workspace, run_dir)
@@ -168,7 +190,7 @@ def play_game(
             view=config.view,
             layers=config.layers,
         )
-        extra = {} if sleep is None else {"sleep": sleep}
+        extra: dict[str, Any] = {} if sleep is None else {"sleep": sleep}
         loop = AgentLoop(
             session=session,
             adapter=adapter,
@@ -180,6 +202,7 @@ def play_game(
             system=system,
             config=loop_cfg,
             system_suffix=toolbox.system_suffix,
+            key_accepted=key_accepted,
             **extra,
         )
         result = loop.run()
@@ -273,6 +296,11 @@ def _family_stopper(summary: dict[str, Any]) -> str | None:
     return FAMILY_STOPPERS.get(kind)
 
 
+def _answered(summary: dict[str, Any]) -> bool:
+    """Whether the provider answered at least one call of this game: the key was accepted."""
+    return int(summary.get("result", {}).get("model_calls", 0)) > 0
+
+
 def run_family(
     config: RunConfig,
     *,
@@ -324,6 +352,7 @@ def run_family(
             budget=budget,
             meta=meta,
             sleep=sleep,
+            key_accepted=any(_answered(s) for s in summaries),
         )
         family_spent += budget.spent_usd
         summaries.append(summary)

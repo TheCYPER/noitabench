@@ -7,7 +7,10 @@ inputs are measured where they can be (the system prompt, the tool schemas, one 
 observation) and assumed where they cannot (output tokens per call, calls per step).
 
 Three figures come out: `typical`, `low` and `high` (the output and the number of calls per step
-vary), plus `without_cache` for the case where the provider does not cache at all.
+vary), plus `without_cache` for the case where the provider does not cache at all. `typical`
+takes the measured defaults below; `low` halves the output and the calls; `high` doubles the
+output and assumes a call for every step plus the notebook (the assumption this module used
+before it was measured), so `high_usd` is the safe budget.
 """
 
 from __future__ import annotations
@@ -20,6 +23,7 @@ from pathlib import Path
 from typing import Any
 
 from .budget import Budget
+from .errors import ConfigError
 from .layers import MINIMAL_LAYERS, build_toolbox
 from .prices import ModelPrice, default_context_limit
 from .prompt import SUMMARY_INTRO, SUMMARY_REQUEST, system_prompt
@@ -28,14 +32,31 @@ from .workspace import Workspace
 
 CHARS_PER_TOKEN = 3.0  # careful: the newer tokenizers count ~30% more tokens for the same text
 DEFAULT_OBSERVATION_CHARS = 3_200  # a real observation of the default view, measured
+# The defaults are measured on real games (the typical figures):
+#   claude-haiku-5-5, runs/cp3-haiku-42: 235 decisions in 47 model calls (0.20 calls per decision),
+#     605 output tokens per call.
+#   deepseek-flash, thinking on, runs/ds-flash-pilot/run-01: 702 decisions in 59 calls (0.084 per
+#     decision), 4,908 output tokens per call; runs/ds-flash-smoke: 20 decisions in 20 calls,
+#     4,069 output tokens per call. (One call can issue several commands, so a decision is far
+#     less than a call.)
 DEFAULT_OUTPUT_TOKENS = 600  # per call, thinking included
-DEFAULT_CALLS_PER_DECISION = 1.15  # notebook and budget calls add to the one call per step
+THINKING_OUTPUT_TOKENS = {"deepseek": 4_500}  # providers whose models think unless told not to
+DEFAULT_CALLS_PER_DECISION = 0.2
+HIGH_CALLS_PER_DECISION = 1.15  # a call for every step, and the notebook and budget calls
 RESULT_OVERHEAD_TOKENS = 60  # tool_result wrappers and the like, per call
 SUMMARY_TOKENS = 700
 
 
 def tokens_of(chars: int) -> int:
     return math.ceil(chars / CHARS_PER_TOKEN)
+
+
+def default_output_tokens(provider: str, thinking: str | None = None) -> int:
+    """Output tokens per call to assume for `provider` (thinking included). `thinking` is the
+    `--thinking` setting: `off` is the only one that stops a thinking provider from thinking."""
+    if thinking == "off":
+        return DEFAULT_OUTPUT_TOKENS
+    return THINKING_OUTPUT_TOKENS.get(provider, DEFAULT_OUTPUT_TOKENS)
 
 
 @dataclass(frozen=True)
@@ -83,6 +104,8 @@ def measure_inputs(
     calls_per_decision: float = DEFAULT_CALLS_PER_DECISION,
 ) -> Inputs:
     """The inputs of the estimate, measured from the real system prompt and tool schemas."""
+    if not math.isfinite(calls_per_decision) or calls_per_decision <= 0:
+        raise ConfigError("the calls per decision must be above 0")
     system = system_prompt(mode=mode, notes_kept=True, layers=layers)
     tools_chars = 0
     if mode == "tools":
@@ -165,14 +188,14 @@ def estimate_run(
         inputs.tools_tokens,
         inputs.observation_tokens,
         max(inputs.output_tokens // 2, 1),
-        inputs.calls_per_decision,
+        inputs.calls_per_decision / 2,
     )
     heavy = Inputs(
         inputs.system_tokens,
         inputs.tools_tokens,
         inputs.observation_tokens,
         inputs.output_tokens * 2,
-        inputs.calls_per_decision * 1.5,
+        max(HIGH_CALLS_PER_DECISION, inputs.calls_per_decision),
     )
     low = _simulate(price, lean, decisions, limit)[3]
     high = _simulate(price, heavy, decisions, limit)[3]

@@ -36,6 +36,34 @@ def test_estimate_prints_figures_and_warns_about_a_small_budget(
     assert "above the budget" in captured.err
 
 
+def test_estimate_prints_the_assumptions_it_used(capsys: pytest.CaptureFixture[str]) -> None:
+    def estimate(*argv: str) -> dict[str, float]:
+        assert run_cli("estimate", "--max-decisions", "1000", *argv) == 0
+        return json.loads(capsys.readouterr().out)  # type: ignore[no-any-return]
+
+    haiku = estimate("--provider", "anthropic", "--model", "claude-haiku-5-5")
+    assert haiku["calls_per_decision"] == 0.2 and haiku["output_tokens"] == 600
+    assert haiku["model_calls"] == 200
+    flash = ("--provider", "deepseek", "--model", "deepseek-flash")
+    assert estimate(*flash)["output_tokens"] == 4_500  # it thinks unless told not to
+    assert estimate(*flash, "--thinking", "off")["output_tokens"] == 600
+    given = estimate(*flash, "--output-tokens", "3000", "--calls-per-decision", "1.15")
+    assert given["output_tokens"] == 3_000 and given["calls_per_decision"] == 1.15
+    assert given["model_calls"] == 1_150
+    assert given["typical_usd"] > estimate(*flash)["typical_usd"]
+
+
+@pytest.mark.parametrize("bad", ["0", "-1", "nan"])
+def test_calls_per_decision_must_be_above_zero(
+    bad: str, capsys: pytest.CaptureFixture[str]
+) -> None:
+    code = run_cli(
+        "estimate", "--provider", "anthropic", "--model", "claude-haiku-5-5",
+        "--calls-per-decision", bad,
+    )  # fmt: skip
+    assert code == 2 and "calls per decision" in capsys.readouterr().err
+
+
 def test_estimate_can_measure_a_real_first_view(capsys: pytest.CaptureFixture[str]) -> None:
     code = run_cli(
         "estimate", "--provider", "anthropic", "--model", "claude-haiku-5-5", "--world-seed", "1"
@@ -157,13 +185,31 @@ def test_the_scripted_provider_needs_no_model_name_the_others_do(
     assert run_cli("run", "--provider", "openai", "--world-seed", "1", "--out", str(tmp_path)) == 2
 
 
+def test_the_patience_flag_is_passed_on_and_checked(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    def run(patience: str, name: str) -> int:
+        return run_cli(
+            "run", "--provider", "fake", "--world-seed", "1", "--max-decisions", "2",
+            "--out", str(tmp_path / name), "--workspaces-dir", str(tmp_path / "ws"),
+            "--patience-s", patience,
+        )  # fmt: skip
+
+    assert run("0", "off") == 0 and run("120", "short") == 0
+    assert run("-5", "bad") == 2 and "patience" in capsys.readouterr().err
+    assert run("nan", "worse") == 2 and "patience" in capsys.readouterr().err
+    assert not (tmp_path / "bad").exists() and not (tmp_path / "worse").exists()
+    result = json.loads((tmp_path / "short" / "summary.json").read_text())["result"]
+    assert result["model_wait_seconds"] == 0.0
+
+
 def test_estimate_for_a_conversation_that_is_never_compacted_is_much_dearer(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     common = ["estimate", "--provider", "anthropic", "--model", "claude-haiku-5-5"]
-    assert run_cli(*common, "--max-decisions", "300") == 0
+    assert run_cli(*common, "--max-decisions", "1000") == 0
     compacted = json.loads(capsys.readouterr().out)
-    assert run_cli(*common, "--max-decisions", "300", "--context", "none") == 0
+    assert run_cli(*common, "--max-decisions", "1000", "--context", "none") == 0
     grows = json.loads(capsys.readouterr().out)
     assert compacted["summaries"] > 0 and grows["summaries"] == 0
     assert grows["context_limit_tokens"] is None

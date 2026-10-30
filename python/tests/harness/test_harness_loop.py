@@ -22,6 +22,7 @@ from noitabench.harness import (
     run_family,
 )
 from noitabench.harness.adapters.scripted import Say, ScriptedAdapter, ScriptedConversation, call
+from noitabench.harness.loop import LoopConfig
 from noitabench.harness.model import MAX_TOKENS, REFUSAL
 from noitabench.harness.prices import custom_price
 from noitabench.harness.prompt import (
@@ -86,6 +87,7 @@ def test_a_game_to_the_step_limit_writes_every_file(run_config, make_game) -> No
     assert (cfg.out / "workspace/notes/a.md").read_text() == "water is wet"
     saved = json.loads((cfg.out / "summary.json").read_text())
     assert saved["format"] == "cogbench-harness-run/0" and saved["cost_known"] is True
+    assert saved["result"]["model_wait_seconds"] == 0.0  # no model call failed
     assert saved["layers"] == ["L0", "L1"] and saved["mode"] == "tools"
     assert saved["workspace"]["files"] == ["notes/a.md"]
     assert len(lines(cfg.out / "decisions.jsonl")) == 6 - 1 + 1 - 1 + 1  # one line per decision
@@ -387,7 +389,7 @@ def test_a_failing_model_is_retried_with_a_pause_then_given_up(run_config, make_
     pauses.clear()
     script = [Say(error=busy)] * 5
     summary = run_family(
-        run_config(max_decisions=2, out=cfg.out.parent / "again"),
+        run_config(max_decisions=2, out=cfg.out.parent / "again", patience_s=0),
         adapter=ScriptedAdapter(script),
         game_factory=make_game,
         sleep=pauses.append,
@@ -425,10 +427,204 @@ def test_an_error_that_may_pass_does_not_stop_the_family(
     run_config, make_game, tmp_path: Path
 ) -> None:
     busy = ModelError("rate_limit", "slow down", status=429, retryable=True)
-    cfg = run_config(max_decisions=1, runs=2, out=tmp_path / "fam")
+    cfg = run_config(max_decisions=1, runs=2, out=tmp_path / "fam", patience_s=0)
     adapter = ScriptedAdapter([Say(error=busy)] * 3 + waits(3))
     summaries = run_family(cfg, adapter=adapter, game_factory=make_game, sleep=lambda _s: None)
     assert [s["result"]["over"] for s in summaries] == ["model_error", "decision_limit"]
+
+
+# -- patience: errors that may pass -----------------------------------------------------------------
+
+
+BUSY = ModelError("rate_limit", "slow down", status=429, retryable=True)
+REFUSED = ModelError("auth", "Authentication Fails, your api key is invalid", status=401)
+
+
+def play_slowly(
+    run_config, make_game, script, **overrides
+) -> tuple[Any, ScriptedAdapter, list[dict[str, Any]], list[float]]:
+    """Whole family with a sleep that only writes down how long it was asked to wait."""
+    pauses: list[float] = []
+    cfg = run_config(**overrides)
+    adapter = ScriptedAdapter(script)
+    summaries = run_family(cfg, adapter=adapter, game_factory=make_game, sleep=pauses.append)
+    return cfg, adapter, summaries, pauses
+
+
+def test_a_retryable_error_past_the_short_retries_waits_and_recovers(
+    run_config, make_game, caplog: pytest.LogCaptureFixture
+) -> None:
+    script = [Say(error=BUSY)] * 4 + waits(3)
+    with caplog.at_level("WARNING", logger="noitabench.harness.loop"):
+        cfg, _, summaries, pauses = play_slowly(run_config, make_game, script, max_decisions=2)
+    result = summaries[0]["result"]
+    assert result["over"] == "decision_limit" and result["decisions"] == 2
+    assert pauses == [2.0, 4.0, 30.0, 60.0]  # the short retries first, then 30 s and doubling
+    assert result["model_wait_seconds"] == 96.0
+    errors = [r for r in lines(cfg.out / "harness.jsonl") if "error" in r]
+    assert [e["attempt"] for e in errors] == [0, 1, 2, 3]  # every failed attempt is written
+    patient = [r.getMessage() for r in caplog.records if "waiting" in r.getMessage()]
+    assert patient == [
+        "model call failed (rate_limit): waiting 30 s (6 s so far)",
+        "model call failed (rate_limit): waiting 60 s (36 s so far)",
+    ]
+
+
+def test_the_waits_double_are_capped_and_add_up_to_the_patience(run_config, make_game) -> None:
+    script = [Say(error=BUSY)] * 7 + waits(1)
+    _, _, summaries, pauses = play_slowly(
+        run_config, make_game, script, max_decisions=1, patience_s=200, patience_wait_s=100
+    )
+    # 2 s and 4 s, then 30, 60, the cap of 100, and what is left of the 200 s: 4
+    assert pauses == [2.0, 4.0, 30.0, 60.0, 100.0, 4.0]
+    result = summaries[0]["result"]
+    assert result["over"] == "model_error" and result["detail"].startswith("rate_limit:")
+    assert result["model_wait_seconds"] == 200.0
+    assert sum(pauses) == 200.0
+
+
+def test_an_outage_that_never_ends_ends_the_game_after_an_hour(run_config, make_game) -> None:
+    _, _, summaries, pauses = play_slowly(
+        run_config, make_game, [Say(error=BUSY)] * 40, max_decisions=2
+    )
+    result = summaries[0]["result"]
+    assert result["over"] == "model_error" and result["detail"].startswith("rate_limit:")
+    assert sum(pauses) == 3600.0 and max(pauses) == 300.0
+    assert pauses[:6] == [2.0, 4.0, 30.0, 60.0, 120.0, 240.0]
+    assert result["model_wait_seconds"] == 3600.0
+
+
+def test_a_key_refused_after_it_worked_is_waited_for(
+    run_config, make_game, caplog: pytest.LogCaptureFixture
+) -> None:
+    script = [*waits(2), *[Say(error=REFUSED)] * 3, *waits(5)]
+    with caplog.at_level("WARNING", logger="noitabench.harness.loop"):
+        cfg, _, summaries, pauses = play_slowly(run_config, make_game, script, max_decisions=5)
+    result = summaries[0]["result"]
+    assert result["over"] == "decision_limit" and result["decisions"] == 5
+    assert pauses == [30.0, 60.0, 120.0]  # no short retries for a refusal: it is not a blip
+    assert result["model_wait_seconds"] == 210.0
+    errors = [r for r in lines(cfg.out / "harness.jsonl") if "error" in r]
+    assert [e["error"]["kind"] for e in errors] == ["auth"] * 3
+    assert sum("auth): waiting" in r.getMessage() for r in caplog.records) == 3
+    assert json.loads((cfg.out / "summary.json").read_text())["result"]["model_wait_seconds"] == 210
+
+
+def test_a_key_refused_at_the_first_call_fails_at_once(run_config, make_game) -> None:
+    _, _, summaries, pauses = play_slowly(run_config, make_game, [Say(error=REFUSED)] * 3)
+    result = summaries[0]["result"]
+    assert result["over"] == "model_error" and result["detail"].startswith("auth:")
+    assert pauses == [] and result["model_wait_seconds"] == 0.0
+
+
+def test_a_key_that_stays_refused_ends_the_game_after_the_patience_and_stops_the_family(
+    run_config, make_game, tmp_path: Path
+) -> None:
+    script = [*waits(2), *[Say(error=REFUSED)] * 6, *waits(9)]
+    cfg, adapter, summaries, pauses = play_slowly(
+        run_config, make_game, script, max_decisions=5, runs=3, out=tmp_path / "fam",
+        patience_s=600,
+    )  # fmt: skip
+    assert len(summaries) == 1 and len(adapter.conversations) == 1  # games 2 and 3 never began
+    result = summaries[0]["result"]
+    assert result["over"] == "model_error" and result["detail"].startswith("auth: ")
+    assert pauses == [30.0, 60.0, 120.0, 240.0, 150.0]  # the last is what is left of 600 s
+    assert result["model_wait_seconds"] == 600.0
+    assert not (cfg.out / "run-02").exists()
+
+
+def test_game_two_is_patient_with_a_key_that_worked_in_game_one(
+    run_config, make_game, tmp_path: Path
+) -> None:
+    script = [*waits(2), Say(error=REFUSED), *waits(2)]
+    _, _, summaries, pauses = play_slowly(
+        run_config, make_game, script, max_decisions=2, runs=2, out=tmp_path / "fam"
+    )
+    assert [s["result"]["over"] for s in summaries] == ["decision_limit", "decision_limit"]
+    assert pauses == [30.0]
+    assert summaries[0]["result"]["model_wait_seconds"] == 0.0
+    assert summaries[1]["result"]["model_wait_seconds"] == 30.0
+
+
+def test_game_two_is_not_patient_when_game_one_never_got_an_answer(
+    run_config, make_game, tmp_path: Path
+) -> None:
+    # game 1 ends without one answer, and not with an error that stops the family
+    refused_request = ModelError("bad_request", "no", status=400)
+    script = [Say(error=refused_request), Say(error=REFUSED)]
+    _, _, summaries, pauses = play_slowly(
+        run_config, make_game, script, max_decisions=1, runs=2, out=tmp_path / "fam"
+    )
+    assert [s["result"]["model_calls"] for s in summaries] == [0, 0]
+    assert summaries[1]["result"]["detail"].startswith("auth:")  # no answer ever: a wrong key
+    assert pauses == []
+
+
+@pytest.mark.parametrize(
+    ("kind", "status"),
+    [("permission", 403), ("balance", 402), ("bad_request", 400), ("not_found", 404)],
+)
+def test_other_fatal_errors_stay_immediate_even_after_good_calls(
+    run_config, make_game, kind: str, status: int
+) -> None:
+    fatal = ModelError(kind, "no", status=status)
+    _, _, summaries, pauses = play_slowly(
+        run_config, make_game, [*waits(2), Say(error=fatal)], max_decisions=5
+    )
+    result = summaries[0]["result"]
+    assert result["over"] == "model_error" and result["detail"].startswith(f"{kind}:")
+    assert pauses == [] and result["model_wait_seconds"] == 0.0
+
+
+def test_a_patience_that_is_not_a_whole_number_of_waits_is_used_up_exactly(
+    run_config, make_game
+) -> None:
+    # the short retries take 6 s; what is left of 6.5 s is one half-second wait, never a wait of 0
+    _, _, summaries, pauses = play_slowly(
+        run_config, make_game, [Say(error=BUSY)] * 6, max_decisions=1, patience_s=6.5
+    )
+    result = summaries[0]["result"]
+    assert result["over"] == "model_error" and pauses == [2.0, 4.0, 0.5]
+    assert result["model_wait_seconds"] == 6.5 and all(p > 0 for p in pauses)
+
+
+def test_a_patience_shorter_than_the_short_retries_leaves_those_alone(
+    run_config, make_game
+) -> None:
+    _, _, summaries, pauses = play_slowly(
+        run_config, make_game, [Say(error=BUSY)] * 6, max_decisions=1, patience_s=3
+    )
+    assert pauses == [2.0, 4.0]  # the quick retries are not cut, and nothing follows them
+    assert summaries[0]["result"]["over"] == "model_error"
+
+
+def test_no_patience_means_a_refused_key_ends_the_game_even_after_good_calls(
+    run_config, make_game
+) -> None:
+    script = [*waits(2), Say(error=REFUSED), *waits(3)]
+    _, _, summaries, pauses = play_slowly(
+        run_config, make_game, script, max_decisions=5, patience_s=0
+    )
+    result = summaries[0]["result"]
+    assert result["over"] == "model_error" and result["detail"].startswith("auth:")
+    assert pauses == [] and result["model_wait_seconds"] == 0.0
+
+
+def test_the_patience_is_checked(run_config) -> None:
+    with pytest.raises(ConfigError):
+        run_config(patience_s=-1)
+    with pytest.raises(ConfigError):
+        run_config(patience_wait_s=0)
+    for bad in (float("nan"), -0.5):
+        with pytest.raises(ConfigError):
+            run_config(patience_s=bad)
+        with pytest.raises(ValueError, match="patience_s"):
+            LoopConfig(patience_s=bad)
+    with pytest.raises(ConfigError):
+        run_config(patience_wait_s=float("nan"))
+    with pytest.raises(ValueError, match="patience_wait_s"):
+        LoopConfig(patience_wait_s=float("nan"))
+    assert run_config(patience_s=0).patience_s == 0
 
 
 def test_an_interrupted_run_is_still_closed_and_written(run_config, make_game) -> None:

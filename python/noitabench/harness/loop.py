@@ -59,6 +59,9 @@ SUMMARY, SERVER, NONE = "summary", "server", "none"
 MAX_SUMMARY_CHARS = 8_000
 MIN_PLAYS_BETWEEN_BRIEFINGS = 3  # a limit below the size of the prompt prefix cannot loop on it
 MAX_TRANSCRIPT_THINKING = 20_000
+PATIENCE_S = 3600.0  # seconds one model call may spend waiting to be answered (in total)
+PATIENCE_WAIT_S = 300.0  # the longest single wait
+PATIENCE_FIRST_WAIT_S = 30.0  # the first long wait after the short retries; it doubles from there
 
 
 @dataclass(frozen=True)
@@ -70,6 +73,12 @@ class LoopConfig:
     max_refusal_retries: int = 1
     call_retries: int = 2  # more tries after a retryable error (the SDK has retried already)
     backoff_s: float = 2.0
+    # An outage or a provider that has second thoughts about a key it accepted before (DeepSeek
+    # answered 401 after 59 good calls, and accepted the key again later) may pass: after the short
+    # retries a call keeps waiting, 30 s, 60 s, ... up to `patience_wait_s` each, until its waits
+    # add up to `patience_s`. Then the game ends with `model_error`. 0 turns this off.
+    patience_s: float = PATIENCE_S
+    patience_wait_s: float = PATIENCE_WAIT_S
     progress_every: int = 25  # model calls between progress lines in the diagnostic log
 
     def __post_init__(self) -> None:
@@ -77,6 +86,10 @@ class LoopConfig:
             raise ValueError(f"mode must be {TOOLS} or {TEXT}")
         if self.context not in (SUMMARY, SERVER, NONE):
             raise ValueError(f"context must be {SUMMARY}, {SERVER} or {NONE}")
+        if not self.patience_s >= 0:  # written so that NaN is refused too
+            raise ValueError("patience_s must be 0 or more")
+        if not self.patience_wait_s > 0:
+            raise ValueError("patience_wait_s must be positive")
 
 
 @dataclass
@@ -91,6 +104,7 @@ class LoopResult:
     usage: Usage = field(default_factory=Usage)
     cost_usd: float | None = 0.0  # None when the model has no price
     wall_seconds: float = 0.0
+    model_wait_seconds: float = 0.0  # spent waiting to try a failed model call again
     models_seen: list[str] = field(default_factory=list)  # the model ids the answers named
 
     def as_dict(self) -> dict[str, Any]:
@@ -105,6 +119,7 @@ class LoopResult:
             "usage": self.usage.as_dict(),
             "cost_usd": None if self.cost_usd is None else round(self.cost_usd, 6),
             "wall_seconds": round(self.wall_seconds, 2),
+            "model_wait_seconds": round(self.model_wait_seconds, 2),
             "models_seen": list(self.models_seen),
         }
 
@@ -124,6 +139,7 @@ class AgentLoop:
         config: LoopConfig | None = None,
         sleep: Callable[[float], None] = time.sleep,
         system_suffix: Callable[[], str] | None = None,
+        key_accepted: bool = False,
     ) -> None:
         self.session = session
         self.adapter = adapter
@@ -136,6 +152,8 @@ class AgentLoop:
         self._system_suffix = system_suffix
         self.cfg = config or LoopConfig()
         self._sleep = sleep
+        self._key_accepted = key_accepted  # an earlier game of the family got answers with the key
+        self.model_wait_s = 0.0
         self.usage = Usage()
         self.cost_usd: float | None = 0.0 if price is not None else None
         self.summaries = 0
@@ -167,6 +185,7 @@ class AgentLoop:
             usage=self.usage,
             cost_usd=self.cost_usd,
             wall_seconds=time.monotonic() - started,
+            model_wait_seconds=self.model_wait_s,
             models_seen=list(self.models_seen),
         )
 
@@ -191,7 +210,8 @@ class AgentLoop:
     # -- one model call ---------------------------------------------------------------------------
 
     def _call(self, conversation: Conversation, items: list[Item], purpose: str) -> ModelTurn:
-        attempt = 0
+        attempt = short = patient = 0  # failed tries, and the short and patient waits made
+        waited = 0.0  # seconds this call has waited
         self._call_no += 1
         while True:
             try:
@@ -208,11 +228,27 @@ class AgentLoop:
                         "error": err.as_dict(),
                     }
                 )
-                if not err.retryable or attempt >= self.cfg.call_retries:
-                    raise StopRun("model_error", f"{err.kind}: {err}") from err
                 attempt += 1
-                log.warning("model call failed (%s), retry %d", err.kind, attempt)
-                self._sleep(self.cfg.backoff_s * 2 ** (attempt - 1))
+                if err.retryable and short < self.cfg.call_retries:
+                    wait = self.cfg.backoff_s * 2**short
+                    short += 1
+                    log.warning("model call failed (%s), retry %d", err.kind, short)
+                elif self._may_pass(err) and (left := self.cfg.patience_s - waited) > 0:
+                    base = PATIENCE_FIRST_WAIT_S * 2 ** min(patient, 20)
+                    wait = min(base, self.cfg.patience_wait_s, left)
+                    patient += 1
+                    log.warning(
+                        "model call failed (%s): waiting %g s (%g s so far)",
+                        err.kind,
+                        wait,
+                        waited,
+                    )
+                else:
+                    raise StopRun("model_error", f"{err.kind}: {err}") from err
+                waited += wait
+                self.model_wait_s += wait
+                self._sleep(wait)
+        self._key_accepted = True
         if purpose == "play":
             self._plays_since_briefing += 1
         served = turn.model or self.adapter.model
@@ -261,6 +297,14 @@ class AgentLoop:
                 turn.usage.prompt_tokens,
             )
         return turn
+
+    def _may_pass(self, err: ModelError) -> bool:
+        """Whether a failed call is worth waiting for: an error that is retryable, or a refused key
+        (`auth`) when the key has been accepted before, in this game or in an earlier one of the
+        family. A refusal at the first call of a family is a wrong key, and does not pass."""
+        if err.retryable:
+            return True
+        return err.kind == "auth" and (self._key_accepted or self.budget.model_calls > 0)
 
     # -- what the model did -----------------------------------------------------------------------
 

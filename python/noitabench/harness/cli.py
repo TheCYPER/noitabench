@@ -31,9 +31,14 @@ from noitabench.agent.vocab import DEFAULT_MAX_DECISIONS
 from .adapters import PROVIDERS
 from .budget import Budget
 from .errors import ConfigError, HarnessError
-from .estimate import DEFAULT_OBSERVATION_CHARS, estimate_run, measure_inputs
+from .estimate import (
+    DEFAULT_OBSERVATION_CHARS,
+    default_output_tokens,
+    estimate_run,
+    measure_inputs,
+)
 from .layers import build_toolbox, resolve_layers
-from .loop import NONE, SERVER, SUMMARY, TEXT, TOOLS
+from .loop import NONE, PATIENCE_S, SERVER, SUMMARY, TEXT, TOOLS
 from .model import ModelConfig
 from .prices import custom_price, default_context_limit, resolve_price
 from .prompt import system_prompt
@@ -120,12 +125,31 @@ def _parser() -> argparse.ArgumentParser:
     run.add_argument("--clear-workspace", action="store_true", help="control: empty it each game")
     run.add_argument("--workspaces-dir", default="workspaces")
     run.add_argument("--overwrite", action="store_true", help="write into a run folder in use")
+    run.add_argument(
+        "--patience-s",
+        type=float,
+        default=PATIENCE_S,
+        help="seconds one model call may wait in all, after a failure that may pass (an outage, "
+        "or a refused key that has worked before); 0: give up after the short retries",
+    )
     run.add_argument("--family-budget-usd", type=float, default=None, help="cap on all games")
     run.add_argument("-v", "--verbose", action="store_true", help="progress lines on stderr")
     est = sub.add_parser("estimate", help="what a run is going to cost (no model call)")
     _add_model_args(est)
     est.add_argument("--runs", type=int, default=1)
-    est.add_argument("--output-tokens", type=int, default=None, help="assumed output per call")
+    est.add_argument(
+        "--output-tokens",
+        type=int,
+        default=None,
+        help="assumed output per call, thinking included (default 600; DeepSeek with thinking "
+        "on: 4500)",
+    )
+    est.add_argument(
+        "--calls-per-decision",
+        type=float,
+        default=None,
+        help="assumed model calls per decision (default 0.2, as measured; 'high' assumes 1.15)",
+    )
     est.add_argument("--world-seed", type=int, default=None, help="measure a real first view")
     est.add_argument("--rule-seed", type=int, default=0)
     prompt = sub.add_parser("prompt", help="print the system prompt and the tool list")
@@ -198,6 +222,7 @@ def _run_config(args: argparse.Namespace) -> RunConfig:
         allow_unpriced=args.allow_unpriced,
         price=override,
         wheelhouse=Path(args.wheelhouse) if args.wheelhouse else None,
+        patience_s=args.patience_s,
     )
 
 
@@ -215,9 +240,15 @@ def _print_estimate(
     if measure and getattr(args, "world_seed", None) is not None:
         chars = _measure_observation(args)
     layers = resolve_layers(minimal=args.minimal, requested=args.layers, mode=args.mode)
-    kwargs: dict[str, Any] = {"mode": args.mode, "observation_chars": chars, "layers": layers}
-    if getattr(args, "output_tokens", None):
-        kwargs["output_tokens"] = args.output_tokens
+    kwargs: dict[str, Any] = {
+        "mode": args.mode,
+        "observation_chars": chars,
+        "layers": layers,
+        "output_tokens": getattr(args, "output_tokens", None)
+        or default_output_tokens(args.provider, args.thinking),
+    }
+    if getattr(args, "calls_per_decision", None) is not None:
+        kwargs["calls_per_decision"] = args.calls_per_decision
     inputs = measure_inputs(**kwargs)
     limit = args.context_limit or default_context_limit(price)
     if args.context == NONE:
@@ -228,6 +259,8 @@ def _print_estimate(
     data["total_typical_usd"] = round(est.cost_usd * runs, 4)
     data["context_limit_tokens"] = None if args.context == NONE else limit
     data["observation_chars"] = chars
+    data["calls_per_decision"] = inputs.calls_per_decision
+    data["output_tokens"] = inputs.output_tokens
     return data
 
 

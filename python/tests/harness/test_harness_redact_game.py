@@ -46,9 +46,9 @@ class Spy(Redactor):
         self.changes: list[str] = []
         self.calls = 0
 
-    def redact(self, text: str, marker: str = HIDDEN) -> str:
+    def redact(self, text: str, marker: str = HIDDEN, *, shapes: bool = True) -> str:
         self.calls += 1
-        out = super().redact(text, marker)
+        out = super().redact(text, marker, shapes=shapes)
         if out != text:
             self.changes.append(out[:160])
         return out

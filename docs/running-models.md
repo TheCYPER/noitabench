@@ -21,10 +21,21 @@ A model that is not priced is refused, with a message, unless you give its price
 care (below). Prices live in `python/noitabench/harness/prices.py`, in US dollars per million
 tokens, with the source and the date they were read.
 
-A refused key (HTTP 401), a key that may not use the model (403) or, at DeepSeek, an empty balance
-(402) ends the game with `model_error`, and the remaining games of a family are not started: they
-would fail at their first call in the same way. Fix the key and run the family again into a new
-folder (or with `--overwrite`).
+A key the provider refuses (HTTP 401) at the very first call of a family, a key that may not use
+the model (403) or, at DeepSeek, an empty balance (402) ends the game with `model_error`, and the
+remaining games of a family are not started: they would fail at their first call in the same way.
+Fix the key and run the family again into a new folder (or with `--overwrite`).
+
+A 401 after the key has worked, in this game or in an earlier game of the family, is treated like an
+outage and not as a wrong key: DeepSeek once answered 401 after 59 good calls, was still refusing
+three minutes later, and accepted the same key again later. The loop waits 30 s, 60 s, 120 s, ...
+(at most 300 s each time) and sends the same call again, until the waits of that one call add up to
+an hour (`--patience-s`, default 3600; `0` gives up after the short retries). A 429, a 5xx, a timeout
+or a dropped connection gets the same patience after its two quick retries (2 s and 4 s). If the hour
+passes the game ends with `model_error` as before, and a refused key still stops the family. Each
+wait is a warning on stderr, every failed attempt is a line of `harness.jsonl`, and
+`result.model_wait_seconds` in `summary.json` is the time the game spent waiting (it is part of
+`wall_seconds` too).
 
 ## Pricing a model that is not in the table
 
@@ -104,8 +115,8 @@ python -m noitabench harness run --provider deepseek --model deepseek-flash \
 - Context caching is best effort. `harness estimate` assumes the usual hits; its
   `without_cache_usd` is the ceiling if the cache never hits.
 - A rejected balance (HTTP 402) ends the game with `model_error` and a message that says so, and
-  the remaining games of a family are not started (as for a refused key). A server that gives up
-  mid-answer (`insufficient_system_resource`) is retried like a 429 or 503.
+  the remaining games of a family are not started (as for a key refused at the first call). A
+  server that gives up mid-answer (`insufficient_system_resource`) is retried like a 429 or 503.
 - Compaction stays at 120,000 prompt tokens, as for every model without a rate-card boundary, though
   both models take 1M. Change it with `--context-limit` only if you accept less comparable runs.
 
@@ -164,17 +175,27 @@ name, so the notebook lives in `workspaces/ds-flash-pilot/`.
        --max-decisions 20 --out runs/fake-check
    ```
 
-2. **Estimate the cost** (no model call; no key needed). The default of 600 output tokens per call
-   is low for a thinking model, so pass what you expect, thinking included:
+2. **Estimate the cost** (no model call; no key needed). The assumptions are measured on real
+   games: 0.2 model calls per decision (one call can give several commands: Haiku made 47 calls
+   for 235 decisions, DeepSeek flash 59 for 702) and, per call, 600 output tokens, or 4,500 for
+   DeepSeek with thinking on (flash made 4,908; with `--thinking off` the estimate takes 600). Pass
+   `--output-tokens` and `--calls-per-decision` when you know better; the printed estimate says
+   which values it used (`calls_per_decision`, `output_tokens`).
 
    ```sh
    python -m noitabench harness estimate --provider deepseek --model deepseek-flash \
-       --max-decisions 1000 --runs 3 --output-tokens 3000
+       --max-decisions 1000 --runs 3
    ```
 
-   `typical_usd` is one game, `total_typical_usd` all three; `low_usd` and `high_usd` bracket it;
-   `without_cache_usd` is the ceiling with no cache hits. On 2026-10-28 this printed $5.08 per
-   game and $15.25 for the family (flash); `--output-tokens 600` gives $1.72 per game.
+   `typical_usd` is one game, `total_typical_usd` all three; `without_cache_usd` is the ceiling
+   with no cache hits. `low_usd` halves the output and the calls; `high_usd` doubles the output
+   and assumes a call for every decision plus the notebook (1.15 calls per decision, what the
+   estimate assumed before it was measured), so it is the safe budget. On 2026-10-30 this printed
+   $1.25 per game and $3.75 for the family (flash), with $0.35 as `low_usd`, $13.49 as `high_usd`
+   and $5.36 without cache. The one flash game measured so far cost $0.39 for 702 decisions
+   ($0.56 per 1,000): the typical figure errs on the high side because that game made 0.084 calls
+   per decision, not 0.2; `--max-decisions 702 --calls-per-decision 0.084 --output-tokens 4908`
+   prints $0.40 for it.
 
 3. **Run the family.** `--budget-usd` caps one game (it ends with `budget_usd` when reached),
    `--family-budget-usd` all of them; set them from the estimate.
@@ -183,13 +204,14 @@ name, so the notebook lives in `workspaces/ds-flash-pilot/`.
    python -m noitabench harness run --provider deepseek --model deepseek-flash \
        --api-key-env NOITABENCH_DEEPSEEK_KEY \
        --world-seed 1 --rule-seed 7 --runs 3 --max-decisions 1000 \
-       --budget-usd 6 --family-budget-usd 15 --out runs/ds-flash-pilot -v
+       --budget-usd 3 --family-budget-usd 8 --out runs/ds-flash-pilot -v
    ```
 
    Result: `runs/ds-flash-pilot/run-01` to `run-03`, each with the recording, `summary.json`
-   (how it ended, tokens, dollars), `harness.jsonl`, `transcript.jsonl`, `workspace_start/` and
-   `workspace/` (the notebook before and after), plus `family.json`. The command prints one line
-   per game. Use `--overwrite` to write into a folder that already holds a run.
+   (how it ended, tokens, dollars, `model_wait_seconds`), `harness.jsonl`, `transcript.jsonl`,
+   `workspace_start/` and `workspace/` (the notebook before and after), plus `family.json`. The
+   command prints one line per game. Use `--overwrite` to write into a folder that already holds
+   a run.
 
 4. **Extract the claims in the notebooks.** This is the only step that calls a model: Claude Haiku
    reads each note file (about $0.001 per file). It needs an Anthropic key, by default in

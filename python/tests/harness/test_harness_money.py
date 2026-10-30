@@ -4,7 +4,14 @@ from __future__ import annotations
 
 import pytest
 from noitabench.harness import Budget, ConfigError, Usage
-from noitabench.harness.estimate import estimate_run, measure_inputs
+from noitabench.harness.estimate import (
+    DEFAULT_OBSERVATION_CHARS,
+    HIGH_CALLS_PER_DECISION,
+    Inputs,
+    default_output_tokens,
+    estimate_run,
+    measure_inputs,
+)
 from noitabench.harness.prices import (
     PRICES,
     custom_price,
@@ -164,9 +171,66 @@ def test_estimate_for_haiku_is_small_and_ordered() -> None:
     assert est.low_usd < est.cost_usd < est.high_usd
     assert est.cost_usd < est.without_cache_usd
     assert est.peak_prompt_tokens < 100_000  # compacted before the dear card
-    assert est.summaries >= 5 and est.calls == 1_150
-    assert 0.2 < est.cost_usd < 8.0
-    assert est.as_dict()["per_decision_usd"] == pytest.approx(est.cost_usd / 1_000, rel=1e-3)
+    assert est.summaries >= 3 and est.calls == 200  # 0.2 calls per decision, as measured
+    assert 0.1 < est.cost_usd < 0.4  # the measured game cost $0.22 per 1,000 decisions
+    assert est.as_dict()["per_decision_usd"] == pytest.approx(est.cost_usd / 1_000, abs=1e-6)
+
+
+def test_estimate_reproduces_the_measured_haiku_game() -> None:
+    # runs/cp3-haiku-42: 235 decisions, 47 calls, 605 output tokens per call, $0.0513
+    inputs = measure_inputs(output_tokens=605, calls_per_decision=0.2)
+    est = estimate_run(HAIKU, inputs, decisions=235)
+    assert est.calls == 47
+    assert est.cost_usd == pytest.approx(0.0513, rel=0.15)
+
+
+def test_estimate_reproduces_the_measured_deepseek_game() -> None:
+    # runs/ds-flash-pilot/run-01: 702 decisions, 59 calls, 4,908 output tokens per call, $0.3935
+    inputs = measure_inputs(output_tokens=4_908, calls_per_decision=59 / 702)
+    est = estimate_run(
+        resolve_price("deepseek-flash"), inputs, decisions=702, context_limit=120_000
+    )
+    assert est.calls == 59
+    assert est.cost_usd == pytest.approx(0.3935, rel=0.15)
+
+
+def test_low_halves_output_and_calls_and_high_is_a_call_for_every_step() -> None:
+    inputs = measure_inputs(output_tokens=4_000)
+    assert inputs.calls_per_decision == 0.2
+    est = estimate_run(HAIKU, inputs, decisions=500)
+
+    def cost(output: int, calls: float) -> float:
+        again = Inputs(
+            inputs.system_tokens, inputs.tools_tokens, inputs.observation_tokens, output, calls
+        )
+        return estimate_run(HAIKU, again, decisions=500).cost_usd
+
+    assert est.low_usd == pytest.approx(cost(2_000, 0.1))
+    assert est.high_usd == pytest.approx(cost(8_000, HIGH_CALLS_PER_DECISION))
+    assert HIGH_CALLS_PER_DECISION == 1.15
+
+
+def test_high_is_never_below_typical_when_more_calls_per_decision_are_assumed() -> None:
+    inputs = measure_inputs(calls_per_decision=3.0)
+    est = estimate_run(HAIKU, inputs, decisions=200)
+    assert est.low_usd < est.cost_usd < est.high_usd
+
+
+def test_calls_per_decision_must_be_above_zero() -> None:
+    for bad in (0, -0.5, float("nan"), float("inf")):
+        with pytest.raises(ConfigError, match="calls per decision"):
+            measure_inputs(calls_per_decision=bad)
+
+
+def test_default_output_tokens_depend_on_the_provider_and_on_thinking() -> None:
+    assert default_output_tokens("deepseek") == 4_500
+    assert default_output_tokens("deepseek", "adaptive") == 4_500
+    assert default_output_tokens("deepseek", "default") == 4_500
+    assert default_output_tokens("deepseek", "off") == 600
+    for provider in ("anthropic", "openai", "gemini", "fake"):
+        assert default_output_tokens(provider) == default_output_tokens(provider, "off") == 600
+    assert measure_inputs().output_tokens == 600
+    assert DEFAULT_OBSERVATION_CHARS > 0
 
 
 def test_estimate_text_mode_has_no_tool_tokens() -> None:
